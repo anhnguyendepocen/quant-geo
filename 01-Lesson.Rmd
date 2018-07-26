@@ -7,7 +7,7 @@ August 28, 2018
 
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
-* After this lesson you will know what this class is about, how you'll be graded, and how to install R and RStudio on a computer.
+* After this lesson you will know what this class is about, how you will be graded, and how to install R and RStudio on your laptop.
 
 ## Syllabus
 
@@ -15,13 +15,13 @@ August 28, 2018
 
 Professor James B. Elsner, Bellamy Building, Room 323a
 
-Lesson Hours: TR 8:00 - 9:15 a.m.
+Lesson Hours: TR 8:00-9:15 a.m.
 
 Office Hours: TR 9:15-10:30 a.m. & 2-3 p.m. (& by appointment)
 
 Email: <jelsner@fsu.edu>
 
-Coordinates:
+Important links:
 
 * [Canvas](https://cas.fsu.edu/cas/login)
 * [GitHub](https://github.com/jelsner/quant-geo)
@@ -44,12 +44,16 @@ The course has the following expected learning outcomes:
 
 * Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
-* Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to analyze data statistically and how to make your analysis reproducible. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
+* Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
 
 * Meta cognitive: You will recognize the potential and some limitations of statistical and data analytic methods with respect to the constraints set by the underlying physical and deterministic processes you seek to explore. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
 
 I expect you to have some understanding of descriptive statistical concepts such as means, standard deviations, and correlation as well as some basic knowledge of inference (e.g., $t$-test). Everything you do in this class will be done using R/RStudio.
 
 There is _no required textbook_ for this course but you are responsible for working through the code given in each lesson.
+
+### Grading & Policies
+
+Grades are determined by two exams, each worth 40% and 4 or 5 assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using RStudio and submitted to me in digital format. No extra credit will be given.
 
 

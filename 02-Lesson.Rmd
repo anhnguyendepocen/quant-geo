@@ -1,0 +1,40 @@
+---
+title: "R and RStudio"
+output: html_notebook
+---
+
+August 30, 2018
+
+"**The role of the teacher is to create the conditions for invention rather than provide ready-made knowledge.**"---Seymour Papert
+
+* Today: some of the basics of the R language, how to create a graph, how to put R code into the markdown document, how to generate HTML from a markdown document, problem set 1.
+* Everyone should have R and RStudio on their laptops with this `02-Lesson.Rmd` notebook opened in RStudio.
+
+## Review
+
+### Grading
+
+* Grades: Two exams each worth 40% and several (4-6) homework problem sets (20%).
+* Exam Dates: First Exam: Tuesday, October 10, Final Exam: Friday, December 15. No makeup exams.
+* Exams and problems sets will be done with R markdown documents (Rmd files) and emailed to me (both the Rmd and HTML files). 
+* Exams will be done without a proctor. 
+* Exams will be time restricted. 
+* Exams will be available as series of questions in an Rmd file through Canvas.
+
+### Reproducible research
+
+If your science is to be a convincing the trail from data to final output must be openly available. R and RStudio help you generate scientific reports that are a mixture of text and code. This makes it easy to create an understandable trail from hypothesis, to experimental design, to data, to analysis, to results. Reproducible research.
+
+### Your first graph
+
+As motivation for learning R and RStudio, the first thing you will see is how easy it is to create a nice graph using the functions in the **ggplot2** package. Begin by obtaining the package. R has many packages. We will use several dozen of them this semester.
+
+First download the package from a CRAN site. You can do this using the Package tab in the lower-right window pane or with the `install.packages()` function where the name of the package is in quotes inside the parentheses.
+```{r eval=FALSE}
+install.packages("ggplot2")
+```
+
+Next make the functions from the package available for this particular session.
+```{r}
+library(ggplot2)
+```
