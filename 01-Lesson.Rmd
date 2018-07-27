@@ -115,9 +115,9 @@ Week | Day      | Date         | Topic
 
 ## Modern Data Analysis
 
-Modern data analysis must be done on a computer. You have two choices: spreadsheet or programming language. 
+Modern data analysis must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
-Being able to program a computer is a very important skill. 
+Being able to code is an increasingly important skill. 
 
 A spreadsheet is convenient (at least at first), but it is ultimately limiting and hampers three properties that are essential for scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
 
@@ -128,4 +128,22 @@ If an analysis is to be convincing, the trail from the data to the final output 
 It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).
 
 A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The computer code is the message.
+
+### Communication
+
+Computer code is the grammar of communicating what you did. It is not just to get the computer to do what you want it to do but to communicate with other scientists and to your future self.
+
+It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use are not standard.
+
+Computer code is an efficient way to communicate because all important information is given as plain text.
+
+### Automation
+
+If you've made a GIS map you know how difficult it is to recreate it with a new set of data.
+
+This is common in geography and environmental science since data are frequently updated. 
+
+During data preparation and exploration you are likely to find problems.
+
+Running computer code with new data is simple.
 
