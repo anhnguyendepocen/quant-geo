@@ -30,17 +30,17 @@ Important links:
 
 ### Materials
 
-Laptop computer with R and RStudio installed.
+Students need a laptop computer with R and RStudio.
 
-### Description
+### Short Description
 
-Quantitative geographic methods are useful for addressing many of the problems facing our world today. Knowing about various methods and being able to use them are vital for offering solutions. In this course I will teach you quantitative methods using the R programming language.
+Quantitative geography is useful for addressing many of the problems facing our world today. In this course I will teach you some of the quantitative methods routinely used by professional geographers. The methods will be coded in the R programming language. Access to the R programming language will be done through R Notebooks within the RStudio environment.
 
-### Objectives & Expected Learning Outcomes
+### Learning Outcomes
 
 The course has the following expected learning outcomes:
 
-* Factual: You will acquire fundamental knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.
+* Factual: You will acquire basic knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.
 
 * Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
@@ -52,8 +52,80 @@ I expect you to have some understanding of descriptive statistical concepts such
 
 There is _no required textbook_ for this course but you are responsible for working through the code given in each lesson.
 
-### Grading & Policies
+### Grading Policies
 
-Grades are determined by two exams, each worth 40% and 4 or 5 assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using RStudio and submitted to me in digital format. No extra credit will be given.
+Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R Notebooks and submitted to me in digital format. No extra credit will be given.
 
+Grade | Score | Standard
+------|-------|---------
+A     | 93-100| Outstanding; few if any errors/omissions
+B     | 85-93 | Good; only minor errors/omissions
+C     | 75-85 | Satisfactory; minor and a few major errors
+D     | 65-75 | Poor; many major errors and omissions
+
+**I will use plus and minus grades.**
+
+### Academic Honor Code
+
+http://www.eng.fsu.edu/~peterson/fsuhc.html
+
+### Students With Disabilities Act
+
+Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center; (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.
+
+### Syllabus Change Policy
+
+This syllabus is a guide for the course and is subject to change with advanced notice. The exam dates/times are firm.
+
+### Schedule (subject to change)
+
+Week | Day      | Date         | Topic
+-----|----------|--------------|------
+1    | Tuesday  | August 28    | Introduction
+1    | Thursday | August 30    | RStudio and R
+2    | Tuesday  | September 4  | Using R
+2    | Thursday | September 6  | Data and Data Frames
+3    | Tuesday  | September 11 | Grammar for Data
+3    | Thursday | September 13 | Grammar for Data
+4    | Tuesday  | September 18 | Grammar for Graphs
+4    | Thursday | September 20 | Grammar for Graphs
+5    | Tuesday  | September 25 | Maps in R (ggplot2)
+5    | Thursday | September 27 | Maps in R (tmap)
+6    | Tuesday  | October 2    | Review for First Exam
+6    | Thursday | October 4    | FIRST EXAM
+7    | Tuesday  | October 9    | Bayesian Data Analysis
+7    | Tuesday  | October 11   | Bayesian Data Analysis
+8    | Tuesday  | October 16   | Regression
+8    | Thursday | October 18   | Regression
+9    | Tuesday  | October 23   | NO CLASS (Out of Town)
+9    | Thursday | October 25   | NO CLASS (Out of Town)
+10   | Tuesday  | October 30   | Regression
+10   | Thursday | November 1   | Classification & Regression Trees
+11   | Tuesday  | November 6   | Logistic Regression
+11   | Thursday | November 8   | Quantile Regression
+12   | Tuesday  | November 13  | Grammar for Spatial Data
+12   | Thursday | November 15  | Geographic Regression
+13   | Tuesday  | November 20  | NO CLASS (Out of Town)
+13   | Thursday | November 22  | NO CLASS (Thanksgiving)
+14   | Tuesday  | November 27  | Spatial Autocorrelation
+14   | Thursday | November 29  | Spatial Regression
+15   | Tuesday  | December 4   | Spatial Regression
+15   | Thursday | December 6   | Review for Second Exam
+16   | Friday   | December 14  | SECOND EXAM (3-5p)
+
+## Modern Data Analysis
+
+Modern data analysis must be done on a computer. You have two choices: spreadsheet or programming language. 
+
+Being able to program a computer is a very important skill. 
+
+A spreadsheet is convenient (at least at first), but it is ultimately limiting and hampers three properties that are essential for scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
+
+### Reproducibility
+
+If an analysis is to be convincing, the trail from the data to the final output must be available to all.
+
+It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).
+
+A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The computer code is the message.
 

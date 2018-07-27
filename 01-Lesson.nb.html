@@ -97,6 +97,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -196,17 +199,17 @@ $(document).ready(function () {
 </div>
 <div id="materials" class="section level3">
 <h3>Materials</h3>
-<p>Laptop computer with R and RStudio installed.</p>
+<p>Students need a laptop computer with R and RStudio.</p>
 </div>
-<div id="description" class="section level3">
-<h3>Description</h3>
-<p>Quantitative geographic methods are useful for addressing many of the problems facing our world today. Knowing about various methods and being able to use them are vital for offering solutions. In this course I will teach you quantitative methods using the R programming language.</p>
+<div id="short-description" class="section level3">
+<h3>Short Description</h3>
+<p>Quantitative geography is useful for addressing many of the problems facing our world today. In this course I will teach you some of the quantitative methods routinely used by professional geographers. The methods will be coded in the R programming language. Access to the R programming language will be done through R Notebooks within the RStudio environment.</p>
 </div>
-<div id="objectives-expected-learning-outcomes" class="section level3">
-<h3>Objectives &amp; Expected Learning Outcomes</h3>
+<div id="learning-outcomes" class="section level3">
+<h3>Learning Outcomes</h3>
 <p>The course has the following expected learning outcomes:</p>
 <ul>
-<li><p>Factual: You will acquire fundamental knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.</p></li>
+<li><p>Factual: You will acquire basic knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.</p></li>
 <li><p>Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.</p></li>
 <li><p>Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.</p></li>
 <li><p>Meta cognitive: You will recognize the potential and some limitations of statistical and data analytic methods with respect to the constraints set by the underlying physical and deterministic processes you seek to explore. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.</p></li>
@@ -215,13 +218,270 @@ $(document).ready(function () {
 <p>There is <em>no required textbook</em> for this course but you are responsible for working through the code given in each lesson.</p>
 </div>
 <div id="grading-policies" class="section level3">
-<h3>Grading &amp; Policies</h3>
-<p>Grades are determined by two exams, each worth 40% and 4 or 5 assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using RStudio and submitted to me in digital format. No extra credit will be given.</p>
+<h3>Grading Policies</h3>
+<p>Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R Notebooks and submitted to me in digital format. No extra credit will be given.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Grade</th>
+<th>Score</th>
+<th>Standard</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>93-100</td>
+<td>Outstanding; few if any errors/omissions</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>85-93</td>
+<td>Good; only minor errors/omissions</td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td>75-85</td>
+<td>Satisfactory; minor and a few major errors</td>
+</tr>
+<tr class="even">
+<td>D</td>
+<td>65-75</td>
+<td>Poor; many major errors and omissions</td>
+</tr>
+</tbody>
+</table>
+<p><strong>I will use plus and minus grades.</strong></p>
+</div>
+<div id="academic-honor-code" class="section level3">
+<h3>Academic Honor Code</h3>
+<p><a href="http://www.eng.fsu.edu/~peterson/fsuhc.html" class="uri">http://www.eng.fsu.edu/~peterson/fsuhc.html</a></p>
+</div>
+<div id="students-with-disabilities-act" class="section level3">
+<h3>Students With Disabilities Act</h3>
+<p>Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center; (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.</p>
+</div>
+<div id="syllabus-change-policy" class="section level3">
+<h3>Syllabus Change Policy</h3>
+<p>This syllabus is a guide for the course and is subject to change with advanced notice. The exam dates/times are firm.</p>
+</div>
+<div id="schedule-subject-to-change" class="section level3">
+<h3>Schedule (subject to change)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Day</th>
+<th>Date</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Tuesday</td>
+<td>August 28</td>
+<td>Introduction</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Thursday</td>
+<td>August 30</td>
+<td>RStudio and R</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Tuesday</td>
+<td>September 4</td>
+<td>Using R</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Thursday</td>
+<td>September 6</td>
+<td>Data and Data Frames</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Tuesday</td>
+<td>September 11</td>
+<td>Grammar for Data</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Thursday</td>
+<td>September 13</td>
+<td>Grammar for Data</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Tuesday</td>
+<td>September 18</td>
+<td>Grammar for Graphs</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Thursday</td>
+<td>September 20</td>
+<td>Grammar for Graphs</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Tuesday</td>
+<td>September 25</td>
+<td>Maps in R (ggplot2)</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Thursday</td>
+<td>September 27</td>
+<td>Maps in R (tmap)</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Tuesday</td>
+<td>October 2</td>
+<td>Review for First Exam</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Thursday</td>
+<td>October 4</td>
+<td>FIRST EXAM</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Tuesday</td>
+<td>October 9</td>
+<td>Bayesian Data Analysis</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Tuesday</td>
+<td>October 11</td>
+<td>Bayesian Data Analysis</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Tuesday</td>
+<td>October 16</td>
+<td>Regression</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Thursday</td>
+<td>October 18</td>
+<td>Regression</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Tuesday</td>
+<td>October 23</td>
+<td>NO CLASS (Out of Town)</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Thursday</td>
+<td>October 25</td>
+<td>NO CLASS (Out of Town)</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Tuesday</td>
+<td>October 30</td>
+<td>Regression</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Thursday</td>
+<td>November 1</td>
+<td>Classification &amp; Regression Trees</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Tuesday</td>
+<td>November 6</td>
+<td>Logistic Regression</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>Thursday</td>
+<td>November 8</td>
+<td>Quantile Regression</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Tuesday</td>
+<td>November 13</td>
+<td>Grammar for Spatial Data</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Thursday</td>
+<td>November 15</td>
+<td>Geographic Regression</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Tuesday</td>
+<td>November 20</td>
+<td>NO CLASS (Out of Town)</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>Thursday</td>
+<td>November 22</td>
+<td>NO CLASS (Thanksgiving)</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>Tuesday</td>
+<td>November 27</td>
+<td>Spatial Autocorrelation</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Thursday</td>
+<td>November 29</td>
+<td>Spatial Regression</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Tuesday</td>
+<td>December 4</td>
+<td>Spatial Regression</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>Thursday</td>
+<td>December 6</td>
+<td>Review for Second Exam</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>Friday</td>
+<td>December 14</td>
+<td>SECOND EXAM (3-5p)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="modern-data-analysis" class="section level2">
+<h2>Modern Data Analysis</h2>
+<p>Modern data analysis must be done on a computer. You have two choices: spreadsheet or programming language.</p>
+<p>Being able to program a computer is a very important skill.</p>
+<p>A spreadsheet is convenient (at least at first), but it is ultimately limiting and hampers three properties that are essential for scientific data analysis: <em>Reproducibility</em>, <em>Communication</em>, <em>Automation</em>.</p>
+<div id="reproducibility" class="section level3">
+<h3>Reproducibility</h3>
+<p>If an analysis is to be convincing, the trail from the data to the final output must be available to all.</p>
+<p>It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).</p>
+<p>A scientific paper describing the result of an analysis is advertisement for a specific claim. But <code>proof</code> is the procedure that was used to obtain the result. The computer code is the message.</p>
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpBdWd1c3QgMjgsIDIwMTgKCiIqKlRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgYW5hbHl0aWNhbCB0b29scyB0aGF0IHdpbGwgbGFzdCBzdHVkZW50cyBhIGxpZmV0aW1lLioqJyctLS1FZHdhcmQgVHVmdGUKCiogQWZ0ZXIgdGhpcyBsZXNzb24geW91IHdpbGwga25vdyB3aGF0IHRoaXMgY2xhc3MgaXMgYWJvdXQsIGhvdyB5b3Ugd2lsbCBiZSBncmFkZWQsIGFuZCBob3cgdG8gaW5zdGFsbCBSIGFuZCBSU3R1ZGlvIG9uIHlvdXIgbGFwdG9wLgoKIyMgU3lsbGFidXMKCiMjIyBDb250YWN0IEluZm9ybWF0aW9uCgpQcm9mZXNzb3IgSmFtZXMgQi4gRWxzbmVyLCBCZWxsYW15IEJ1aWxkaW5nLCBSb29tIDMyM2EKCkxlc3NvbiBIb3VyczogVFIgODowMC05OjE1IGEubS4KCk9mZmljZSBIb3VyczogVFIgOToxNS0xMDozMCBhLm0uICYgMi0zIHAubS4gKCYgYnkgYXBwb2ludG1lbnQpCgpFbWFpbDogPGplbHNuZXJAZnN1LmVkdT4KCkltcG9ydGFudCBsaW5rczoKCiogW0NhbnZhc10oaHR0cHM6Ly9jYXMuZnN1LmVkdS9jYXMvbG9naW4pCiogW0dpdEh1Yl0oaHR0cHM6Ly9naXRodWIuY29tL2plbHNuZXIvcXVhbnQtZ2VvKQoqIFtUd2l0dGVyXShodHRwczovL3R3aXR0ZXIuY29tL0pCRWxzbmVyKQoqIFtSZXNlYXJjaCBXZWJzaXRlXShodHRwOi8vbXl3ZWIuZnN1LmVkdS9qZWxzbmVyL19zaXRlLykKCiMjIyBNYXRlcmlhbHMKCkxhcHRvcCBjb21wdXRlciB3aXRoIFIgYW5kIFJTdHVkaW8gaW5zdGFsbGVkLgoKIyMjIERlc2NyaXB0aW9uCgpRdWFudGl0YXRpdmUgZ2VvZ3JhcGhpYyBtZXRob2RzIGFyZSB1c2VmdWwgZm9yIGFkZHJlc3NpbmcgbWFueSBvZiB0aGUgcHJvYmxlbXMgZmFjaW5nIG91ciB3b3JsZCB0b2RheS4gS25vd2luZyBhYm91dCB2YXJpb3VzIG1ldGhvZHMgYW5kIGJlaW5nIGFibGUgdG8gdXNlIHRoZW0gYXJlIHZpdGFsIGZvciBvZmZlcmluZyBzb2x1dGlvbnMuIEluIHRoaXMgY291cnNlIEkgd2lsbCB0ZWFjaCB5b3UgcXVhbnRpdGF0aXZlIG1ldGhvZHMgdXNpbmcgdGhlIFIgcHJvZ3JhbW1pbmcgbGFuZ3VhZ2UuCgojIyMgT2JqZWN0aXZlcyAmIEV4cGVjdGVkIExlYXJuaW5nIE91dGNvbWVzCgpUaGUgY291cnNlIGhhcyB0aGUgZm9sbG93aW5nIGV4cGVjdGVkIGxlYXJuaW5nIG91dGNvbWVzOgoKKiBGYWN0dWFsOiBZb3Ugd2lsbCBhY3F1aXJlIGZ1bmRhbWVudGFsIGtub3dsZWRnZSBvZiBzdGF0aXN0aWNhbCBtZXRob2RzIGluIGRhdGEgYW5hbHlzaXMuIFlvdSB3aWxsIGJlY29tZSBmYW1pbGlhciB3aXRoIHRoZSB0ZXJtaW5vbG9neSB1c2VkIHRvIGRlc2NyaWJlIGRhdGEgYW5kIHRoZSBzdGF0aXN0aWNhbCBwcm9jZWR1cmVzIGFuZCBvdXRjb21lcyBhcHBsaWVkIGluIHF1YW50aXRhdGl2ZSBnZW9ncmFwaGljYWwgYW5hbHlzaXMuCgoqIENvbmNlcHR1YWw6IFlvdSB3aWxsIGRldmVsb3AgYW4gdW5kZXJzdGFuZGluZyBvZiBzb21lIG9mIHRoZSBzdGF0aXN0aWNhbCB0b29scyBhbmQgd2hlbiB0byBhcHBseSB0aGVtIGluIGRhdGEgYW5hbHlzaXMgYW5kIG1vZGVsaW5nLiBZb3Ugd2lsbCBjdWx0aXZhdGUgYSBmaXJzdC1vcmRlciB1bmRlcnN0YW5kaW5nIG9mIHRoZSBtb3RpdmF0aW9ucywgYWR2YW50YWdlcywgYW5kIGRpc2FkdmFudGFnZXMgZm9yIGRpZmZlcmVudCBtZXRob2RzIGFuZCBob3cgdW5jZXJ0YWludGllcyBpbiB0aGUgZGF0YSBhbmQgbWV0aG9kcyBwcm9wYWdhdGUgdGhyb3VnaCB5b3VyIGFuYWx5c2lzLgoKKiBQcm9jZWR1cmFsOiBZb3Ugd2lsbCBsZWFybiBob3cgdG8gdXNlIFIgdG8gYW5hbHl6ZSwgZ3JhcGgsIGFuZCBtb2RlbCBkYXRhLiBZb3Ugd2lsbCBsZWFybiBob3cgdG8gd29yayB3aXRoaW4gUlN0dWRpbyB0byBjcmVhdGUgcmVwcm9kdWNpYmxlIGFuYWx5c2VzLiBZb3Ugd2lsbCBsZWFybiBob3cgdG8gYW5hbHl6ZSBkYXRhIHN0YXRpc3RpY2FsbHkuIFlvdSB3aWxsIGJlIGFibGUgdG8gaW50ZXJwcmV0IHRoZSByZXN1bHRzIG9mIHlvdXIgbW9kZWwgaW4gdGVybXMgb2YgdGhlIHBoeXNpY2FsIHZhcmlhYmxlcy4gWW91IHdpbGwgYmUgYWJsZSB0byBleHBsYWluIHRoZSBzaWduaWZpY2FuY2Ugb2YgZWZmZWN0cy4gWW91IHdpbGwgbGVhcm4gZW5vdWdoIFIgdG8gYmUgYWJsZSB0byBidWlsZCBvbiB0aGlzIGtub3dsZWRnZSB0aHJvdWdob3V0IHlvdXIgY2FyZWVyLgoKKiBNZXRhIGNvZ25pdGl2ZTogWW91IHdpbGwgcmVjb2duaXplIHRoZSBwb3RlbnRpYWwgYW5kIHNvbWUgbGltaXRhdGlvbnMgb2Ygc3RhdGlzdGljYWwgYW5kIGRhdGEgYW5hbHl0aWMgbWV0aG9kcyB3aXRoIHJlc3BlY3QgdG8gdGhlIGNvbnN0cmFpbnRzIHNldCBieSB0aGUgdW5kZXJseWluZyBwaHlzaWNhbCBhbmQgZGV0ZXJtaW5pc3RpYyBwcm9jZXNzZXMgeW91IHNlZWsgdG8gZXhwbG9yZS4gWW91IHdpbGwgYmUgYWJsZSB0byBpZGVudGlmeSByZWFzb25hYmxlIGluZmVyZW5jZXMgb3IgY29uY2x1c2lvbnMgZnJvbSB5b3VyIGFuYWx5c2VzLiBZb3Ugd2lsbCBnYWluIGFuIGFwcHJlY2lhdGlvbiBmb3IgdGhlIGltcG9ydGFuY2Ugb2Ygb3Blbi1zb3VyY2UgcmVzZWFyY2guCgpJIGV4cGVjdCB5b3UgdG8gaGF2ZSBzb21lIHVuZGVyc3RhbmRpbmcgb2YgZGVzY3JpcHRpdmUgc3RhdGlzdGljYWwgY29uY2VwdHMgc3VjaCBhcyBtZWFucywgc3RhbmRhcmQgZGV2aWF0aW9ucywgYW5kIGNvcnJlbGF0aW9uIGFzIHdlbGwgYXMgc29tZSBiYXNpYyBrbm93bGVkZ2Ugb2YgaW5mZXJlbmNlIChlLmcuLCAkdCQtdGVzdCkuIEV2ZXJ5dGhpbmcgeW91IGRvIGluIHRoaXMgY2xhc3Mgd2lsbCBiZSBkb25lIHVzaW5nIFIvUlN0dWRpby4KClRoZXJlIGlzIF9ubyByZXF1aXJlZCB0ZXh0Ym9va18gZm9yIHRoaXMgY291cnNlIGJ1dCB5b3UgYXJlIHJlc3BvbnNpYmxlIGZvciB3b3JraW5nIHRocm91Z2ggdGhlIGNvZGUgZ2l2ZW4gaW4gZWFjaCBsZXNzb24uCgojIyMgR3JhZGluZyAmIFBvbGljaWVzCgpHcmFkZXMgYXJlIGRldGVybWluZWQgYnkgdHdvIGV4YW1zLCBlYWNoIHdvcnRoIDQwJSBhbmQgNCBvciA1IGFzc2lnbm1lbnRzIGN1bXVsYXRpdmVseSB3b3J0aCAyMCUuIFRoZXJlIGFyZSBOTyBtYWtlLXVwIGV4YW1zLiBDbGFzcyBhdHRlbmRhbmNlIGlzIGV4cGVjdGVkLCBidXQgbm90IHJlcXVpcmVkLiBMYXRlIGFzc2lnbm1lbnRzIGFyZSBub3QgYWNjZXB0ZWQuIEFzc2lnbm1lbnRzIGFuZCBleGFtcyB3aWxsIGJlIGRvbmUgdXNpbmcgUlN0dWRpbyBhbmQgc3VibWl0dGVkIHRvIG1lIGluIGRpZ2l0YWwgZm9ybWF0LiBObyBleHRyYSBjcmVkaXQgd2lsbCBiZSBnaXZlbi4KCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpBdWd1c3QgMjgsIDIwMTgKCiIqKlRoZSBnb2FsIGlzIHRvIHByb3ZpZGUgYW5hbHl0aWNhbCB0b29scyB0aGF0IHdpbGwgbGFzdCBzdHVkZW50cyBhIGxpZmV0aW1lLioqJyctLS1FZHdhcmQgVHVmdGUKCiogQWZ0ZXIgdGhpcyBsZXNzb24geW91IHdpbGwga25vdyB3aGF0IHRoaXMgY2xhc3MgaXMgYWJvdXQsIGhvdyB5b3Ugd2lsbCBiZSBncmFkZWQsIGFuZCBob3cgdG8gaW5zdGFsbCBSIGFuZCBSU3R1ZGlvIG9uIHlvdXIgbGFwdG9wLgoKIyMgU3lsbGFidXMKCiMjIyBDb250YWN0IEluZm9ybWF0aW9uCgpQcm9mZXNzb3IgSmFtZXMgQi4gRWxzbmVyLCBCZWxsYW15IEJ1aWxkaW5nLCBSb29tIDMyM2EKCkxlc3NvbiBIb3VyczogVFIgODowMC05OjE1IGEubS4KCk9mZmljZSBIb3VyczogVFIgOToxNS0xMDozMCBhLm0uICYgMi0zIHAubS4gKCYgYnkgYXBwb2ludG1lbnQpCgpFbWFpbDogPGplbHNuZXJAZnN1LmVkdT4KCkltcG9ydGFudCBsaW5rczoKCiogW0NhbnZhc10oaHR0cHM6Ly9jYXMuZnN1LmVkdS9jYXMvbG9naW4pCiogW0dpdEh1Yl0oaHR0cHM6Ly9naXRodWIuY29tL2plbHNuZXIvcXVhbnQtZ2VvKQoqIFtUd2l0dGVyXShodHRwczovL3R3aXR0ZXIuY29tL0pCRWxzbmVyKQoqIFtSZXNlYXJjaCBXZWJzaXRlXShodHRwOi8vbXl3ZWIuZnN1LmVkdS9qZWxzbmVyL19zaXRlLykKCiMjIyBNYXRlcmlhbHMKClN0dWRlbnRzIG5lZWQgYSBsYXB0b3AgY29tcHV0ZXIgd2l0aCBSIGFuZCBSU3R1ZGlvLgoKIyMjIFNob3J0IERlc2NyaXB0aW9uCgpRdWFudGl0YXRpdmUgZ2VvZ3JhcGh5IGlzIHVzZWZ1bCBmb3IgYWRkcmVzc2luZyBtYW55IG9mIHRoZSBwcm9ibGVtcyBmYWNpbmcgb3VyIHdvcmxkIHRvZGF5LiBJbiB0aGlzIGNvdXJzZSBJIHdpbGwgdGVhY2ggeW91IHNvbWUgb2YgdGhlIHF1YW50aXRhdGl2ZSBtZXRob2RzIHJvdXRpbmVseSB1c2VkIGJ5IHByb2Zlc3Npb25hbCBnZW9ncmFwaGVycy4gVGhlIG1ldGhvZHMgd2lsbCBiZSBjb2RlZCBpbiB0aGUgUiBwcm9ncmFtbWluZyBsYW5ndWFnZS4gQWNjZXNzIHRvIHRoZSBSIHByb2dyYW1taW5nIGxhbmd1YWdlIHdpbGwgYmUgZG9uZSB0aHJvdWdoIFIgTm90ZWJvb2tzIHdpdGhpbiB0aGUgUlN0dWRpbyBlbnZpcm9ubWVudC4KCiMjIyBMZWFybmluZyBPdXRjb21lcwoKVGhlIGNvdXJzZSBoYXMgdGhlIGZvbGxvd2luZyBleHBlY3RlZCBsZWFybmluZyBvdXRjb21lczoKCiogRmFjdHVhbDogWW91IHdpbGwgYWNxdWlyZSBiYXNpYyBrbm93bGVkZ2Ugb2Ygc3RhdGlzdGljYWwgbWV0aG9kcyBpbiBkYXRhIGFuYWx5c2lzLiBZb3Ugd2lsbCBiZWNvbWUgZmFtaWxpYXIgd2l0aCB0aGUgdGVybWlub2xvZ3kgdXNlZCB0byBkZXNjcmliZSBkYXRhIGFuZCB0aGUgc3RhdGlzdGljYWwgcHJvY2VkdXJlcyBhbmQgb3V0Y29tZXMgYXBwbGllZCBpbiBxdWFudGl0YXRpdmUgZ2VvZ3JhcGhpY2FsIGFuYWx5c2lzLgoKKiBDb25jZXB0dWFsOiBZb3Ugd2lsbCBkZXZlbG9wIGFuIHVuZGVyc3RhbmRpbmcgb2Ygc29tZSBvZiB0aGUgc3RhdGlzdGljYWwgdG9vbHMgYW5kIHdoZW4gdG8gYXBwbHkgdGhlbSBpbiBkYXRhIGFuYWx5c2lzIGFuZCBtb2RlbGluZy4gWW91IHdpbGwgY3VsdGl2YXRlIGEgZmlyc3Qtb3JkZXIgdW5kZXJzdGFuZGluZyBvZiB0aGUgbW90aXZhdGlvbnMsIGFkdmFudGFnZXMsIGFuZCBkaXNhZHZhbnRhZ2VzIGZvciBkaWZmZXJlbnQgbWV0aG9kcyBhbmQgaG93IHVuY2VydGFpbnRpZXMgaW4gdGhlIGRhdGEgYW5kIG1ldGhvZHMgcHJvcGFnYXRlIHRocm91Z2ggeW91ciBhbmFseXNpcy4KCiogUHJvY2VkdXJhbDogWW91IHdpbGwgbGVhcm4gaG93IHRvIHVzZSBSIHRvIGFuYWx5emUsIGdyYXBoLCBhbmQgbW9kZWwgZGF0YS4gWW91IHdpbGwgbGVhcm4gaG93IHRvIHdvcmsgd2l0aGluIFJTdHVkaW8gdG8gY3JlYXRlIHJlcHJvZHVjaWJsZSBhbmFseXNlcy4gWW91IHdpbGwgbGVhcm4gaG93IHRvIGFuYWx5emUgZGF0YSBzdGF0aXN0aWNhbGx5LiBZb3Ugd2lsbCBiZSBhYmxlIHRvIGludGVycHJldCB0aGUgcmVzdWx0cyBvZiB5b3VyIG1vZGVsIGluIHRlcm1zIG9mIHRoZSBwaHlzaWNhbCB2YXJpYWJsZXMuIFlvdSB3aWxsIGJlIGFibGUgdG8gZXhwbGFpbiB0aGUgc2lnbmlmaWNhbmNlIG9mIGVmZmVjdHMuIFlvdSB3aWxsIGxlYXJuIGVub3VnaCBSIHRvIGJlIGFibGUgdG8gYnVpbGQgb24gdGhpcyBrbm93bGVkZ2UgdGhyb3VnaG91dCB5b3VyIGNhcmVlci4KCiogTWV0YSBjb2duaXRpdmU6IFlvdSB3aWxsIHJlY29nbml6ZSB0aGUgcG90ZW50aWFsIGFuZCBzb21lIGxpbWl0YXRpb25zIG9mIHN0YXRpc3RpY2FsIGFuZCBkYXRhIGFuYWx5dGljIG1ldGhvZHMgd2l0aCByZXNwZWN0IHRvIHRoZSBjb25zdHJhaW50cyBzZXQgYnkgdGhlIHVuZGVybHlpbmcgcGh5c2ljYWwgYW5kIGRldGVybWluaXN0aWMgcHJvY2Vzc2VzIHlvdSBzZWVrIHRvIGV4cGxvcmUuIFlvdSB3aWxsIGJlIGFibGUgdG8gaWRlbnRpZnkgcmVhc29uYWJsZSBpbmZlcmVuY2VzIG9yIGNvbmNsdXNpb25zIGZyb20geW91ciBhbmFseXNlcy4gWW91IHdpbGwgZ2FpbiBhbiBhcHByZWNpYXRpb24gZm9yIHRoZSBpbXBvcnRhbmNlIG9mIG9wZW4tc291cmNlIHJlc2VhcmNoLgoKSSBleHBlY3QgeW91IHRvIGhhdmUgc29tZSB1bmRlcnN0YW5kaW5nIG9mIGRlc2NyaXB0aXZlIHN0YXRpc3RpY2FsIGNvbmNlcHRzIHN1Y2ggYXMgbWVhbnMsIHN0YW5kYXJkIGRldmlhdGlvbnMsIGFuZCBjb3JyZWxhdGlvbiBhcyB3ZWxsIGFzIHNvbWUgYmFzaWMga25vd2xlZGdlIG9mIGluZmVyZW5jZSAoZS5nLiwgJHQkLXRlc3QpLiBFdmVyeXRoaW5nIHlvdSBkbyBpbiB0aGlzIGNsYXNzIHdpbGwgYmUgZG9uZSB1c2luZyBSL1JTdHVkaW8uCgpUaGVyZSBpcyBfbm8gcmVxdWlyZWQgdGV4dGJvb2tfIGZvciB0aGlzIGNvdXJzZSBidXQgeW91IGFyZSByZXNwb25zaWJsZSBmb3Igd29ya2luZyB0aHJvdWdoIHRoZSBjb2RlIGdpdmVuIGluIGVhY2ggbGVzc29uLgoKIyMjIEdyYWRpbmcgUG9saWNpZXMKCkdyYWRlcyBhcmUgZGV0ZXJtaW5lZCBieSB0d28gZXhhbXMgKGVhY2ggd29ydGggNDAlKSBhbmQgc2V2ZXJhbCAoNC02KSBhc3NpZ25tZW50cyBjdW11bGF0aXZlbHkgd29ydGggMjAlLiBUaGVyZSBhcmUgTk8gbWFrZS11cCBleGFtcy4gQ2xhc3MgYXR0ZW5kYW5jZSBpcyBleHBlY3RlZCwgYnV0IG5vdCByZXF1aXJlZC4gTGF0ZSBhc3NpZ25tZW50cyBhcmUgbm90IGFjY2VwdGVkLiBBc3NpZ25tZW50cyBhbmQgZXhhbXMgd2lsbCBiZSBkb25lIHVzaW5nIFIgTm90ZWJvb2tzIGFuZCBzdWJtaXR0ZWQgdG8gbWUgaW4gZGlnaXRhbCBmb3JtYXQuIE5vIGV4dHJhIGNyZWRpdCB3aWxsIGJlIGdpdmVuLgoKR3JhZGUgfCBTY29yZSB8IFN0YW5kYXJkCi0tLS0tLXwtLS0tLS0tfC0tLS0tLS0tLQpBICAgICB8IDkzLTEwMHwgT3V0c3RhbmRpbmc7IGZldyBpZiBhbnkgZXJyb3JzL29taXNzaW9ucwpCICAgICB8IDg1LTkzIHwgR29vZDsgb25seSBtaW5vciBlcnJvcnMvb21pc3Npb25zCkMgICAgIHwgNzUtODUgfCBTYXRpc2ZhY3Rvcnk7IG1pbm9yIGFuZCBhIGZldyBtYWpvciBlcnJvcnMKRCAgICAgfCA2NS03NSB8IFBvb3I7IG1hbnkgbWFqb3IgZXJyb3JzIGFuZCBvbWlzc2lvbnMKCioqSSB3aWxsIHVzZSBwbHVzIGFuZCBtaW51cyBncmFkZXMuKioKCiMjIyBBY2FkZW1pYyBIb25vciBDb2RlCgpodHRwOi8vd3d3LmVuZy5mc3UuZWR1L35wZXRlcnNvbi9mc3VoYy5odG1sCgojIyMgU3R1ZGVudHMgV2l0aCBEaXNhYmlsaXRpZXMgQWN0CgpTdHVkZW50cyBuZWVkaW5nIGFjYWRlbWljIGFjY29tbW9kYXRpb24gc2hvdWxkOiAoMSkgcmVnaXN0ZXIgd2l0aCBhbmQgcHJvdmlkZSBkb2N1bWVudGF0aW9uIHRvIHRoZSBTdHVkZW50IERpc2FiaWxpdHkgUmVzb3VyY2UgQ2VudGVyOyAoMikgYnJpbmcgYSBsZXR0ZXIgdG8gbWUgaW5kaWNhdGluZyB0aGUgbmVlZCBmb3IgYWNjb21tb2RhdGlvbiBhbmQgd2hhdCB0eXBlLiBUaGlzIHNob3VsZCBiZSBkb25lIHNvbWV0aW1lIGR1cmluZyB0aGUgZmlyc3Qgd2VlayBvZiBjbGFzc2VzLgoKIyMjIFN5bGxhYnVzIENoYW5nZSBQb2xpY3kKClRoaXMgc3lsbGFidXMgaXMgYSBndWlkZSBmb3IgdGhlIGNvdXJzZSBhbmQgaXMgc3ViamVjdCB0byBjaGFuZ2Ugd2l0aCBhZHZhbmNlZCBub3RpY2UuIFRoZSBleGFtIGRhdGVzL3RpbWVzIGFyZSBmaXJtLgoKIyMjIFNjaGVkdWxlIChzdWJqZWN0IHRvIGNoYW5nZSkKCldlZWsgfCBEYXkgICAgICB8IERhdGUgICAgICAgICB8IFRvcGljCi0tLS0tfC0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS18LS0tLS0tCjEgICAgfCBUdWVzZGF5ICB8IEF1Z3VzdCAyOCAgICB8IEludHJvZHVjdGlvbgoxICAgIHwgVGh1cnNkYXkgfCBBdWd1c3QgMzAgICAgfCBSU3R1ZGlvIGFuZCBSCjIgICAgfCBUdWVzZGF5ICB8IFNlcHRlbWJlciA0ICB8IFVzaW5nIFIKMiAgICB8IFRodXJzZGF5IHwgU2VwdGVtYmVyIDYgIHwgRGF0YSBhbmQgRGF0YSBGcmFtZXMKMyAgICB8IFR1ZXNkYXkgIHwgU2VwdGVtYmVyIDExIHwgR3JhbW1hciBmb3IgRGF0YQozICAgIHwgVGh1cnNkYXkgfCBTZXB0ZW1iZXIgMTMgfCBHcmFtbWFyIGZvciBEYXRhCjQgICAgfCBUdWVzZGF5ICB8IFNlcHRlbWJlciAxOCB8IEdyYW1tYXIgZm9yIEdyYXBocwo0ICAgIHwgVGh1cnNkYXkgfCBTZXB0ZW1iZXIgMjAgfCBHcmFtbWFyIGZvciBHcmFwaHMKNSAgICB8IFR1ZXNkYXkgIHwgU2VwdGVtYmVyIDI1IHwgTWFwcyBpbiBSIChnZ3Bsb3QyKQo1ICAgIHwgVGh1cnNkYXkgfCBTZXB0ZW1iZXIgMjcgfCBNYXBzIGluIFIgKHRtYXApCjYgICAgfCBUdWVzZGF5ICB8IE9jdG9iZXIgMiAgICB8IFJldmlldyBmb3IgRmlyc3QgRXhhbQo2ICAgIHwgVGh1cnNkYXkgfCBPY3RvYmVyIDQgICAgfCBGSVJTVCBFWEFNCjcgICAgfCBUdWVzZGF5ICB8IE9jdG9iZXIgOSAgICB8IEJheWVzaWFuIERhdGEgQW5hbHlzaXMKNyAgICB8IFR1ZXNkYXkgIHwgT2N0b2JlciAxMSAgIHwgQmF5ZXNpYW4gRGF0YSBBbmFseXNpcwo4ICAgIHwgVHVlc2RheSAgfCBPY3RvYmVyIDE2ICAgfCBSZWdyZXNzaW9uCjggICAgfCBUaHVyc2RheSB8IE9jdG9iZXIgMTggICB8IFJlZ3Jlc3Npb24KOSAgICB8IFR1ZXNkYXkgIHwgT2N0b2JlciAyMyAgIHwgTk8gQ0xBU1MgKE91dCBvZiBUb3duKQo5ICAgIHwgVGh1cnNkYXkgfCBPY3RvYmVyIDI1ICAgfCBOTyBDTEFTUyAoT3V0IG9mIFRvd24pCjEwICAgfCBUdWVzZGF5ICB8IE9jdG9iZXIgMzAgICB8IFJlZ3Jlc3Npb24KMTAgICB8IFRodXJzZGF5IHwgTm92ZW1iZXIgMSAgIHwgQ2xhc3NpZmljYXRpb24gJiBSZWdyZXNzaW9uIFRyZWVzCjExICAgfCBUdWVzZGF5ICB8IE5vdmVtYmVyIDYgICB8IExvZ2lzdGljIFJlZ3Jlc3Npb24KMTEgICB8IFRodXJzZGF5IHwgTm92ZW1iZXIgOCAgIHwgUXVhbnRpbGUgUmVncmVzc2lvbgoxMiAgIHwgVHVlc2RheSAgfCBOb3ZlbWJlciAxMyAgfCBHcmFtbWFyIGZvciBTcGF0aWFsIERhdGEKMTIgICB8IFRodXJzZGF5IHwgTm92ZW1iZXIgMTUgIHwgR2VvZ3JhcGhpYyBSZWdyZXNzaW9uCjEzICAgfCBUdWVzZGF5ICB8IE5vdmVtYmVyIDIwICB8IE5PIENMQVNTIChPdXQgb2YgVG93bikKMTMgICB8IFRodXJzZGF5IHwgTm92ZW1iZXIgMjIgIHwgTk8gQ0xBU1MgKFRoYW5rc2dpdmluZykKMTQgICB8IFR1ZXNkYXkgIHwgTm92ZW1iZXIgMjcgIHwgU3BhdGlhbCBBdXRvY29ycmVsYXRpb24KMTQgICB8IFRodXJzZGF5IHwgTm92ZW1iZXIgMjkgIHwgU3BhdGlhbCBSZWdyZXNzaW9uCjE1ICAgfCBUdWVzZGF5ICB8IERlY2VtYmVyIDQgICB8IFNwYXRpYWwgUmVncmVzc2lvbgoxNSAgIHwgVGh1cnNkYXkgfCBEZWNlbWJlciA2ICAgfCBSZXZpZXcgZm9yIFNlY29uZCBFeGFtCjE2ICAgfCBGcmlkYXkgICB8IERlY2VtYmVyIDE0ICB8IFNFQ09ORCBFWEFNICgzLTVwKQoKIyMgTW9kZXJuIERhdGEgQW5hbHlzaXMKCk1vZGVybiBkYXRhIGFuYWx5c2lzIG11c3QgYmUgZG9uZSBvbiBhIGNvbXB1dGVyLiBZb3UgaGF2ZSB0d28gY2hvaWNlczogc3ByZWFkc2hlZXQgb3IgcHJvZ3JhbW1pbmcgbGFuZ3VhZ2UuIAoKQmVpbmcgYWJsZSB0byBwcm9ncmFtIGEgY29tcHV0ZXIgaXMgYSB2ZXJ5IGltcG9ydGFudCBza2lsbC4gCgpBIHNwcmVhZHNoZWV0IGlzIGNvbnZlbmllbnQgKGF0IGxlYXN0IGF0IGZpcnN0KSwgYnV0IGl0IGlzIHVsdGltYXRlbHkgbGltaXRpbmcgYW5kIGhhbXBlcnMgdGhyZWUgcHJvcGVydGllcyB0aGF0IGFyZSBlc3NlbnRpYWwgZm9yIHNjaWVudGlmaWMgZGF0YSBhbmFseXNpczogKlJlcHJvZHVjaWJpbGl0eSosICpDb21tdW5pY2F0aW9uKiwgKkF1dG9tYXRpb24qLgoKIyMjIFJlcHJvZHVjaWJpbGl0eQoKSWYgYW4gYW5hbHlzaXMgaXMgdG8gYmUgY29udmluY2luZywgdGhlIHRyYWlsIGZyb20gdGhlIGRhdGEgdG8gdGhlIGZpbmFsIG91dHB1dCBtdXN0IGJlIGF2YWlsYWJsZSB0byBhbGwuCgpJdCBpcyBkaWZmaWN1bHQgdG8gZG8gdGhpcyB3aXRoIGEgc3ByZWFkc2hlZXQuIEl0IGlzIHRvbyBlYXN5IGZvciBtaXN0YWtlcyB0byBjcmVlcCBpbiAoZm9yIGV4YW1wbGUsIGFjY2lkZW50YWxseSBzb3J0aW5nIGp1c3QgYSBjb2x1bW4gcmF0aGVyIHRoYW4gdGhlIGVudGlyZSB0YWJsZSkuCgpBIHNjaWVudGlmaWMgcGFwZXIgZGVzY3JpYmluZyB0aGUgcmVzdWx0IG9mIGFuIGFuYWx5c2lzIGlzIGFkdmVydGlzZW1lbnQgZm9yIGEgc3BlY2lmaWMgY2xhaW0uIEJ1dCBgcHJvb2ZgIGlzIHRoZSBwcm9jZWR1cmUgdGhhdCB3YXMgdXNlZCB0byBvYnRhaW4gdGhlIHJlc3VsdC4gVGhlIGNvbXB1dGVyIGNvZGUgaXMgdGhlIG1lc3NhZ2UuCgo=</div>
 
 
 
