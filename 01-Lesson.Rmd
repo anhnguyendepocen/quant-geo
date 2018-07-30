@@ -81,8 +81,8 @@ This syllabus is a guide for the course and is subject to change with advanced n
 
 Week | Day      | Date         | Topic
 -----|----------|--------------|------
-1    | Tuesday  | August 28    | Introduction
-1    | Thursday | August 30    | RStudio and R
+1    | Tuesday  | August 28    | Introduction (Mr. Fricker)
+1    | Thursday | August 30    | RStudio and R 
 2    | Tuesday  | September 4  | Using R
 2    | Thursday | September 6  | Data and Data Frames
 3    | Tuesday  | September 11 | Grammar for Data
@@ -123,7 +123,7 @@ A spreadsheet is convenient (at least at first), but it is ultimately limiting a
 
 ### Reproducibility
 
-If an analysis is to be convincing, the trail from the data to the final output must be available to all.
+If an analysis is to be convincing to others, the trail from the data to the final output must be made available.
 
 It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).
 
@@ -141,9 +141,95 @@ Computer code is an efficient way to communicate because all important informati
 
 If you've made a GIS map you know how difficult it is to recreate it with a new set of data.
 
-This is common in geography and environmental science since data are frequently updated. 
+This is common in science since data are frequently updated. 
 
 During data preparation and exploration you are likely to find problems.
 
 Running computer code with new data is simple.
+
+## The R programming language
+
+R is the leading open source statistical programming language.
+
+R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
+
+Limited graphical user interface (GUI) meaning it is harder to learn at the outset. No commercial support. It's a programming language so you need to appreciate syntax issues. 
+
+Common metaphors for working with computers are: browsers, iTunes, Excel, Word, etc. R is nothing like these. It is easy to forget commands. There are no visual cues: A blank screen is intimidating.  It’s not the easiest language to learn but once you get the hang of the basic syntax the data analytic floodgates open. R is generative, like a written language.  
+
+R allows you to take advantage of the availability of new, cutting edge applications in emerging statistical fields. For geographers this is apparent in applied spatial statistics.
+
+Also, an increasing number of scientists are reporting results in the context of R, and it's important to know what they are talking about.  Most of the world's leading statisticians use and contribute to R.
+
+### Get R
+
+Go to [Get R](http://www.r-project.org) --> Click on CRAN (Comprehensive R Archive Network) --> Scroll to a mirror site. If you are using Windows --> base --> R-***.exe --> Save File. Do this now.
+
+Click on the download icon and follow the instructions to install R. You can apply the default options.
+
+### Dynamic report generation
+
+R is a computational engine. Combining R with **RStudio** allows you to generate reports on the fly.
+
+A common practice in writing scientific reports is to (1) import data into a software package, (2) run a procedure to get the results, (3) copy and paste selected pieces of the result in a document program, and (4) add a few descriptions of the results to finish.
+
+Problems:
+
+1. error-prone because there is too many manual steps to the workflow;
+2. the manual steps are tedious (copying/pasting results between documents);
+3. workflow is hard to record especially when it involves spreadsheets, therefore it is difficult to reproduce;
+4. a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort;
+5. the analysis and writing are mixed together, so attention has to be paid to synchronizing the parts.
+
+A dynamic report is generated automatically from computer code. Just like a software package has its source code, a dynamic report has its source as a mixture of computer code and text. 
+
+When you compile the source report, the code in it is executed and replaced with the output; you get a final report by mixing the code output with the original writings. 
+
+Because you manage only source code, you are free from the problems above. For example, you can change a single parameter in the code, and get a different report on the fly.
+
+**RStudio** helps you generate dynamic reports from your R session. In this class you will use RStudio to create answer sheets for your homework and exams. You can use it to take notes during class. 
+
+### Get RStudio
+
+Click on [Get RStudio](http://rstudio.org) --> Download RStudio Desktop --> Install and open RStudio. Do this now.
+
+After opening RStudio you should see four window panes. The upper left pane is the markdown file, the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console and the conversion progress panel.
+
+## Make a graph
+
+The first thing we will do is create a graph using the functions in the **ggplot2** package. Begin by obtaining the package.
+```{r}
+#install.packages("ggplot2")
+library(ggplot2)
+```
+
+R has thousands of packages. We will use some of them this semester.
+
+The first line is a function that gets the package from CRAN and installs it on your computer. The second line is a function that makes the package with all its functions available to your current R session.
+
+We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
+```{r}
+head(airquality)
+```
+
+This gives the first 6 (default) rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day.
+
+The data frame is a table (matrix) of values. The `dim()` function gives the size (number of rows and columns).
+```{r}
+dim(airquality)
+```
+
+```{r}
+length(airquality$Ozone)
+```
+
+Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
+```{r}
+ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
+  geom_point()
+```
+
+Describe what you see. What does the warning mean?
+
+Is ozone concentration higher on windy days? Make a plot and answer this question.
 
