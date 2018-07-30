@@ -30,11 +30,11 @@ Important links:
 
 ### Materials
 
-Students need a laptop computer with R and RStudio.
+Students need a laptop computer with R and RStudio installed.
 
 ### Short Description
 
-Quantitative geography is useful for addressing many of the problems facing our world today. In this course I will teach you some of the quantitative methods routinely used by professional geographers. The methods will be coded in the R programming language. Access to the R programming language will be done through R Notebooks within the RStudio environment.
+Quantitative geographic methods are used to address many of the problems facing our world today. In this course I will teach you some of these methods with the R programming language. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
@@ -50,7 +50,7 @@ The course has the following expected learning outcomes:
 
 I expect you to have some understanding of descriptive statistical concepts such as means, standard deviations, and correlation as well as some basic knowledge of inference (e.g., $t$-test). Everything you do in this class will be done using R/RStudio.
 
-There is _no required textbook_ for this course but you are responsible for working through the code given in each lesson.
+There is _no required textbook_ but you are responsible for working through the code given in each lesson.
 
 ### Grading Policies
 
@@ -125,17 +125,17 @@ A spreadsheet is convenient (at least at first), but it is ultimately limiting a
 
 If an analysis is to be convincing to others, the trail from the data to the final output must be made available.
 
-It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).
+It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The computer code is the message.
+A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
-Computer code is the grammar of communicating what you did. It is not just to get the computer to do what you want it to do but to communicate with other scientists and to your future self.
+Code is the grammar of communicating what you did. It is not just to get a computer to do what you want it to do but to communicate with other scientists and to your future self.
 
-It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use are not standard.
+It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
 
-Computer code is an efficient way to communicate because all important information is given as plain text.
+Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
 
 ### Automation
 
@@ -165,11 +165,11 @@ Also, an increasing number of scientists are reporting results in the context of
 
 Go to [Get R](http://www.r-project.org) --> Click on CRAN (Comprehensive R Archive Network) --> Scroll to a mirror site. If you are using Windows --> base --> R-***.exe --> Save File. Do this now.
 
-Click on the download icon and follow the instructions to install R. You can apply the default options.
+Click on the download icon and follow the instructions to install R. Use the default options.
 
 ### Dynamic report generation
 
-R is a computational engine. Combining R with **RStudio** allows you to generate reports on the fly.
+Combining R with **RStudio** allows you to generate reports on the fly.
 
 A common practice in writing scientific reports is to (1) import data into a software package, (2) run a procedure to get the results, (3) copy and paste selected pieces of the result in a document program, and (4) add a few descriptions of the results to finish.
 
@@ -181,7 +181,7 @@ Problems:
 4. a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort;
 5. the analysis and writing are mixed together, so attention has to be paid to synchronizing the parts.
 
-A dynamic report is generated automatically from computer code. Just like a software package has its source code, a dynamic report has its source as a mixture of computer code and text. 
+A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mixture of code and text. 
 
 When you compile the source report, the code in it is executed and replaced with the output; you get a final report by mixing the code output with the original writings. 
 
@@ -197,7 +197,9 @@ After opening RStudio you should see four window panes. The upper left pane is t
 
 ## Make a graph
 
-The first thing we will do is create a graph using the functions in the **ggplot2** package. Begin by obtaining the package.
+The first thing we do is create a graph using the functions in the **ggplot2** package. Packages are contributed pieces of code for doing particular things. The **ggplot2** package has lots of code pieces for making nice graphs. Begin by obtaining the package.
+
+There are two steps: (1) download the package from CRAN. (2) make the code available to your R session.
 ```{r}
 #install.packages("ggplot2")
 library(ggplot2)
@@ -206,6 +208,8 @@ library(ggplot2)
 R has thousands of packages. We will use some of them this semester.
 
 The first line is a function that gets the package from CRAN and installs it on your computer. The second line is a function that makes the package with all its functions available to your current R session.
+
+Step (1) is done once. Step (2) must be done everytime you open an new R session.
 
 We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 ```{r}
