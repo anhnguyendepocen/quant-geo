@@ -34,21 +34,21 @@ Students need a laptop computer with R and RStudio installed.
 
 ### Short Description
 
-Quantitative geographic methods are used to address many of the problems facing our world today. In this course I will teach you some of these methods with the R programming language. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers using the R programming language. Visualizing data, wrangling data, making rigorous conclusions. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
 The course has the following expected learning outcomes:
 
-* Factual: You will acquire basic knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.
+* Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
 * Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
 * Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
 
-* Meta cognitive: You will recognize the potential and some limitations of statistical and data analytic methods with respect to the constraints set by the underlying physical and deterministic processes you seek to explore. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
+* Meta cognitive: You will recognize the potential and limitations of data science. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
 
-I expect you to have some understanding of descriptive statistical concepts such as means, standard deviations, and correlation as well as some basic knowledge of inference (e.g., $t$-test). Everything you do in this class will be done using R/RStudio.
+I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
 
 There is _no required textbook_ but you are responsible for working through the code given in each lesson.
 
