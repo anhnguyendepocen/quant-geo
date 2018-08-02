@@ -44,13 +44,13 @@ The course has the following expected learning outcomes:
 
 * Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
-* Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
+* Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible science. You will learn how to analyze data statistically. You will be able to interpret the results of your model. You will be able to determine the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
 
-* Meta cognitive: You will recognize the potential and limitations of data science. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
+* Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
 I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
 
-There is _no required textbook_ but you are responsible for working through the code given in each lesson.
+There is _no required textbook_ but you are responsible for working through and understanding the code that will be given in each lesson.
 
 ### Grading Policies
 
@@ -113,9 +113,9 @@ Week | Day      | Date         | Topic
 15   | Thursday | December 6   | Review for Second Exam
 16   | Friday   | December 14  | SECOND EXAM (3-5p)
 
-## Modern Data Analysis
+## Data Science
 
-Modern data analysis must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
+Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
 Being able to code is an increasingly important skill. 
 
@@ -123,11 +123,11 @@ A spreadsheet is convenient (at least at first), but it is ultimately limiting a
 
 ### Reproducibility
 
-If an analysis is to be convincing to others, the trail from the data to the final output must be made available.
+If your analysis is to be convincing to others, the trail from the data you started with to the final output must be made available.
 
 It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+Your scientific paper describing the result of an analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
