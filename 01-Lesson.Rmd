@@ -1,6 +1,6 @@
 ---
 title: "Introduction"
-output: github_document
+output: html_notebook
 ---
 
 August 28, 2018

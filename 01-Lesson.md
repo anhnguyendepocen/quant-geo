@@ -192,25 +192,31 @@ Because you manage only source code, you are free from the problems above. For e
 
 Click on [Get RStudio](http://rstudio.org) --&gt; Download RStudio Desktop --&gt; Install and open RStudio. Do this now.
 
-After opening RStudio you should see four window panes. The upper left pane is the markdown file, the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console and the conversion progress panel.
+After opening RStudio you should see your window separate into four panes. The upper left pane is the markdown file (`01-Lesson.Rmd`), the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console.
 
-Make a graph
-------------
+### Install a package
 
-The first thing we do is create a graph using the functions in the **ggplot2** package. Packages are contributed pieces of code for doing particular things. The **ggplot2** package has lots of code pieces for making nice graphs. Begin by obtaining the package.
+The first thing we will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
 
-There are two steps: (1) download the package from CRAN. (2) make the code available to your R session.
+Two steps:
+
+1.  Download the package from CRAN.
+
+This is done by selecting the `Packages` tab in the lower right panel. Select `Install` then type the name of the package `ggplot2`. Note: That is the same as typing `install.packages("ggplot2")` in the console.
+
+1.  Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here we want to make this command part of the markdown file so we delinate the command from the text by placing triple graves (\`) followed by {r} before the command and triple graves after the command.
 
 ``` r
-#install.packages("ggplot2")
 library(ggplot2)
 ```
 
 R has thousands of packages. We will use some of them this semester.
 
-The first line is a function that gets the package from CRAN and installs it on your computer. The second line is a function that makes the package with all its functions available to your current R session.
+Installing gets the package from CRAN and puts it on your local computer. The `library(ggplot2)` makes all the code from the package available to your **current** R session.
 
-Step (1) is done once. Step (2) must be done everytime you open an new R session.
+NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R session.
+
+### Examine some data
 
 We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 
@@ -241,6 +247,8 @@ length(airquality$Ozone)
 ```
 
     ## [1] 153
+
+### Make a graph
 
 Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
 
