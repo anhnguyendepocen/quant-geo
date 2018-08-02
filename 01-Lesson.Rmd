@@ -47,7 +47,7 @@ The course has the following expected learning outcomes:
 
 * Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
+I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
 
 There is _no required textbook_ but you are responsible for working through and understanding the code that will be given in each lesson.
 
@@ -174,17 +174,17 @@ A common practice in writing scientific reports is to (1) import data into a sof
 
 Problems:
 
-1. error-prone because there is too many manual steps to the workflow;
+1. error-prone because there are many manual steps to the workflow;
 2. the manual steps are tedious (copying/pasting results between documents);
-3. workflow is hard to record especially when it involves spreadsheets, therefore it is difficult to reproduce;
-4. a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort;
-5. the analysis and writing are mixed together, so attention has to be paid to synchronizing the parts.
+3. workflow is hard to record when it involves spreadsheets, therefore it is difficult to reproduce;
+4. a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort as the original effort;
+5. the analysis and writing are typically mixed together, so your attention has to be paid to synchronizing the parts.
 
-A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mixture of code and text. 
+A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mix of code and text. 
 
-When you compile the source report, the code in it is executed and replaced with the output; you get a final report by mixing the code output with the original writings. 
+When you compile the source report, the code is executed and placed in the output; you get a final report that contains code and the human readable text. 
 
-Because you manage only source code, you are free from the problems above. For example, you can change a single parameter in the code, and get a different report on the fly.
+Because you manage only one document, you are free from many of the problems above. For example, you can change a single parameter in the code, that produces an updated report.
 
 **RStudio** helps you generate dynamic reports from your R session. In this class you will use RStudio to create answer sheets for your homework and exams. You can use it to take notes during class. 
 
