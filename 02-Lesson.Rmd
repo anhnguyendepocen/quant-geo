@@ -1,13 +1,13 @@
 ---
 title: "R and RStudio"
-output: html_notebook
+output: github_document
 ---
 
 August 30, 2018
 
 "**The role of the teacher is to create the conditions for invention rather than provide ready-made knowledge.**"---Seymour Papert
 
-* Today: some of the basics of the R language, how to create a graph, how to put R code into the markdown document, how to generate HTML from a markdown document, problem set 1.
+* Today: some  basics of the R language, how to create a graph, how to put R code into the markdown document, how to generate MD and HTML from an Rmd file, problem set 1.
 * Everyone should have R and RStudio on their laptops with this `02-Lesson.Rmd` notebook opened in RStudio.
 
 ## Review
