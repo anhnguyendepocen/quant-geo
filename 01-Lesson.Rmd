@@ -1,5 +1,6 @@
 ---
 title: "Introduction"
+author: "James B. Elsner"
 output: github_document
 ---
 
