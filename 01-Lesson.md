@@ -12,11 +12,9 @@ Syllabus
 
 ### Contact Information
 
-Professor James B. Elsner, Bellamy Building, Room 323a
-
-Lesson Hours: TR 8:00-9:15 a.m.
-
-Office Hours: TR 9:15-10:30 a.m. & 2-3 p.m. (& by appointment)
+-   Professor James B. Elsner, Bellamy Building, Room 323a
+-   Lesson Hours: TR 8:00-9:15 a.m.
+-   Office Hours: TR 9:15-10:30 a.m. & 2-3 p.m. (& by appointment)
 
 Email: <jelsner@fsu.edu>
 
@@ -33,23 +31,23 @@ Students need a laptop computer with R and RStudio installed.
 
 ### Short Description
 
-Quantitative geographic methods are used to address many of the problems facing our world today. In this course I will teach you some of these methods with the R programming language. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers using the R programming language. Visualizing data, wrangling data, making rigorous conclusions. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
 The course has the following expected learning outcomes:
 
--   Factual: You will acquire basic knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.
+-   Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
 -   Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
--   Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
+-   Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible science. You will learn how to analyze data statistically. You will be able to interpret the results of your model. You will be able to determine the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
 
--   Meta cognitive: You will recognize the potential and some limitations of statistical and data analytic methods with respect to the constraints set by the underlying physical and deterministic processes you seek to explore. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
+-   Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of descriptive statistical concepts such as means, standard deviations, and correlation as well as some basic knowledge of inference (e.g., *t*-test). Everything you do in this class will be done using R/RStudio.
+I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
 
-There is *no required textbook* but you are responsible for working through the code given in each lesson.
+There is *no required textbook* but you are responsible for working through and understanding the code that will be given in each lesson.
 
 ### Grading Policies
 
@@ -112,10 +110,10 @@ This syllabus is a guide for the course and is subject to change with advanced n
 | 15   | Thursday | December 6   | Review for Second Exam            |
 | 16   | Friday   | December 14  | SECOND EXAM (3-5p)                |
 
-Modern Data Analysis
---------------------
+Data Science
+------------
 
-Modern data analysis must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.
+Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.
 
 Being able to code is an increasingly important skill.
 
@@ -123,11 +121,11 @@ A spreadsheet is convenient (at least at first), but it is ultimately limiting a
 
 ### Reproducibility
 
-If an analysis is to be convincing to others, the trail from the data to the final output must be made available.
+If your analysis is to be convincing to others, the trail from the data you started with to the final output must be made available.
 
 It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+Your scientific paper describing the result of an analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
@@ -255,6 +253,6 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 
 ![](01-Lesson_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-Describe what you see. What does the warning mean?
-
-Is ozone concentration higher on windy days? Make a plot and answer this question.
+-   Describe what you see.
+-   What does the warning mean?
+-   Is ozone concentration higher on windy days? Hint: Make another plot to answer this question.
