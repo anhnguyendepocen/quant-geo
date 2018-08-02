@@ -12,11 +12,9 @@ Syllabus
 
 ### Contact Information
 
-Professor James B. Elsner, Bellamy Building, Room 323a
-
-Lesson Hours: TR 8:00-9:15 a.m.
-
-Office Hours: TR 9:15-10:30 a.m. & 2-3 p.m. (& by appointment)
+-   Professor James B. Elsner, Bellamy Building, Room 323a
+-   Lesson Hours: TR 8:00-9:15 a.m.
+-   Office Hours: TR 9:15-10:30 a.m. & 2-3 p.m. (& by appointment)
 
 Email: <jelsner@fsu.edu>
 
@@ -29,27 +27,27 @@ Important links:
 
 ### Materials
 
-Students need a laptop computer with R and RStudio.
+Students need a laptop computer with R and RStudio installed.
 
 ### Short Description
 
-Quantitative geography is useful for addressing many of the problems facing our world today. In this course I will teach you some of the quantitative methods routinely used by professional geographers. The methods will be coded in the R programming language. Access to the R programming language will be done through R Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers using the R programming language. Visualizing data, wrangling data, making rigorous conclusions. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
 The course has the following expected learning outcomes:
 
--   Factual: You will acquire basic knowledge of statistical methods in data analysis. You will become familiar with the terminology used to describe data and the statistical procedures and outcomes applied in quantitative geographical analysis.
+-   Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
 -   Conceptual: You will develop an understanding of some of the statistical tools and when to apply them in data analysis and modeling. You will cultivate a first-order understanding of the motivations, advantages, and disadvantages for different methods and how uncertainties in the data and methods propagate through your analysis.
 
--   Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible analyses. You will learn how to analyze data statistically. You will be able to interpret the results of your model in terms of the physical variables. You will be able to explain the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
+-   Procedural: You will learn how to use R to analyze, graph, and model data. You will learn how to work within RStudio to create reproducible science. You will learn how to analyze data statistically. You will be able to interpret the results of your model. You will be able to determine the significance of effects. You will learn enough R to be able to build on this knowledge throughout your career.
 
--   Meta cognitive: You will recognize the potential and some limitations of statistical and data analytic methods with respect to the constraints set by the underlying physical and deterministic processes you seek to explore. You will be able to identify reasonable inferences or conclusions from your analyses. You will gain an appreciation for the importance of open-source research.
+-   Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of descriptive statistical concepts such as means, standard deviations, and correlation as well as some basic knowledge of inference (e.g., *t*-test). Everything you do in this class will be done using R/RStudio.
+I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
 
-There is *no required textbook* for this course but you are responsible for working through the code given in each lesson.
+There is *no required textbook* but you are responsible for working through and understanding the code that will be given in each lesson.
 
 ### Grading Policies
 
@@ -112,10 +110,10 @@ This syllabus is a guide for the course and is subject to change with advanced n
 | 15   | Thursday | December 6   | Review for Second Exam            |
 | 16   | Friday   | December 14  | SECOND EXAM (3-5p)                |
 
-Modern Data Analysis
---------------------
+Data Science
+------------
 
-Modern data analysis must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.
+Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.
 
 Being able to code is an increasingly important skill.
 
@@ -123,19 +121,19 @@ A spreadsheet is convenient (at least at first), but it is ultimately limiting a
 
 ### Reproducibility
 
-If an analysis is to be convincing to others, the trail from the data to the final output must be made available.
+If your analysis is to be convincing to others, the trail from the data you started with to the final output must be made available.
 
-It is difficult to do this with a spreadsheet. It is too easy for mistakes to creep in (for example, accidentally sorting just a column rather than the entire table).
+It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of an analysis is advertisement for a specific claim. But `proof` is the procedure that was used to obtain the result. The computer code is the message.
+Your scientific paper describing the result of an analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
-Computer code is the grammar of communicating what you did. It is not just to get the computer to do what you want it to do but to communicate with other scientists and to your future self.
+Code is the grammar of communicating what you did. It is not just to get a computer to do what you want it to do but to communicate with other scientists and to your future self.
 
-It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use are not standard.
+It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
 
-Computer code is an efficient way to communicate because all important information is given as plain text.
+Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
 
 ### Automation
 
@@ -166,11 +164,11 @@ Also, an increasing number of scientists are reporting results in the context of
 
 Go to [Get R](http://www.r-project.org) --&gt; Click on CRAN (Comprehensive R Archive Network) --&gt; Scroll to a mirror site. If you are using Windows --&gt; base --&gt; R-\*\*\*.exe --&gt; Save File. Do this now.
 
-Click on the download icon and follow the instructions to install R. You can apply the default options.
+Click on the download icon and follow the instructions to install R. Use the default options.
 
 ### Dynamic report generation
 
-R is a computational engine. Combining R with **RStudio** allows you to generate reports on the fly.
+Combining R with **RStudio** allows you to generate reports on the fly.
 
 A common practice in writing scientific reports is to (1) import data into a software package, (2) run a procedure to get the results, (3) copy and paste selected pieces of the result in a document program, and (4) add a few descriptions of the results to finish.
 
@@ -182,7 +180,7 @@ Problems:
 4.  a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort;
 5.  the analysis and writing are mixed together, so attention has to be paid to synchronizing the parts.
 
-A dynamic report is generated automatically from computer code. Just like a software package has its source code, a dynamic report has its source as a mixture of computer code and text.
+A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mixture of code and text.
 
 When you compile the source report, the code in it is executed and replaced with the output; you get a final report by mixing the code output with the original writings.
 
@@ -194,21 +192,31 @@ Because you manage only source code, you are free from the problems above. For e
 
 Click on [Get RStudio](http://rstudio.org) --&gt; Download RStudio Desktop --&gt; Install and open RStudio. Do this now.
 
-After opening RStudio you should see four window panes. The upper left pane is the markdown file, the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console and the conversion progress panel.
+After opening RStudio you should see your window separate into four panes. The upper left pane is the markdown file (`01-Lesson.Rmd`), the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console.
 
-Make a graph
-------------
+### Install a package
 
-The first thing we will do is create a graph using the functions in the **ggplot2** package. Begin by obtaining the package.
+The first thing we will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
+
+Two steps:
+
+1.  Download the package from CRAN.
+
+This is done by selecting the `Packages` tab in the lower right panel. Select `Install` then type the name of the package `ggplot2`. Note: That is the same as typing `install.packages("ggplot2")` in the console.
+
+1.  Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here we want to make this command part of the markdown file so we delinate the command from the text by placing triple graves (\`) followed by {r} before the command and triple graves after the command.
 
 ``` r
-#install.packages("ggplot2")
 library(ggplot2)
 ```
 
 R has thousands of packages. We will use some of them this semester.
 
-The first line is a function that gets the package from CRAN and installs it on your computer. The second line is a function that makes the package with all its functions available to your current R session.
+Installing gets the package from CRAN and puts it on your local computer. The `library(ggplot2)` makes all the code from the package available to your **current** R session.
+
+NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R session.
+
+### Examine some data
 
 We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 
@@ -240,6 +248,8 @@ length(airquality$Ozone)
 
     ## [1] 153
 
+### Make a graph
+
 Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
 
 ``` r
@@ -251,6 +261,6 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 
 ![](01-Lesson_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-Describe what you see. What does the warning mean?
-
-Is ozone concentration higher on windy days? Make a plot and answer this question.
+-   Describe what you see.
+-   What does the warning mean?
+-   Is ozone concentration higher on windy days? Hint: Make another plot to answer this question.

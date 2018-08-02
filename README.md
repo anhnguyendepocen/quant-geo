@@ -1,1 +1,1 @@
-# quant-geo
+# Quantitative Geography, Fall 2018
