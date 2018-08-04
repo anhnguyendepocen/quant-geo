@@ -29,11 +29,11 @@ Important links:
 
 ### Materials
 
-Students need a laptop computer with R and RStudio installed.
+Students need to bring a laptop computer with R and RStudio installed to each class.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers using the R programming language. Visualizing data, wrangling data, making rigorous conclusions. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers using the R programming language. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
@@ -53,7 +53,7 @@ There is _no required textbook_ but you are responsible for working through and 
 
 ### Grading Policies
 
-Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R Notebooks and submitted to me in digital format. No extra credit will be given.
+Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R markdown and submitted to me in digital format. No extra credit will be given.
 
 Grade | Score | Standard
 ------|-------|---------
@@ -76,7 +76,7 @@ Students needing academic accommodation should: (1) register with and provide do
 
 This syllabus is a guide for the course and is subject to change with advanced notice. The exam dates/times are firm.
 
-### Schedule (subject to change)
+### Schedule (subject to change with notice)
 
 Week | Day      | Date         | Topic
 -----|----------|--------------|------
@@ -96,15 +96,15 @@ Week | Day      | Date         | Topic
 7    | Tuesday  | October 11   | Bayesian Data Analysis
 8    | Tuesday  | October 16   | Regression
 8    | Thursday | October 18   | Regression
-9    | Tuesday  | October 23   | NO CLASS (Out of Town)
-9    | Thursday | October 25   | NO CLASS (Out of Town)
+9    | Tuesday  | October 23   | NO CLASS (out of town)
+9    | Thursday | October 25   | NO CLASS (out of town)
 10   | Tuesday  | October 30   | Regression
 10   | Thursday | November 1   | Classification & Regression Trees
 11   | Tuesday  | November 6   | Logistic Regression
 11   | Thursday | November 8   | Quantile Regression
 12   | Tuesday  | November 13  | Grammar for Spatial Data
 12   | Thursday | November 15  | Geographic Regression
-13   | Tuesday  | November 20  | NO CLASS (Out of Town)
+13   | Tuesday  | November 20  | NO CLASS (out of town)
 13   | Thursday | November 22  | NO CLASS (Thanksgiving)
 14   | Tuesday  | November 27  | Spatial Autocorrelation
 14   | Thursday | November 29  | Spatial Regression
