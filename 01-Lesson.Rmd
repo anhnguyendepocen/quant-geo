@@ -33,7 +33,7 @@ Students need to bring a laptop computer with R and RStudio installed to each cl
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers using the R programming language. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R will be done through Notebooks within the RStudio environment.
 
 ### Learning Outcomes
 
