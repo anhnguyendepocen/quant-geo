@@ -37,7 +37,7 @@ This course is an introduction to data science and statistical thinking for geog
 
 ### Learning Outcomes
 
-The course has the following expected learning outcomes:
+The expected learning outcomes include:
 
 * Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
@@ -233,7 +233,7 @@ dim(airquality)
 length(airquality$Ozone)
 ```
 
-### Make a graph
+### Make a scatter plot graph
 
 Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
 ```{r}
