@@ -96,14 +96,14 @@ Week | Day      | Date         | Topic
 7    | Tuesday  | October 11   | Bayesian Data Analysis
 8    | Tuesday  | October 16   | Regression
 8    | Thursday | October 18   | Regression
-9    | Tuesday  | October 23   | NO CLASS (out of town)
-9    | Thursday | October 25   | NO CLASS (out of town)
-10   | Tuesday  | October 30   | Regression
-10   | Thursday | November 1   | Classification & Regression Trees
-11   | Tuesday  | November 6   | Logistic Regression
-11   | Thursday | November 8   | Quantile Regression
-12   | Tuesday  | November 13  | Grammar for Spatial Data
-12   | Thursday | November 15  | Geographic Regression
+9    | Tuesday  | October 23   | Regression
+9    | Thursday | October 25   | Classification & Regression Trees
+10   | Tuesday  | October 30   | Logistic Regression
+10   | Thursday | November 1   | Quantile Regression
+11   | Tuesday  | November 6   | Grammar for Spatial Data
+11   | Thursday | November 8   | Geographic Regression
+12   | Tuesday  | November 13  | Geographic Regression
+12   | Thursday | November 15  | Spatial Autocorrelation
 13   | Tuesday  | November 20  | NO CLASS (out of town)
 13   | Thursday | November 22  | NO CLASS (Thanksgiving)
 14   | Tuesday  | November 27  | Spatial Autocorrelation
