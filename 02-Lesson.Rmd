@@ -7,10 +7,10 @@ August 30, 2018
 
 "**The role of the teacher is to create the conditions for invention rather than provide ready-made knowledge.**"---Seymour Papert
 
-* Today: some  basics of the R language, how to create a graph, how to put R code into the markdown document, how to generate MD and HTML from an Rmd file, problem set 1.
-* Everyone should have R and RStudio on their laptops with this `02-Lesson.Rmd` notebook opened in RStudio.
+* After this lession you will know (1) basics of the R language, (2) how to create a graph, (3) how to put R code into the markdown document, and (4) how to generate HTML from an Rmd file.
+* Everyone should have R and RStudio on a laptop with this `02-Lesson.Rmd` file opened in RStudio.
 
-## Review
+## Review 
 
 ### Grading
 
@@ -38,3 +38,432 @@ Next make the functions from the package available for this particular session.
 ```{r}
 library(ggplot2)
 ```
+
+The `install.packages()` function gets the package named **ggplot2** from CRAN and puts it on your computer. Then the `library()` function makes the package and all its functions available to your current R session. Only the `library()` function needs to be done every time you open RStudio.
+
+Start with the `airquality` data frame in the **datasets** package that is loaded as part of the **base** R package. The data contains daily air quality measurements from a location in New York City between May and September 1973.
+```{r}
+head(airquality)
+dim(airquality)
+```
+
+The function `head()` lists the first six rows of the data along with the column names including contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day. The function `dim()` gives the number of rows (first number) and the number of columns in the data frame.
+
+Question: Is ozone concentration higher on warmer days? You should look at your data before doing statistics. This involves making graphs. The most important scientific graph is the scatter plot. It involves plotting two variables in a two-dimensional cartesian plane defined by the values of the variables.
+```{r}
+ggplot(airquality, aes(x = Temp, y = Ozone)) + 
+  geom_point()
+```
+
+Describe what you see. Why the warning?
+
+Question: On average is ozone concentration higher on windy days? Create a graph to help you answer this question.
+```{r}
+ggplot(airquality, aes(x = Wind, y = Ozone)) + 
+  geom_point()
+```
+
+The answer is no.
+
+We can use a label instead of a dot for the locations in this two-dimensional scatterpolot by adding the `label` aesthetic and using `geom_text`. 
+```{r}
+ggplot(airquality, aes(x = Wind, y = Ozone, label = Ozone)) +
+  geom_text()
+```
+
+More about graphs next week.
+
+## Turning in your problem sets (and exams) using R, RStudio, & knitr
+
+You will submit your problem sets (and exams) to me through email. Email both the Rmd file with your answers and the HTML file the results from selecting the Knit tab.
+
+1. Download the PSX.Rmd file from Campus under Assignments.
+2. Use your last name and rename the file accordingly Lastname_PSX.Rmd
+3. Open the file in RStudio: File > Open File
+4. In the file replace 'Your Name' with your name.
+5. Answer the questions by typing the code between the chunk markers.
+6. Select the Knit button to generate the HTML.
+7. Attach the HTML and Rmd files in an email to me. Include a subject line like Assignment X.
+
+Alternative:
+7. Select the Publish button on the HTML document (You will need an RPubs account--it's free).
+8. Attach the Rmd file and a copy of the web link in an email to me.
+
+## Finishing R
+
+When you start RStudio the version number and name is printed and instructions on quitting. When you quit, RStudio will offer to save the current session. Saving your session is not usually necessary. You can type: `quit()` or select the red button in the upper-left corner of RStudio.
+
+## Calculations
+
+R evaluates commands typed at the prompt and returns the result to the screen. The prompt is the blue greater than symbol (`>`). To find the sum of the square root of 25 and 2, at the prompt type
+```{r}
+sqrt(25) + 2
+```
+
+The number inside the brackets indexes the output. Here there is only one bit of output, the answer 7. The prompt that follows indicates R is ready for another command.
+```{r}
+12/3 - 5
+```
+
+How would you calculate the 5th power of 2? How would you find the product of 10.3 & -2.9? How would you find the average of 8.3 and 10.2?
+
+How about 4.5% of 12,000?
+```{r}
+.045 * 12000 
+```
+
+## Functions
+
+Many math and statistical functions are available. A function has a name followed by a pair of parentheses. Arguments are placed inside the parentheses as needed.
+
+For example,
+```{r}
+sqrt(2)
+```
+
+```{r}
+sin(pi)
+```
+
+How do you interpret this output?  Type (highlight then click Run): .0000000000000001224647
+Why not zero?
+```{r}
+exp(1)
+log(10)
+```
+
+Many functions have arguments with default values. For example, you only need to tell the random number generator `rnorm()` how many numbers to produce. The default mean is zero. To replace the default value, specify the corresponding argument name.
+```{r}
+rnorm(10)
+rnorm(10, mean = 5)
+```
+
+## Syntax is important
+
+You get an error message when you type a function that R does not understand. For example:
+```{r eval=FALSE}
+squareroot(2)
+```
+Error: could not find function "squareroot"
+
+```{r eval=FALSE}
+sqrt 2
+```
+Error: syntax error
+
+```{r}
+sqrt(-2)
+```
+
+```{r eval=FALSE}
+sqrt(2
++
+```
+
+The last command shows what happens if R encounters a line that is not complete. The continuation prompt (`+`) is printed, indicating you did not finish the command.
+
+## Saving an object
+
+Objects are saved for later use. Use the assignment statement to save an object. You put a name on the left-hand side of the equals sign and the value on the right. Assignments do not produce output.
+```{r}
+x = 2 
+x + 3    
+x <- 10
+```
+
+Here you assigned `x` to be a numeric object. Assignments are made using the equal sign or the left-pointing arrow (less than followed by a dash).
+
+## Object names
+
+You are free to make object names out of letters, numbers, and the dot or underline characters.  A name starts with a letter or a dot (a leading dot may not be followed by a number). But you can't use mathematical operators, such as +, -, *, and /.
+
+Some examples of names include:
+```{r}
+x = 2
+n = 25
+a.long.number = 123456789
+ASmallNumber = 0.001
+```
+
+Case matters. `DF` is different than `df` or `Df`.
+
+Some names are commonly used to represent certain types of data. For instance, `n` is for length; `x` or `y` are data vectors; and `i` and `j` are integers and indices.
+
+These conventions are not forced, but consistent use of them makes it easier for you (and others) to understand what you've done.
+
+## Getting and loading packages from CRAN
+
+Lots of packages are available in R.  Packages are groups of functions that do specific tasks. To install and load a package from the R console, determine the name of the package (http://cran.r-project.org/).  Then type
+```{r eval=FALSE}
+chooseCRANmirror()
+```
+
+Select a site, then if you're interested in the **UsingR** package, type
+```{r eval=FALSE}
+install.packages("UsingR")
+library("UsingR")
+```
+
+The first function retrieves the package from CRAN and installs it on your computer. The second makes the package available to your current R session (loads the function).  
+
+When you restart R you will need to reload the package, but you will not need to re-install it. The function `require()` works much like `library()`. 
+
+In RStudio you can use the Packages tab and the Install Packages link. The packages on your computer are listed alphabetically.  The check mark indicates they are available to your current session.
+
+Install and load the **spgwr** package.
+
+## Entering data
+
+The `c()` function is useful for getting a small amount of data into R. The function combines (concatenates) items (elements). Example: consider a set of hypothetical annual land falling hurricane counts over a ten-year period.
+
+2  3  0  3  1  0  0  1  2  1
+
+To enter these into your environment, type
+```{r}
+counts = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
+counts
+```
+
+Notice a few things. You assigned the values to an object called counts. The assignment operator is an equal sign (`=`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]). More on this later.
+
+You can save some typing by using the arrow keys to retrieve previous commands.  Each command is stored in a history file and the up arrow key will move backwards through the history file and the down arrow forwards.  The left and right arrow keys will work as expected.
+ 
+## Applying a function
+
+Once the data are stored in an object, you use functions on them. R comes with all sorts of functions that you can apply to your counts data.
+```{r}
+sum(counts)         # total number of hurricanes making landfall
+length(counts)      # length of the data vector
+sum(counts)/length(counts)   # average number of hurricanes
+```
+
+Other useful functions include, `sort()`, `min()`, `max()`, `range()`, `diff()`, and `cumsum()`.  Try these on the landfall counts.  What does `range()` do?  What does `diff()` do?
+
+## Mean
+
+The average (or mean) value of a set of numbers ($x$'s) is defined as:
+$$
+\bar x = \frac{x_1 + x_2 + \cdots + x_n}{n}
+$$
+The function `mean()` makes this calculation on your set of counts.
+```{r}
+mean(counts)
+```
+
+## Data vectors
+
+The count data is stored as a vector. R keeps track of the order that the data were entered. First element,second element, and so on. This is good for a couple of reasons. Here the data has a natural order - year 1, year 2, etc. You don't want to mix these. You would like to be able to make changes to the data item by item instead of entering the entire data again. Also vectors are math objects making them easy to manipulate.
+
+Suppose `counts` contain the annual number of land-falling hurricanes from the first decade of a longer record. You want to keep track of counts over other decades. This could be done by the following, example.
+```{r}
+cD1 = counts
+cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1) 
+```
+ 
+Note that you make a copy of the first decade of counts and save the vector using a different object name.
+
+Most functions operate on each element of the data vector at the same time.
+```{r}
+cD1 + cD2
+```
+
+The first year of the first decade is added from the first year of the second decade and so on.
+
+What happens if you apply the `c()` function to these two vectors?
+```{r}
+c(cD1, cD2)
+```
+
+If you are interested in each year's count as a difference from the decade mean, you type:
+```{r}
+cD1 - mean(cD1)
+```
+
+In this case a single number (the mean of the first decade) is subtracted from each element of the vector of counts.
+
+This is an example of data recycling. R repeats values from one vector so that its length matches the other vector. Here the mean is repeated 10 times.
+
+## Variance
+
+Suppose you are interested in the variance of the set of landfall counts. The formula is given by:
+$$
+\hbox{var}(x) = \frac{(x_1 - \bar x)^2 + (x_2 - \bar x)^2 + \cdots + (x_n - \bar x)^2}{n-1}
+$$
+
+Note: The formula is given as LaTeX math code with the double dollar signs starting (and ending) the math mode. It's a bit hard to read but it translates exactly to math as you would read it in a scientific article or textbook. Look at the HTML file.
+
+Although the `var()` function will compute this for you, here you see how you could do this directly using the vectorization of functions. The key is to find the squared differences and then add up the values.
+
+The key is to find the squared differences and then add them up.
+```{r}
+x = cD1
+xbar  = mean(x)
+x - xbar
+(x - xbar)^2
+sum((x - xbar)^2)
+n = length(x)
+n
+sum((x - xbar)^2)/(n - 1)
+```
+
+To verify type
+```{r}
+var(x)
+```
+
+## Data vectors have a type
+
+One restriction on data vectors is that all the values have the same type. This can be numeric, as in counts, character strings, as in
+```{r}
+simpsons = c("Homer", "Marge", "Bart", "Lisa", "Maggie")
+simpsons
+```
+
+Note that character strings are made with matching quotes, either double, ", or single, '.
+
+If you mix the type within a data vector, the data will be coerced into a common type, which is usually a character.  Arithmetic operations do not work on characters.
+
+Returning to the land falling hurricane counts.
+```{r}
+cD1 = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)   
+cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
+```
+
+Now suppose the National Hurricane Center (NHC) reanalyzes a storm, and that the 6th year of the 2nd decade is a 1 rather than a 0 for the number of landfalls. In this case you type
+```{r}
+cD2[6] = 1    # assign the 6 year of the decade a value of 1 landfall
+```
+
+The assignment to the 6th entry in the vector cD2 is done by referencing the 6th entry of the vector with square brackets `[]`. 
+
+It's important to keep this in mind: Parentheses `()` are used for functions and square brackets `[]` are used to extract values from vectors (and arrays, lists, etc). REPEAT: `[]` are used to extract or subset values from vectors, data frames, matrices, etc.
+
+```{r}
+cD2    #print out the values
+cD2[2]  # print the number of landfalls during year 2 of the second decade
+cD2[4]  # 4th year count
+cD2[-4]  # all but the 4th year
+cD2[c(1, 3, 5, 7, 9)]   # print the counts from the odd years
+```
+
+One way to remember how to use functions is to think of them as pets.  They don't come unless they are called by name (spelled properly). They have a mouth (parentheses) that likes to be fed (arguments), and they will complain if they are not feed properly.
+
+## Finding help
+
+There are many different functions---more than you are able to keep in your head. R has built-in help facilities. These can be consulted for information about what is returned by the function, for details on additional arguments, and for examples.
+
+If you know the name of the function, you can type for example:
+```{r eval=FALSE}
+?quantile
+```
+
+This works great if you can remember the name of the function. The function `apropos()` searches for functions with names containing a string of characters.
+```{r}
+apropos("mean")
+```
+
+The function `help.search()` will search each entry in the help system and returning matches (often many) of functions that mention the word "mean".
+
+Most help pages have examples. These can be run one-by-one by cutting and pasting into the console, or all at once by using the function example.
+```{r}
+example(mean)
+```
+
+## Working smarter not harder
+
+R's console keeps a history of your commands. The previous commands are accessed using the up and down arrow keys. Repeatedly pushing the up arrow will scroll backward through the history so you can reuse previous commands.
+
+Many times you wish to change only a small part of a previous command, such as when a typo is made.  With the arrow keys you can access the previous command then edit it as desired.
+
+You can save the history into a file and then load it later.
+```{r eval=FALSE}
+savehistory("Aug31")
+loadhistory("Aug31")
+```
+
+Since you are working in an Rmd file there is usually no need to save your history file.
+
+## Creating structured data
+
+Sometimes data have a pattern. For instance the integers 1 through 99. To enter these one by one would be a waste of time. Instead, the colon function is used for creating simple sequences.
+```{r}
+1:100
+rev(1:100)
+100:1
+```
+
+It's often desirable to specify either the step size and the starting and ending points or the starting and ending points and the length of the sequence. The `seq()` function does this.
+```{r}
+seq(1, 9, by = 2)
+seq(1, 10, by = 2)
+seq(1, 9, length = 5)
+```
+
+To create a vector of the same value use the `rep()` function. The simplest usage is to repeat the first argument a specified number of times.
+```{r}
+rep(1, 10)
+rep(1:3, 3)
+```
+
+More complicated patterns can be repeated by specifying pairs of equal-sized vectors. In this case, each element of the first vector is repeated the corresponding number of times specified by the element in the second vector.
+```{r}
+rep(c("long", "short"), c(1, 2))
+```
+
+## Examining your data
+
+To find the maximum number of landfalls in the first decade, type:
+```{r}
+max(cD1)
+```
+
+Which years had the maximum?
+```{r}
+cD1 == 3
+```
+
+Notice the double equals signs (`==`).  This tests each value in `cD1` to see if it is equal to 3. The 2nd and 4th values are equal to 3 so TRUEs are returned. Think of this as asking R a question. Is the value equal to 3?  R answers all at once with a vector of TRUE's and FALSE's.
+
+Now the question is, how do you get the vector element corresponding to the TRUE values?  That is, which years have 3 landfalls?
+```{r}
+which(cD1 == 3)
+```
+
+The function `which.max()` can be used to get the first maximum.
+```{r}
+which.max(cD1)
+```
+
+You might also want to know the total number of landfalls in each decade and the number of years in a decade without a landfall.  Or how about the ratio of the mean number of landfalls over the two decades.
+```{r}
+sum(cD1); sum(cD2)
+```
+
+Here you stack function calls on a single line by using the semicolon `;`.
+```{r}
+sum(cD1 == 0); sum(cD2 == 0)
+```
+
+```{r}
+mean(cD2)/mean(cD1)
+```
+
+So there is 85% more landfalls during the second decade.  Is this statistically significant?
+
+To remove an object from your environment use the `rm()` function.
+```{r}
+rm(cD1, cD2)
+```
+
+## Practice
+
+* Learning path: 
+1. Install R
+2. Install RStudio
+3. Google "How do I [THING I WANT TO DO] in R?"
+
+* Install the package **swirl**. Type `swirl()` and select R Programming > Vectors, Missing Values, Subsetting Vectors, and Matrices and Data Frames
+
+* The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
+
+## Problem Set 1
