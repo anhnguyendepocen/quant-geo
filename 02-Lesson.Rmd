@@ -15,11 +15,11 @@ August 30, 2018
 ### Grading
 
 * Grades: Two exams each worth 40% and several (4-6) homework problem sets (20%).
-* Exam Dates: First Exam: Tuesday, October 10, Final Exam: Friday, December 15. No makeup exams.
+* Exam Dates: First Exam: Thursday, October 4, Final Exam: Friday, December 14 (final exam week). No makeup exams.
 * Exams and problems sets will be done with R markdown documents (Rmd files) and emailed to me (both the Rmd and HTML files). 
-* Exams will be done without a proctor. 
+* Exams will be done without a proctor.
 * Exams will be time restricted. 
-* Exams will be available as series of questions in an Rmd file through Canvas.
+* Exams will be available in an Rmd file through Canvas.
 
 ### Reproducible research
 
@@ -27,7 +27,7 @@ If your science is to be a convincing the trail from data to final output must b
 
 ### Your first graph
 
-As motivation for learning R and RStudio, the first thing you will see is how easy it is to create a nice graph using the functions in the **ggplot2** package. Begin by obtaining the package. R has many packages. We will use several dozen of them this semester.
+It is relatively easy to create a nice graph using the functions in the **ggplot2** package. Begin by obtaining the package. R has many packages. We will use several dozen of them this semester.
 
 First download the package from a CRAN site. You can do this using the Package tab in the lower-right window pane or with the `install.packages()` function where the name of the package is in quotes inside the parentheses.
 ```{r eval=FALSE}
@@ -164,14 +164,14 @@ The last command shows what happens if R encounters a line that is not complete.
 
 ## Saving an object
 
-Objects are saved for later use. Use the assignment statement to save an object. You put a name on the left-hand side of the equals sign and the value on the right. Assignments do not produce output.
+Use the assignment operatore to save an object. You put a name on the left-hand side of the left pointing arrow (`<-`) and the value on the right. Assignments do not produce output.
 ```{r}
-x = 2 
+x <- 2 
 x + 3    
 x <- 10
 ```
 
-Here you assigned `x` to be a numeric object. Assignments are made using the equal sign or the left-pointing arrow (less than followed by a dash).
+Here you assigned `x` to be a numeric object. Assignments are made using the left-pointing arrow (less than followed by a dash) [or an equal sign.]
 
 ## Object names
 
@@ -179,10 +179,10 @@ You are free to make object names out of letters, numbers, and the dot or underl
 
 Some examples of names include:
 ```{r}
-x = 2
-n = 25
-a.long.number = 123456789
-ASmallNumber = 0.001
+x <- 2
+n <- 25
+a.long.number <- 123456789
+ASmallNumber <- .001
 ```
 
 Case matters. `DF` is different than `df` or `Df`.
@@ -220,7 +220,7 @@ The `c()` function is useful for getting a small amount of data into R. The func
 
 To enter these into your environment, type
 ```{r}
-counts = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
+counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
 counts
 ```
 
@@ -256,8 +256,8 @@ The count data is stored as a vector. R keeps track of the order that the data w
 
 Suppose `counts` contain the annual number of land-falling hurricanes from the first decade of a longer record. You want to keep track of counts over other decades. This could be done by the following, example.
 ```{r}
-cD1 = counts
-cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1) 
+cD1 <- counts
+cD2 <- c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1) 
 ```
  
 Note that you make a copy of the first decade of counts and save the vector using a different object name.
@@ -296,12 +296,12 @@ Although the `var()` function will compute this for you, here you see how you co
 
 The key is to find the squared differences and then add them up.
 ```{r}
-x = cD1
-xbar  = mean(x)
+x <- cD1
+xbar <- mean(x)
 x - xbar
 (x - xbar)^2
 sum((x - xbar)^2)
-n = length(x)
+n <- length(x)
 n
 sum((x - xbar)^2)/(n - 1)
 ```
@@ -315,7 +315,7 @@ var(x)
 
 One restriction on data vectors is that all the values have the same type. This can be numeric, as in counts, character strings, as in
 ```{r}
-simpsons = c("Homer", "Marge", "Bart", "Lisa", "Maggie")
+simpsons <- c("Homer", "Marge", "Bart", "Lisa", "Maggie")
 simpsons
 ```
 
@@ -325,13 +325,13 @@ If you mix the type within a data vector, the data will be coerced into a common
 
 Returning to the land falling hurricane counts.
 ```{r}
-cD1 = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)   
-cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
+cD1 <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)   
+cD2 <- c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
 ```
 
 Now suppose the National Hurricane Center (NHC) reanalyzes a storm, and that the 6th year of the 2nd decade is a 1 rather than a 0 for the number of landfalls. In this case you type
 ```{r}
-cD2[6] = 1    # assign the 6 year of the decade a value of 1 landfall
+cD2[6] <- 1    # assign the 6 year of the decade a value of 1 landfall
 ```
 
 The assignment to the 6th entry in the vector cD2 is done by referencing the 6th entry of the vector with square brackets `[]`. 
@@ -455,7 +455,7 @@ To remove an object from your environment use the `rm()` function.
 rm(cD1, cD2)
 ```
 
-## Practice
+## Practice & Help
 
 * Learning path: 
 1. Install R
