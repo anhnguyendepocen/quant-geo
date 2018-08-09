@@ -8,7 +8,7 @@ August 28, 2018
 
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
-* After this lesson you will know what this class is about, how you will be graded, and how to install R and RStudio on your laptop.
+After this lesson you will know (1) what this class is about, (2) how you will be graded, (3) how to install R and RStudio on your laptop, and (4) how to make a graph.
 
 ## Syllabus
 
@@ -27,17 +27,17 @@ Important links:
 * [Twitter](https://twitter.com/JBElsner)
 * [Research Website](http://myweb.fsu.edu/jelsner/_site/)
 
-### Materials
+### Required Materials
 
-Students need to bring a laptop computer with R and RStudio installed to each class.
+A laptop computer with R and RStudio installed. It is important to bring the laptop to each class period.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R is done with Notebooks in the RStudio environment.
 
 ### Learning Outcomes
 
-The expected learning outcomes include:
+Expected learning outcomes include:
 
 * Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
@@ -49,7 +49,7 @@ The expected learning outcomes include:
 
 I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
 
-There is _no required textbook_ but you are responsible for working through and understanding the code that will be given in each lesson.
+There is _no required textbook_. You are responsible for working through and understanding the code that will be given during each lesson.
 
 ### Grading Policies
 
@@ -138,33 +138,24 @@ Code is an efficient way to communicate because all important information is giv
 
 ### Automation
 
-If you've made a GIS map you know how difficult it is to recreate it with a new set of data.
-
-This is common in science since data are frequently updated. 
-
-During data preparation and exploration you are likely to find problems.
-
-Running computer code with new data is simple.
+If you've ever made a map using GIS you know how difficult it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
 
 ## The R programming language
 
-R is the leading open source statistical programming language.
-
-R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
-
-Limited graphical user interface (GUI) meaning it is harder to learn at the outset. No commercial support. It's a programming language so you need to appreciate syntax issues. 
-
-Common metaphors for working with computers are: browsers, iTunes, Excel, Word, etc. R is nothing like these. It is easy to forget commands. There are no visual cues: A blank screen is intimidating.  It’s not the easiest language to learn but once you get the hang of the basic syntax the data analytic floodgates open. R is generative, like a written language.  
-
-R allows you to take advantage of the availability of new, cutting edge applications in emerging statistical fields. For geographers this is apparent in applied spatial statistics.
-
-Also, an increasing number of scientists are reporting results in the context of R, and it's important to know what they are talking about.  Most of the world's leading statisticians use and contribute to R.
+* R is the leading open source statistical programming language.
+* R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
+* R has all the cutting edge statistical methods including methods in spatial statistics.
+* R is increasingly used by scientists of all stripes. Most of the world's statisticians use (and contribute to) it.
 
 ### Get R
 
-Go to [Get R](http://www.r-project.org) --> Click on CRAN (Comprehensive R Archive Network) --> Scroll to a mirror site. If you are using Windows --> base --> R-***.exe --> Save File. Do this now.
-
-Click on the download icon and follow the instructions to install R. Use the default options.
+* Go to [Get R](http://www.r-project.org).
+* Click on CRAN (Comprehensive R Archive Network).
+* Click one of the mirror sites.
+* Select one of the precompiled binary distributions.
+* If you are using Windows, select base, then Download R*** for Windows.
+* Click on the downloaded file to install. 
+* Use the default options.
 
 ### Dynamic report generation
 
@@ -190,7 +181,10 @@ Because you manage only one document, you are free from many of the problems abo
 
 ### Get RStudio
 
-Click on [Get RStudio](http://rstudio.org) --> Download RStudio Desktop --> Install and open RStudio. Do this now.
+* Go to [Get RStudio](http://rstudio.org).
+* Select Download RStudio.
+* Select RStudio Desktop (FREE).
+* Click on the downloaded file to install.
 
 After opening RStudio you should see your window separate into four panes. The upper left pane is the markdown file (`01-Lesson.Rmd`), the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console.
 
