@@ -457,7 +457,7 @@ rm(cD1, cD2)
 
 ## Practice & Help
 
-* Learning path: 
+* Standard learning path: 
 1. Install R
 2. Install RStudio
 3. Google "How do I [THING I WANT TO DO] in R?"
