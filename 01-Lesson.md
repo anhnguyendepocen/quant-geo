@@ -1,11 +1,12 @@
 Introduction
 ================
+James B. Elsner
 
 August 28, 2018
 
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
--   After this lesson you will know what this class is about, how you will be graded, and how to install R and RStudio on your laptop.
+After this lesson you will know (1) what this class is about, (2) how you will be graded, (3) how to install R and RStudio on your laptop, and (4) how to make a graph.
 
 Syllabus
 --------
@@ -25,17 +26,17 @@ Important links:
 -   [Twitter](https://twitter.com/JBElsner)
 -   [Research Website](http://myweb.fsu.edu/jelsner/_site/)
 
-### Materials
+### Required Materials
 
-Students need a laptop computer with R and RStudio installed.
+A laptop computer with R and RStudio installed. It is important to bring the laptop to each class period.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers using the R programming language. Visualizing data, wrangling data, making rigorous conclusions. Access to R will be done through Notebooks within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R is done with Notebooks in the RStudio environment.
 
 ### Learning Outcomes
 
-The course has the following expected learning outcomes:
+Expected learning outcomes include:
 
 -   Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
@@ -45,13 +46,13 @@ The course has the following expected learning outcomes:
 
 -   Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you do in this class will be done using R/RStudio.
+I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
 
-There is *no required textbook* but you are responsible for working through and understanding the code that will be given in each lesson.
+There is *no required textbook*. You are responsible for working through and understanding the code that will be given during each lesson.
 
 ### Grading Policies
 
-Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R Notebooks and submitted to me in digital format. No extra credit will be given.
+Grades are determined by two exams (each worth 40%) and several (4-6) assignments cumulatively worth 20%. There are NO make-up exams. Class attendance is expected, but not required. Late assignments are not accepted. Assignments and exams will be done using R markdown and submitted to me in digital format. No extra credit will be given.
 
 | Grade | Score  | Standard                                   |
 |-------|--------|--------------------------------------------|
@@ -74,7 +75,7 @@ Students needing academic accommodation should: (1) register with and provide do
 
 This syllabus is a guide for the course and is subject to change with advanced notice. The exam dates/times are firm.
 
-### Schedule (subject to change)
+### Schedule (subject to change with notice)
 
 | Week | Day      | Date         | Topic                             |
 |------|----------|--------------|-----------------------------------|
@@ -94,15 +95,15 @@ This syllabus is a guide for the course and is subject to change with advanced n
 | 7    | Tuesday  | October 11   | Bayesian Data Analysis            |
 | 8    | Tuesday  | October 16   | Regression                        |
 | 8    | Thursday | October 18   | Regression                        |
-| 9    | Tuesday  | October 23   | NO CLASS (Out of Town)            |
-| 9    | Thursday | October 25   | NO CLASS (Out of Town)            |
-| 10   | Tuesday  | October 30   | Regression                        |
-| 10   | Thursday | November 1   | Classification & Regression Trees |
-| 11   | Tuesday  | November 6   | Logistic Regression               |
-| 11   | Thursday | November 8   | Quantile Regression               |
-| 12   | Tuesday  | November 13  | Grammar for Spatial Data          |
-| 12   | Thursday | November 15  | Geographic Regression             |
-| 13   | Tuesday  | November 20  | NO CLASS (Out of Town)            |
+| 9    | Tuesday  | October 23   | Regression                        |
+| 9    | Thursday | October 25   | Classification & Regression Trees |
+| 10   | Tuesday  | October 30   | Logistic Regression               |
+| 10   | Thursday | November 1   | Quantile Regression               |
+| 11   | Tuesday  | November 6   | Grammar for Spatial Data          |
+| 11   | Thursday | November 8   | Geographic Regression             |
+| 12   | Tuesday  | November 13  | Geographic Regression             |
+| 12   | Thursday | November 15  | Spatial Autocorrelation           |
+| 13   | Tuesday  | November 20  | NO CLASS (out of town)            |
 | 13   | Thursday | November 22  | NO CLASS (Thanksgiving)           |
 | 14   | Tuesday  | November 27  | Spatial Autocorrelation           |
 | 14   | Thursday | November 29  | Spatial Regression                |
@@ -137,34 +138,25 @@ Code is an efficient way to communicate because all important information is giv
 
 ### Automation
 
-If you've made a GIS map you know how difficult it is to recreate it with a new set of data.
-
-This is common in science since data are frequently updated.
-
-During data preparation and exploration you are likely to find problems.
-
-Running computer code with new data is simple.
+If you've ever made a map using GIS you know how difficult it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
 
 The R programming language
 --------------------------
 
-R is the leading open source statistical programming language.
-
-R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
-
-Limited graphical user interface (GUI) meaning it is harder to learn at the outset. No commercial support. It's a programming language so you need to appreciate syntax issues.
-
-Common metaphors for working with computers are: browsers, iTunes, Excel, Word, etc. R is nothing like these. It is easy to forget commands. There are no visual cues: A blank screen is intimidating. It’s not the easiest language to learn but once you get the hang of the basic syntax the data analytic floodgates open. R is generative, like a written language.
-
-R allows you to take advantage of the availability of new, cutting edge applications in emerging statistical fields. For geographers this is apparent in applied spatial statistics.
-
-Also, an increasing number of scientists are reporting results in the context of R, and it's important to know what they are talking about. Most of the world's leading statisticians use and contribute to R.
+-   R is the leading open source statistical programming language.
+-   R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
+-   R has all the cutting edge statistical methods including methods in spatial statistics.
+-   R is increasingly used by scientists of all stripes. Most of the world's statisticians use (and contribute to) it.
 
 ### Get R
 
-Go to [Get R](http://www.r-project.org) --&gt; Click on CRAN (Comprehensive R Archive Network) --&gt; Scroll to a mirror site. If you are using Windows --&gt; base --&gt; R-\*\*\*.exe --&gt; Save File. Do this now.
-
-Click on the download icon and follow the instructions to install R. Use the default options.
+-   Go to [Get R](http://www.r-project.org).
+-   Click on CRAN (Comprehensive R Archive Network).
+-   Click one of the mirror sites.
+-   Select one of the precompiled binary distributions.
+-   If you are using Windows, select base, then Download R\*\*\* for Windows.
+-   Click on the downloaded file to install.
+-   Use the default options.
 
 ### Dynamic report generation
 
@@ -174,23 +166,26 @@ A common practice in writing scientific reports is to (1) import data into a sof
 
 Problems:
 
-1.  error-prone because there is too many manual steps to the workflow;
+1.  error-prone because there are many manual steps to the workflow;
 2.  the manual steps are tedious (copying/pasting results between documents);
-3.  workflow is hard to record especially when it involves spreadsheets, therefore it is difficult to reproduce;
-4.  a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort;
-5.  the analysis and writing are mixed together, so attention has to be paid to synchronizing the parts.
+3.  workflow is hard to record when it involves spreadsheets, therefore it is difficult to reproduce;
+4.  a change to the data requires you to go through the same procedure again, which can take nearly the same amount of time and effort as the original effort;
+5.  the analysis and writing are typically mixed together, so your attention has to be paid to synchronizing the parts.
 
-A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mixture of code and text.
+A dynamic report is generated automatically from code. Just like a software package has its source code, a dynamic report has its source as a mix of code and text.
 
-When you compile the source report, the code in it is executed and replaced with the output; you get a final report by mixing the code output with the original writings.
+When you compile the source report, the code is executed and placed in the output; you get a final report that contains code and the human readable text.
 
-Because you manage only source code, you are free from the problems above. For example, you can change a single parameter in the code, and get a different report on the fly.
+Because you manage only one document, you are free from many of the problems above. For example, you can change a single parameter in the code, that produces an updated report.
 
 **RStudio** helps you generate dynamic reports from your R session. In this class you will use RStudio to create answer sheets for your homework and exams. You can use it to take notes during class.
 
 ### Get RStudio
 
-Click on [Get RStudio](http://rstudio.org) --&gt; Download RStudio Desktop --&gt; Install and open RStudio. Do this now.
+-   Go to [Get RStudio](http://rstudio.org).
+-   Select Download RStudio.
+-   Select RStudio Desktop (FREE).
+-   Click on the downloaded file to install.
 
 After opening RStudio you should see your window separate into four panes. The upper left pane is the markdown file (`01-Lesson.Rmd`), the upper right pane contains the environment and history panels, the lower right pane contains the plots, packages, etc panels, and the lower left is the R console.
 
@@ -248,7 +243,7 @@ length(airquality$Ozone)
 
     ## [1] 153
 
-### Make a graph
+### Make a scatter plot graph
 
 Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
 
