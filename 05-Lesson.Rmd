@@ -1,6 +1,11 @@
-# Grammar for Data {#GD}
-
-September 26, 2017
+---
+title: "Grammar for Data"
+author: "James B. Elsner"
+date: September 11, 2018
+output: 
+  html_document:
+    keep_md: true
+---
 
 "**Science is the belief in the ignorance of experts.**"---Richard Feynman
 

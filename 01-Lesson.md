@@ -7,8 +7,6 @@ output:
     keep_md: true
 ---
 
-August 28, 2018
-
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
 After this lesson you will know (1) what this class is about, (2) how you will be graded, (3) how to install R and RStudio on your laptop, and (4) how to make a graph.
@@ -85,14 +83,14 @@ Week | Day      | Date         | Topic
 -----|----------|--------------|------
 1    | Tuesday  | August 28    | Introduction (Mr. Fricker)
 1    | Thursday | August 30    | RStudio and R 
-2    | Tuesday  | September 4  | Working in R
+2    | Tuesday  | September 4  | Working with R
 2    | Thursday | September 6  | Data and Data Frames
 3    | Tuesday  | September 11 | Grammar for Data
 3    | Thursday | September 13 | Grammar for Data
 4    | Tuesday  | September 18 | Grammar for Graphs
 4    | Thursday | September 20 | Grammar for Graphs
-5    | Tuesday  | September 25 | Maps in R (ggplot2)
-5    | Thursday | September 27 | Maps in R (tmap)
+5    | Tuesday  | September 25 | Maps with R (ggplot2)
+5    | Thursday | September 27 | Maps with R (tmap)
 6    | Tuesday  | October 2    | Review for First Exam
 6    | Thursday | October 4    | FIRST EXAM
 7    | Tuesday  | October 9    | Bayesian Data Analysis

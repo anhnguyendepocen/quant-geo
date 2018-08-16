@@ -1,6 +1,11 @@
-# Data & Data Frames {#DataDataFrames}
-
-September 7, 2017
+---
+title: "Data and Data Frames"
+author: "James B. Elsner"
+date: September 6, 2018
+output: 
+  html_document:
+    keep_md: true
+---
 
 "**No one can know it all, we are expected to look shit up [google it] when programming.**"---Deirdre Toher
 
