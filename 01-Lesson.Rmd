@@ -229,7 +229,9 @@ length(airquality$Ozone)
 
 ### Make a scatter plot graph
 
-Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute statistics we should plot the data.
+Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute any statistics it is a good idea to plot the data. The plot of choice when we have two numeric variables is the scatter plot.
+
+The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`.
 ```{r}
 ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
   geom_point()
@@ -238,3 +240,7 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 * Describe what you see. 
 * What does the warning mean?
 * Is ozone concentration higher on windy days? Hint: Make another plot to answer this question.
+
+### On your own
+
+Consider the `cars` data frame. Create a scatter plot showing breaking distance (`dist`) on the vertical axis and speed (`speed`) on the horizontal axis. Describe what you see.

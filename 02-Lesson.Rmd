@@ -25,11 +25,9 @@ August 30, 2018
 
 If your science is to be a convincing the trail from data to final output must be openly available. R and RStudio help you generate scientific reports that are a mixture of text and code. This makes it easy to create an understandable trail from hypothesis, to experimental design, to data, to analysis, to results. Reproducible research.
 
-### Your first graph
+### Make a scatter plot
 
-It is relatively easy to create a nice graph using the functions in the **ggplot2** package. Begin by obtaining the package. R has many packages. We will use several dozen of them this semester.
-
-First download the package from a CRAN site. You can do this using the Package tab in the lower-right window pane or with the `install.packages()` function where the name of the package is in quotes inside the parentheses.
+We will use the functions in the **ggplot2** package to make graphs. First download the package from a CRAN site. You can do this using the Package tab in the lower-right window pane or with the `install.packages()` function where the name of the package is in quotes inside the parentheses.
 ```{r eval=FALSE}
 install.packages("ggplot2")
 ```
