@@ -1,11 +1,11 @@
 ---
 title: "R and RStudio"
+author: "James B. Elsner"
+date: August 30, 2018
 output: 
   html_document:
-  keep_md: true
+    keep_md: true
 ---
-
-August 30, 2018
 
 "**The role of the teacher is to create the conditions for invention rather than provide ready-made knowledge.**"---Seymour Papert
 
@@ -377,8 +377,8 @@ Many times you wish to change only a small part of a previous command, such as w
 
 You can save the history into a file and then load it later.
 ```{r eval=FALSE}
-savehistory("Aug31")
-loadhistory("Aug31")
+savehistory("Aug30")
+loadhistory("Aug30")
 ```
 
 Since you are working in an Rmd file there is usually no need to save your history file.

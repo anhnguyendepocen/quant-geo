@@ -1,0 +1,425 @@
+# Data & Data Frames {#DataDataFrames}
+
+September 7, 2017
+
+"**No one can know it all, we are expected to look shit up [google it] when programming.**"---Deirdre Toher
+
+Problem Set 2 is posted on Canvas. It's due next Thursday (September 14).
+
+After today you will know how to get data into R, how to read data from a file (and the cloud), and how data frames are structured.
+
+Last time: working with data vectors, getting help, computing summary statistics (mean, variance, maximum), creating structured data.
+
+Other exercises: http://www.r-exercises.com/start-here-to-learn-r/
+
+Two errors that often occur when you Knit the Rmd file are:
+
+1. The code refers to a function in a package that is not loaded. Remedy: include the function `library(packageName)` in your code.
+2. The code tries to read in a data file that is not available in the working directory. Remedies: include the function `setwd()` in your code, put the data file in the proper directory, put the data in a public repository and read it in from there.
+
+## Getting help
+
+Learning path: 1. Install R; 2. Install RStudio; 3. Google "How do I [THING I WANT TO DO] in R?"
+
+## Tables and summaries
+
+All elements of a vector must be of the same type. For example, the following vectors `A`, `B`, and `C` below are constructed as numeric, logical, and character, respectively. The vector type is seen using the `class()` function.
+```{r}
+A = c(1, 2.2, 3.6, -2.8) 
+B = c(TRUE, TRUE, FALSE, TRUE)
+C = c("Cat 1", "Cat 2", "Cat 3")
+class(A); class(B); class(C)
+```
+
+With logical and character vectors the `table()` function indicates how many occurrences for each element type.  For instance, let the vector `wx` denote the weather conditions for five forecast periods as character data.
+```{r}
+wx = c("sunny", "clear", "cloudy", "cloudy", "rain")
+class(wx)
+table(wx)
+```
+
+The output is a list of the character strings and the corresponding number of occurrences of each string.
+
+Let the vector `ss` denote the Saffir-Simpson category for a set of five hurricanes.
+```{r}
+ss = c("Cat 3", "Cat 2", "Cat 1", "Cat 3", "Cat 3")
+table(ss)
+```
+
+Here the character strings correspond to different intensity levels as ordered categories with Cat 1 < Cat 2 < Cat 3.  In this case convert the character vector to an ordered factor with levels. This is done with the `factor()` function.
+```{r}
+ss = factor(ss, order = TRUE)
+class(ss)
+ss
+```
+
+The vector is now an ordered factor. Printing the object shows the elements and the levels in order. Note: if you do the same for the `wx` object, the order is alphabetical by default.
+
+## Getting data into R
+
+Your working directory is where R looks to get and put things.
+```{r}
+getwd()
+```
+
+This is the directory where R will look for your data. Use the `setwd()` function and specifying the path name within quotes. You can use one of the menu options in RStudio. Under Session > Set Working Directory >
+
+To list the files in your working directory you type 
+```{r, eval=FALSE}
+dir()
+```
+
+You also need to know what kind of data file you have. This determines what function to use to get the data into your environment.  
+
+For example, the data set *US.txt* on Canvas contains a list of tropical cyclone counts by year making land fall in the United States (excluding Hawaii) at hurricane intensity. The file is a space-delimited text file so you use the `read.table()` function to import data. 
+
+Finally, does your data file have column names? These are given in the first line of your file, usually as a series of character strings. The line is called a 'header' (header record) and if your data has one, you need to specify `header=TRUE`.
+
+Make sure the text file *US.txt* is in your working directory and type
+```{r, eval=FALSE}
+H = read.table(file = "US.txt", header = TRUE)
+```
+
+If you get a prompt without an error message, the data has been imported. If you get an error it is likely that the data file is not in your working directory. This will give an error message along the lines of 'cannot open the connection' or 'cannot open file.' If this happens, move the file to your working directory or change your working directory, then try again.
+
+If your file has comma's between columns then use the argument `sep=","` in the function. No changes are made to your original data file.
+
+`NA` is used for missing values and `NaN` for not a number. If the missing value character in your file is coded as `99`, specify `na.strings = "99"`.
+
+Several variants of `read.table()` differ only in the default argument settings. `read.csv()` has settings that are suitable for comma delimited (csv) files that have been exported from a spreadsheet.  
+
+Your work flow might be to export your data from a spreadsheet to a csv file then import it to R using the `read.csv()` function.
+
+You import data directly from the web by specifying the URL instead of the local file name. Of course you must be online.
+```{r}
+loc = "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
+H = read.table(file = loc, header = TRUE)
+```
+
+The distribution of Florida hurricanes by year is obtained by typing
+```{r}
+table(H$FL)
+```
+
+You reference the columns using the object$column syntax. For example, type
+```{r}
+H$FL
+sum(H$FL)
+```
+
+There are 93 years without a FL hurricane, 43 years with exactly one, and so on.
+
+## Data frames
+
+The function `read.table()` (and its variants) return data frames. `H` is a data frame.  
+
+A data frame is similar to a spreadsheet. Values are arranged in rows and columns. The rows are the cases (observations) and the columns are the variables. The `dim()` function returns the size of your data frame (number of rows and number of columns).
+```{r}
+dim(H)
+```
+
+This tells you there are `r I(dim(H)[1])` rows and `r I(dim(H)[2])` columns in your data frame.
+
+Note: Here I use inline code. Open with begin single quote r and close with begin single quote.
+
+To list the first six lines of the data object, type
+```{r}
+head(H)
+```
+
+The columns include year, number of hurricanes, number of major hurricanes, number of Gulf coast hurricanes, number of Florida hurricanes, and number of East coast hurricanes in order. Column names are printed as well.  
+
+The last six lines of your data frame are listed similarly using the `tail()` function. The number of lines listed is changed with using the argument `n =`.
+```{r}
+tail(H, n = 3)
+```
+
+The number of years in the record is obtained and saved in `nY` and the average number of U.S. hurricanes is saved in `rate` using the following two lines of code.
+```{r}
+nY = length(H$All)
+rate = mean(H$All)
+```
+
+By typing the names of the saved objects, the values are printed.
+```{r}
+nY
+rate
+```
+
+Thus over the `r I(nY)` years of data the average number of hurricanes per year is `r I(round(rate, digits = 2))`.
+
+If you want to change the names of the columns in the data frame, type
+```{r}
+names(H)[4] = "GC"
+names(H)
+```
+
+This changes the 4th column name from `G` to `GC`. Note that this change occurs to the data frame and not to your original data file outside of R.
+
+Most of your work will involve data frames. A data frame is a tabular (rectangular) data structure, which means it has rows and columns. It's like a matrix with column names. Actually it is a list:
+
+* Elements of the list are vectors.
+* Vectors are the columns in the data frame.
+* Vectors must all have the same length; in other words, all columns must have the same height.
+* Equal-height columns gives it a rectangular shape.
+* Columns must have names.
+
+To print the first column of values (the years) you can type:
+```{r, eval=FALSE}
+H[1]
+```
+
+Or
+```{r, eval=FALSE}
+H[, 1]
+H[[1]]
+H$Year
+```
+
+Data frames have two indices indicating the rows and columns in that order.
+```{r}
+H[10, 4]
+```
+
+* To a statistician a data frame is a table of observations. Each row contains one observation. Each observation must contain the same variables. These variables are called columns, and you can refer to them by name.  You can also refer to the contents by row number and column number, just as with a matrix.
+
+* To an Excel user a data frame is like a worksheet (or a range within a worksheet). A data frame is more restrictive, however, in that each column has a type.
+
+* To an R programmer a data frame is a data structure, part matrix and part list.  A column can contain numbers, character strings, or factors but not a mix of them.  You can index the data frame just like you index a matrix. The data frame is also a list, where the list elements are the columns, so you can access columns by using list operators.
+
+## Example: Florida precipitation by month
+
+Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
+
+Get monthly precipitation values for the state back to the year 1895. Copy/paste into a  text editor (notepad) then import into R using the `read.table()` function. Add column names.
+
+Here I did it for you and posted the file on my website. Missing values are coded as -9.900.
+```{r}
+loc = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp = read.table(loc, na.string = "-9.900", 
+                 header = TRUE) 
+```
+
+Plot a time series graph.
+```{r}
+library("ggplot2")
+ggplot(FLp, aes(x = Year, y = Jan)) +
+  geom_line() +
+  ylab("January Precipitation in Florida (in)")
+```
+
+## Central tendency
+
+The sample mean is a measure of the central tendency of a set of values. Typically there are more values near the mean. Similar with the median but it is more resistant to outliers. 
+
+The median is the "middle" value of the distribution of numbers that are arranged from smallest to largest. With an odd number of data values, the median is the middle one; with an even number of data values, the median is the average of the two middle values.
+
+What does "resistant" refer to? Consider the wealth (in 1000s of $) of five bar patrons.
+```{r}
+bar = c(50, 60, 100, 75, 200)
+```
+
+Now consider the same bar and patrons after Bill Gates walks in.
+```{r}
+bar.with.gates = c(bar, 50000)
+```
+
+```{r}
+mean(bar)
+mean(bar.with.gates)
+median(bar)
+median(bar.with.gates)
+```
+
+The difference in the mean wealth with and without Bill Gates present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant statistics.
+
+The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
+
+Another example, the `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This is common in income distributions, as a few people tend accumulate enormous wealth.
+
+```{r}
+library("UsingR")
+income = cfb$INCOME
+mean(income)
+median(income)
+```
+
+The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more very large values than very small values.  The "tail" of the distribution is longer on the right side.
+
+Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
+```{r}
+data(package = "UsingR")
+```
+
+## Spread
+
+A simple measure of the spread of data values is the range. The range is given by the minimum and maximum value or by the difference between them.
+```{r}
+range(income)
+diff(range(income))
+```
+
+Or using the central tendency as the center of a set of values, we can define spread in terms of deviations from the center. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
+```{r}
+var(income)
+sqrt(var(income))
+sd(income)
+```
+
+To illustrate consider two sets of test scores.
+```{r}
+ts1 = c(80, 85, 75, 77, 87, 82, 88)
+ts2 = c(100, 90, 50, 57, 82, 100, 86)
+```
+
+Some test score statistics are
+```{r}
+mean(ts1); mean(ts2)
+var(ts1); var(ts2)
+```
+
+## Quantiles
+
+Quantiles cut a set of ordered data into equal-sized data bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the data have values less than this quantile value. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the data have values less than this quantile value.
+
+The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
+```{r}
+con = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp = read.table(con, na.string = "-9.900", 
+                 header = TRUE)
+sort(FLp$Jun)
+```
+
+Note the use of the dollar sign to indicate the column in the data frame.
+
+Next find the 25th and 50th percentile values.
+```{r}
+quantile(FLp$Jun, probs = c(.25, .5))
+```
+
+Of the `r I(length(FLp$Jun))` monthly precipitation values, 25% of them are less than `r round(quantile(FLp$Jun,probs=.25),2)` inches, 50% are less than `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.  Thus there are an equal number of years with June precipitation between `r I(round(quantile(FLp$Jun,probs=.25),2))` and `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.
+
+The third quartile value corresponding to the .75 quantile (75th percentile) indicates that 75% of the data have a value less than this. The difference between the first and third quartile values is called the interquartile range (IQR). Fifty percent of all values lie within the IQR. The IQR is obtained using the `IQR()` function.
+
+Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
+
+First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
+```{r}
+loc = "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO = read.table(loc, header = TRUE)
+head(NAO)
+```
+
+Determine the 5th and 95th percentile values for the month of June.
+```{r}
+quantile(NAO$Jun, prob = c(.05, .95))
+```
+
+## The summary method
+
+The `summary()` function provides summary statistics for each column in your data frame. The statistics include output the mean, median, minimum, maximum, along with the first quartile and third quartile values.
+```{r}
+summary(FLp)
+```
+
+Columns with missing values get a row output from the `summary()` function indicating the number of them (NA's).
+
+## Creating a data frame
+
+Most work is done on data frames. The `data.frame()1 function creates a data frame from a set of vectors.
+
+Consider ice volume (10$^3$ km$^3$) measurements from the arctic from 2002 to 2012. The measurements are taken on January 1st each year and are available from http://psc.apl.washington.edu/wordpress/research/projects/arctic-sea-ice-volume-anomaly/data/
+
+```{r}
+Volume = c(20.233, 19.659, 18.597, 18.948, 17.820, 
+           16.736, 16.648, 17.068, 15.916, 14.455, 
+           14.569)
+```
+
+Since the data have a sequential order you create a data frame with year in the first column and volume in the second.
+```{r}
+Year = 2002:2012
+Ice.df = data.frame(Year, Volume)
+head(Ice.df)
+```
+
+What year had the minimum ice volume?
+```{r}
+which.min(Ice.df$Volume)
+Ice.df[10, ]
+Ice.df$Year[which.min(Ice.df$Volume)]
+```
+
+To coerce an object to a data frame use the function `as.data.frame()`. For example, let counts be a vector of integers.
+```{r}
+counts = rpois(100, lambda = 1.66)
+head(counts)
+H = as.data.frame(counts)
+head(H)
+```
+
+The column name in the data frame is the name of the vector.
+
+Similarly for the ice volume data you can use the function cbind() within the function as.data.frame().
+```{r}
+as.data.frame(cbind(Year, Volume))
+```
+
+## Problem Set #2
+
+The Rmd is on Blackboard under Assignments. Download the file and open it in RStudio.
+
+Due Date: September 14, 2017
+
+Total Points: 39
+
+**1** The following values are the annual number hurricanes that have hit the United States since 1990. Answer the questions by typing R commands.
+
+0 1 1 1 0 2 2 1 3 3 0 0 1 2 6 6 0 1 3 0 1
+
+a. Enter the data into R. (2)
+
+b. How many years are there? (2)
+
+c. What is the total number of hurricanes over all years? (2)
+
+**2** Answer the following questions by typing R commands.
+
+a. Create a vector of numbers starting with -5 and ending with 2. (2)
+
+b. What is the length of this vector? (2)
+
+c. Create a new vector from the original vector by subtracting the mean value over all numbers in the vector. (2)
+
+**3** Suppose you keep track of your mileage each time you fill your car's gas tank. At your last 8 fill-ups the mileage was
+
+65311 65624 65908 66219 66499 66821 67145 67447
+
+a. Enter these numbers into a vector called  miles. (2)
+
+b. Use the function `diff()` to determine the number of miles between fill-ups. (2)
+
+c. What is the maximum, minimum, and mean number of miles between fill-ups?  (3)
+
+**4** Create the following sequences using the `seq()` and `rep()` functions as appropriate.
+
+a.  "a", "a", "b", "b", "b" (2)
+
+b.  The even numbers in the interval from 1 to 100 (2)
+
+c.  1, 1, 1, 2, 2, 2, 3, 3, 3  (2)
+
+d.  1, 1, 1, 2, 2, 3  (2)
+
+
+**5** Read the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt).
+
+a. What are the wettest and driest values for the month of June? (2)
+
+b. Sort the January rainfall values from *wettest* to *driest*. (2)
+
+c. Compute the variance of the June rainfall values. (2)
+
+d. What is the 95th percentile value of June rainfall? (2)
+
+e. Create a graph of June rainfall with year along the horizontal axis. (4)
