@@ -9,7 +9,7 @@ output:
 
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
-After this lesson you will know (1) what this class is about, (2) how you will be graded, (3) how to install R and RStudio on your laptop, and (4) how to make a graph.
+After this lesson you will (1) know what this class is about, (2) know how you will be graded, (3) know how to install R and RStudio on your laptop, and (4) know how to make a scatter plot.
 
 ## Syllabus
 
@@ -48,9 +48,9 @@ Expected learning outcomes include:
 
 * Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
+I expect you to have an understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
 
-There is _no required textbook_. You are responsible for working through and understanding the code that will be given during each lesson.
+There is _no required textbook_. You are responsible for working through and understanding the code that will be available on Canvas before each lesson.
 
 ### Grading Policies
 
@@ -232,7 +232,7 @@ length(airquality$Ozone)
 
 Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute any statistics it is a good idea to plot the data. The plot of choice when we have two numeric variables is the scatter plot.
 
-The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`.
+The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`. The values in the column labeled `Temp` are plotted along the horizontal axis and the values in the column labeled `Ozone` are plotted along the vertical axis. This is done with the `aes()` function and the `x =` and `y =` arguments.
 ```{r}
 ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
   geom_point()
@@ -240,8 +240,8 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 
 * Describe what you see. 
 * What does the warning mean?
-* Is ozone concentration higher on windy days? Hint: Make another plot to answer this question.
+* On average is ozone concentration higher on windy days? DO: Make a scatter plot to answer this question.
 
 ### On your own
 
-Consider the `cars` data frame. Create a scatter plot showing breaking distance (`dist`) on the vertical axis and traveling speed (`speed`) on the horizontal axis. Describe what you see.
+Consider the `cars` data frame. DO: Create a scatter plot showing breaking distance (`dist`) on the vertical axis and traveling speed (`speed`) on the horizontal axis. Describe what you see.
