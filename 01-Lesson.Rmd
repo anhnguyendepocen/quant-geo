@@ -89,8 +89,8 @@ Week | Day      | Date         | Topic
 3    | Thursday | September 13 | Grammar for Data
 4    | Tuesday  | September 18 | Grammar for Graphs
 4    | Thursday | September 20 | Grammar for Graphs
-5    | Tuesday  | September 25 | Maps with R (ggplot2)
-5    | Thursday | September 27 | Maps with R (tmap)
+5    | Tuesday  | September 25 | Maps with R
+5    | Thursday | September 27 | Maps with R
 6    | Tuesday  | October 2    | Review for First Exam
 6    | Thursday | October 4    | FIRST EXAM
 7    | Tuesday  | October 9    | Bayesian Data Analysis
@@ -117,33 +117,33 @@ Week | Day      | Date         | Topic
 
 Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
-Being able to code is an increasingly important skill. 
+Being able to code is an important skill. 
 
-A spreadsheet is convenient (at least at first), but it is ultimately limiting and hampers three properties that are essential for scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
+A spreadsheet is convenient, but it is ultimately limiting and hampers three properties essential for proper scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
 
 ### Reproducibility
 
-If your analysis is to be convincing to others, the trail from the data you started with to the final output must be made available.
+If your analysis is to be convincing, the trail from the data you started with to the final output must be available to the public.
 
-It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
+It is difficult to create a reproducible trail with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-Your scientific paper describing the result of an analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+A scientific paper describing the result of your analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
-Code is the grammar of communicating what you did. It is not just to get a computer to do what you want it to do but to communicate with other scientists and to your future self.
+Code is the recipe for what you did. It is the most efficient way to communicate exactly what you did. Communication to others and to your future self.
 
-It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
+It's hard to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
 
-Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
+Said another way: Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
 
 ### Automation
 
-If you've ever made a map using GIS you know how difficult it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
+If you've ever made a map using GIS you know how hard it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
 
 ## The R programming language
 
-* R is the leading open source statistical programming language.
+* R is the leading open source statistical programming language. R vs Python.
 * R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
 * R has all the cutting edge statistical methods including methods in spatial statistics.
 * R is increasingly used by scientists of all stripes. Most of the world's statisticians use (and contribute to) it.
@@ -244,4 +244,4 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 
 ### On your own
 
-Consider the `cars` data frame. Create a scatter plot showing breaking distance (`dist`) on the vertical axis and speed (`speed`) on the horizontal axis. Describe what you see.
+Consider the `cars` data frame. Create a scatter plot showing breaking distance (`dist`) on the vertical axis and traveling speed (`speed`) on the horizontal axis. Describe what you see.
