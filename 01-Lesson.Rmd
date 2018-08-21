@@ -30,15 +30,15 @@ Important links:
 
 ### Required Materials
 
-A laptop computer with R and RStudio installed. It is important to bring the laptop to each class period.
+A laptop computer with R and RStudio installed. Bring the laptop to each class.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R is done with Notebooks in the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. The platform we will use is the R programming language. Access to R is done within the RStudio environment.
 
 ### Learning Outcomes
 
-Expected learning outcomes include:
+Expected learning outcomes:
 
 * Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
@@ -71,7 +71,7 @@ http://www.eng.fsu.edu/~peterson/fsuhc.html
 
 ### Students With Disabilities Act
 
-Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center; (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.
+Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center (https://dos.fsu.edu/sdrc/); (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.
 
 ### Syllabus Change Policy
 
@@ -81,7 +81,7 @@ This syllabus is a guide for the course and is subject to change with advanced n
 
 Week | Day      | Date         | Topic
 -----|----------|--------------|------
-1    | Tuesday  | August 28    | Introduction (Mr. Fricker)
+1    | Tuesday  | August 28    | Introduction
 1    | Thursday | August 30    | RStudio and R 
 2    | Tuesday  | September 4  | Working with R
 2    | Thursday | September 6  | Data and Data Frames
