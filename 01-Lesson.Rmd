@@ -133,7 +133,7 @@ A scientific paper describing the result of your analysis is advertisement for a
 
 Code is the recipe for what you did. It is the most efficient way to communicate exactly what you did. Communication to others and to your future self.
 
-It's hard to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
+It's hard to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words you might use to describe these procedures are not standard.
 
 Said another way: Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
 
@@ -191,7 +191,7 @@ After opening RStudio you should see your window separate into four panes. The u
 
 ### Install a package
 
-The first thing we will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
+The first thing you will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
 
 Two steps:
 
@@ -199,12 +199,12 @@ Two steps:
 
 This is done by selecting the `Packages` tab  in the lower right panel. Select `Install` then type the name of the package `ggplot2`. Note: That is the same as typing `install.packages("ggplot2")` in the console.
 
-2. Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here we want to make this command part of the markdown file so we delinate the command from the text by placing triple graves (`) followed by {r} before the command and triple graves after the command.
+2. Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here you want to make this command part of the markdown file so you delinate the command from the text by placing triple graves (`) followed by {r} before the command and triple graves after the command.
 ```{r}
 library(ggplot2)
 ```
 
-R has thousands of packages. We will use some of them this semester.
+R has thousands of packages. You will use some of them this semester.
 
 Installing gets the package from CRAN and puts it on your local computer. The `library(ggplot2)` makes all the code from the package available to your **current** R session.
 
@@ -212,7 +212,7 @@ NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R s
 
 ### Examine some data
 
-We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
+You will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 ```{r}
 head(airquality)
 ```
@@ -230,7 +230,7 @@ length(airquality$Ozone)
 
 ### Make a scatter plot graph
 
-Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute any statistics it is a good idea to plot the data. The plot of choice when we have two numeric variables is the scatter plot.
+Here you are interested in the question, is ozone concentration higher on warmer days? Before you compute statistics you should plot our data. The plot of choice when you have two numeric variables is the scatter plot.
 
 The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`. The values in the column labeled `Temp` are plotted along the horizontal axis and the values in the column labeled `Ozone` are plotted along the vertical axis. This is done with the `aes()` function and the `x =` and `y =` arguments.
 ```{r}

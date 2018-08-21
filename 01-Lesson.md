@@ -9,7 +9,7 @@ output:
 
 "**The goal is to provide analytical tools that will last students a lifetime.**''---Edward Tufte
 
-After this lesson you will know (1) what this class is about, (2) how you will be graded, (3) how to install R and RStudio on your laptop, and (4) how to make a graph.
+After this lesson you will (1) know what this class is about, (2) know how you will be graded, (3) know how to install R and RStudio on your laptop, and (4) know how to make a scatter plot.
 
 ## Syllabus
 
@@ -30,15 +30,15 @@ Important links:
 
 ### Required Materials
 
-A laptop computer with R and RStudio installed. It is important to bring the laptop to each class period.
+A laptop computer with R and RStudio installed. Bring the laptop to each class.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers. The platform is the R programming language. Access to R is done with Notebooks in the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. The platform we will use is the R programming language. Access to R is done within the RStudio environment.
 
 ### Learning Outcomes
 
-Expected learning outcomes include:
+Expected learning outcomes:
 
 * Factual: You will acquire basic knowledge of data science. You will become familiar with the terminology used to describe data and the procedures and outcomes applied to visualizing, wrangling, and drawing conclusions from data.
 
@@ -48,9 +48,9 @@ Expected learning outcomes include:
 
 * Meta cognitive: You will recognize the potential of data science and some of its limitations. You will be able to identify reasonable statistical inferences. You will gain an appreciation for the importance of open-source science.
 
-I expect you to have some understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
+I expect you to have an understanding of basic statistical concepts like mean, standard deviation, and correlation. Everything you will do in this class will be done using R/RStudio.
 
-There is _no required textbook_. You are responsible for working through and understanding the code that will be given during each lesson.
+There is _no required textbook_. You are responsible for working through and understanding the code that will be available on Canvas before each lesson.
 
 ### Grading Policies
 
@@ -71,7 +71,7 @@ http://www.eng.fsu.edu/~peterson/fsuhc.html
 
 ### Students With Disabilities Act
 
-Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center; (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.
+Students needing academic accommodation should: (1) register with and provide documentation to the Student Disability Resource Center (https://dos.fsu.edu/sdrc/); (2) bring a letter to me indicating the need for accommodation and what type. This should be done sometime during the first week of classes.
 
 ### Syllabus Change Policy
 
@@ -81,7 +81,7 @@ This syllabus is a guide for the course and is subject to change with advanced n
 
 Week | Day      | Date         | Topic
 -----|----------|--------------|------
-1    | Tuesday  | August 28    | Introduction (Mr. Fricker)
+1    | Tuesday  | August 28    | Introduction
 1    | Thursday | August 30    | RStudio and R 
 2    | Tuesday  | September 4  | Working with R
 2    | Thursday | September 6  | Data and Data Frames
@@ -89,8 +89,8 @@ Week | Day      | Date         | Topic
 3    | Thursday | September 13 | Grammar for Data
 4    | Tuesday  | September 18 | Grammar for Graphs
 4    | Thursday | September 20 | Grammar for Graphs
-5    | Tuesday  | September 25 | Maps with R (ggplot2)
-5    | Thursday | September 27 | Maps with R (tmap)
+5    | Tuesday  | September 25 | Maps with R
+5    | Thursday | September 27 | Maps with R
 6    | Tuesday  | October 2    | Review for First Exam
 6    | Thursday | October 4    | FIRST EXAM
 7    | Tuesday  | October 9    | Bayesian Data Analysis
@@ -117,33 +117,33 @@ Week | Day      | Date         | Topic
 
 Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
-Being able to code is an increasingly important skill. 
+Being able to code is an important skill. 
 
-A spreadsheet is convenient (at least at first), but it is ultimately limiting and hampers three properties that are essential for scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
+A spreadsheet is convenient, but it is ultimately limiting and hampers three properties essential for proper scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
 
 ### Reproducibility
 
-If your analysis is to be convincing to others, the trail from the data you started with to the final output must be made available.
+If your analysis is to be convincing, the trail from the data you started with to the final output must be available to the public.
 
-It is difficult to do this with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
+It is difficult to create a reproducible trail with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-Your scientific paper describing the result of an analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+A scientific paper describing the result of your analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
-Code is the grammar of communicating what you did. It is not just to get a computer to do what you want it to do but to communicate with other scientists and to your future self.
+Code is the recipe for what you did. It is the most efficient way to communicate exactly what you did. Communication to others and to your future self.
 
-It is difficult to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words we use to describe these procedures are not standard.
+It's hard to explain precisely what you did when working with a spreadsheet. Click here, then right click here, then choose menu X, etc. The words you might use to describe these procedures are not standard.
 
-Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
+Said another way: Code is an efficient way to communicate because all important information is given as plain text without ambiguity.
 
 ### Automation
 
-If you've ever made a map using GIS you know how difficult it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
+If you've ever made a map using GIS you know how hard it is to make another (even similar one) with a new set of data. Executing code with new data is simple.
 
 ## The R programming language
 
-* R is the leading open source statistical programming language.
+* R is the leading open source statistical programming language. R vs Python.
 * R is free, open-source, runs on Windows, Macs, etc. Excellent graphing capabilities. Powerful, extensible, and relatively easy to learn syntax. Thousands of functions.
 * R has all the cutting edge statistical methods including methods in spatial statistics.
 * R is increasingly used by scientists of all stripes. Most of the world's statisticians use (and contribute to) it.
@@ -191,7 +191,7 @@ After opening RStudio you should see your window separate into four panes. The u
 
 ### Install a package
 
-The first thing we will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
+The first thing you will do is create a graph using the functions in the **ggplot2** package. Packages are pieces of code for doing certain things. The **ggplot2** package has code pieces for making nice graphs.
 
 Two steps:
 
@@ -199,13 +199,13 @@ Two steps:
 
 This is done by selecting the `Packages` tab  in the lower right panel. Select `Install` then type the name of the package `ggplot2`. Note: That is the same as typing `install.packages("ggplot2")` in the console.
 
-2. Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here we want to make this command part of the markdown file so we delinate the command from the text by placing triple graves (`) followed by {r} before the command and triple graves after the command.
+2. Make the code available to your particular R session. This is done by issuing the `library(ggplot2)` command in the console. Here you want to make this command part of the markdown file so you delinate the command from the text by placing triple graves (`) followed by {r} before the command and triple graves after the command.
 
 ```r
 library(ggplot2)
 ```
 
-R has thousands of packages. We will use some of them this semester.
+R has thousands of packages. You will use some of them this semester.
 
 Installing gets the package from CRAN and puts it on your local computer. The `library(ggplot2)` makes all the code from the package available to your **current** R session.
 
@@ -213,7 +213,7 @@ NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R s
 
 ### Examine some data
 
-We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
+You will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 
 ```r
 head(airquality)
@@ -252,9 +252,9 @@ length(airquality$Ozone)
 
 ### Make a scatter plot graph
 
-Here we are interested in the question, is ozone concentration higher on warmer days? Before we compute any statistics it is a good idea to plot the data. The plot of choice when we have two numeric variables is the scatter plot.
+Here you are interested in the question, is ozone concentration higher on warmer days? Before you compute statistics you should plot our data. The plot of choice when you have two numeric variables is the scatter plot.
 
-The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`.
+The argument `data =` must identify a data frame by name. Here the data frame is named `airquality`. The values in the column labeled `Temp` are plotted along the horizontal axis and the values in the column labeled `Ozone` are plotted along the vertical axis. This is done with the `aes()` function and the `x =` and `y =` arguments.
 
 ```r
 ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
@@ -269,8 +269,8 @@ ggplot(data = airquality, aes(x = Temp, y = Ozone)) +
 
 * Describe what you see. 
 * What does the warning mean?
-* Is ozone concentration higher on windy days? Hint: Make another plot to answer this question.
+* On average is ozone concentration higher on windy days? DO: Make a scatter plot to answer this question.
 
 ### On your own
 
-Consider the `cars` data frame. Create a scatter plot showing breaking distance (`dist`) on the vertical axis and speed (`speed`) on the horizontal axis. Describe what you see.
+Consider the `cars` data frame. DO: Create a scatter plot showing breaking distance (`dist`) on the vertical axis and traveling speed (`speed`) on the horizontal axis. Describe what you see.
