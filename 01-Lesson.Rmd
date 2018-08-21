@@ -21,7 +21,7 @@ After this lesson you will (1) know what this class is about, (2) know how you w
 
 Email: <jelsner@fsu.edu>
 
-Important links:
+Links to Elsner's stuff:
 
 * [Canvas](https://cas.fsu.edu/cas/login)
 * [GitHub](https://github.com/jelsner/quant-geo)
@@ -30,11 +30,11 @@ Important links:
 
 ### Required Materials
 
-A laptop computer with R and RStudio installed. Bring the laptop to each class.
+A laptop computer with R and RStudio installed. Bring your laptop to every class.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers. The platform we will use is the R programming language. Access to R is done within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. You will use is the R programming language. You will use the RStudio integrated development environment (IDE) to work with R.
 
 ### Learning Outcomes
 

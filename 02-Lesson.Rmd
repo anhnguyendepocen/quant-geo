@@ -9,7 +9,7 @@ output:
 
 "**The role of the teacher is to create the conditions for invention rather than provide ready-made knowledge.**"---Seymour Papert
 
-* After this lession you will know (1) basics of the R language, (2) how to create a graph, (3) how to put R code into the markdown document, and (4) how to generate HTML from an Rmd file.
+* After this lesson you will (1) know the basics of the R language, (2) be able to create a graph in R, (3) be able to mix R code and text in a markdown document, and (4) know how to generate HTML from an Rmd file.
 * Everyone should have R and RStudio on a laptop with this `02-Lesson.Rmd` file opened in RStudio.
 
 ## Review 
@@ -69,6 +69,12 @@ We can use a label instead of a dot for the locations in this two-dimensional sc
 ```{r}
 ggplot(airquality, aes(x = Wind, y = Ozone, label = Ozone)) +
   geom_text()
+```
+
+Another example:
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point(aes(color = Species))
 ```
 
 More about graphs next week.
@@ -369,7 +375,7 @@ Most help pages have examples. These can be run one-by-one by cutting and pastin
 example(mean)
 ```
 
-## Working smarter not harder
+## Working smarter
 
 R's console keeps a history of your commands. The previous commands are accessed using the up and down arrow keys. Repeatedly pushing the up arrow will scroll backward through the history so you can reuse previous commands.
 

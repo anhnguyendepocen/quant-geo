@@ -1,0 +1,64 @@
+Problem Set # 2
+===============
+
+Your Name
+---------
+
+```{r}
+date()
+```
+
+Due Date: September 13, 2018
+
+Total Points: 39
+
+**1** The following values are the annual number hurricanes that have hit the United States since 1990. Answer the questions by typing R commands.
+
+0 1 1 1 0 2 2 1 3 3 0 0 1 2 6 6 0 1 3 0 1
+
+a. Enter the data into R. (2)
+
+b. How many years are there? (2)
+
+c. What is the total number of hurricanes over all years? (2)
+
+**2** Answer the following questions by typing R commands.
+
+a. Create a vector of numbers starting with -5 and ending with 2. (2)
+
+b. What is the length of this vector? (2)
+
+c. Create a new vector from the original vector by subtracting the mean value over all numbers in the vector. (2)
+
+**3** Suppose you keep track of your mileage each time you fill your car's gas tank. At your last 8 fill-ups the mileage was
+
+65311 65624 65908 66219 66499 66821 67145 67447
+
+a. Enter these numbers into a vector called  miles. (2)
+
+b. Use the function `diff()` to determine the number of miles between fill-ups. (2)
+
+c. What is the maximum, minimum, and mean number of miles between fill-ups?  (3)
+
+**4** Create the following sequences using the `seq()` and `rep()` functions as appropriate.
+
+a.  "a", "a", "b", "b", "b" (2)
+
+b.  The even numbers in the interval from 1 to 100 (2)
+
+c.  1, 1, 1, 2, 2, 2, 3, 3, 3  (2)
+
+d.  1, 1, 1, 2, 2, 3  (2)
+
+
+**5** Read the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt).
+
+a. What are the wettest and driest values for the month of June? (2)
+
+b. Sort the January rainfall values from *wettest* to *driest*. (2)
+
+c. Compute the variance of the June rainfall values. (2)
+
+d. What is the 95th percentile value of June rainfall? (2)
+
+e. Create a graph of June rainfall with year along the horizontal axis. (4)

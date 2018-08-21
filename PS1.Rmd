@@ -1,0 +1,37 @@
+Problem Set # 1
+===============
+
+Your Name
+---------
+
+```{r}
+date()
+```
+
+Due Date: September 6, 2018
+
+Total Points: 14
+
+**1** Tweak each of the following R commands so that they run correctly (6)
+```{r error=TRUE}
+library(tidyverse)
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+filter(mpg, cyl == 8)
+filter(diamonds, carat > 3)
+```
+
+**2** Assign to an object `x` the sum of 3 and 5. Find the square root of the sum (4).
+```{r}
+x <- 3 + 5
+sqrt(x)
+```
+
+**3** Create a vector `h` with the following elements and create a table of count frequencies: 2 4 0 3 1 0 0 1 2 0. Hint: use the `table()` function (4).
+```{r}
+h <- c(2, 4, 0, 3, 1, 0, 0, 1, 2, 0)
+table(h)
+```
+
