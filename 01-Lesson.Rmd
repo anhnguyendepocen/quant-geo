@@ -127,7 +127,7 @@ If your analysis is to be convincing, the trail from the data you started with t
 
 It is difficult to create a reproducible trail with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of your analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+A scientific paper is advertisement for a claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
