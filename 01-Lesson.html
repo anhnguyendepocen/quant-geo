@@ -138,7 +138,7 @@ $(document).ready(function () {
 <li>Office Hours: TR 9:15-10:30 a.m. &amp; 2-3 p.m. (&amp; by appointment)</li>
 </ul>
 <p>Email: <a href="mailto:jelsner@fsu.edu">jelsner@fsu.edu</a></p>
-<p>Important links:</p>
+<p>Links to Elsner’s stuff:</p>
 <ul>
 <li><a href="https://cas.fsu.edu/cas/login">Canvas</a></li>
 <li><a href="https://github.com/jelsner/quant-geo">GitHub</a></li>
@@ -148,11 +148,11 @@ $(document).ready(function () {
 </div>
 <div id="required-materials" class="section level3">
 <h3>Required Materials</h3>
-<p>A laptop computer with R and RStudio installed. Bring the laptop to each class.</p>
+<p>A laptop computer with R and RStudio installed. Bring your laptop to every class.</p>
 </div>
 <div id="short-description" class="section level3">
 <h3>Short Description</h3>
-<p>This course is an introduction to data science and statistical thinking for geographers. The platform we will use is the R programming language. Access to R is done within the RStudio environment.</p>
+<p>This course is an introduction to data science and statistical thinking for geographers. You will use is the R programming language. You will use the RStudio integrated development environment (IDE) to work with R.</p>
 </div>
 <div id="learning-outcomes" class="section level3">
 <h3>Learning Outcomes</h3>
@@ -418,9 +418,9 @@ $(document).ready(function () {
 </div>
 <div id="data-science" class="section level2">
 <h2>Data Science</h2>
-<p>Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.</p>
-<p>Being able to code is an important skill.</p>
+<p>Data science must be done on a computer. You have two choices: use a spreadsheet or code with a programming language.</p>
 <p>A spreadsheet is convenient, but it is ultimately limiting and hampers three properties essential for proper scientific data analysis: <em>Reproducibility</em>, <em>Communication</em>, <em>Automation</em>.</p>
+<p>Today coding is an important skill for most technical jobs. Here I will teach you how to code using R. Just like learning to write doesn’t necessarily make you a writer, learning to code doesn’t mean you will be a coder.</p>
 <div id="reproducibility" class="section level3">
 <h3>Reproducibility</h3>
 <p>If your analysis is to be convincing, the trail from the data you started with to the final output must be available to the public.</p>
@@ -503,7 +503,7 @@ $(document).ready(function () {
 </div>
 <div id="examine-some-data" class="section level3">
 <h3>Examine some data</h3>
-<p>You will use the <code>airquality</code> data frame. It is a built-in data set in the <strong>datasets</strong> package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:</p>
+<p>We will use the <code>airquality</code> data frame. It is a built-in data set in the <strong>datasets</strong> package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:</p>
 <pre class="r"><code>head(airquality)</code></pre>
 <pre><code>##   Ozone Solar.R Wind Temp Month Day
 ## 1    41     190  7.4   67     5   1
@@ -512,8 +512,8 @@ $(document).ready(function () {
 ## 4    18     313 11.5   62     5   4
 ## 5    NA      NA 14.3   56     5   5
 ## 6    28      NA 14.9   66     5   6</code></pre>
-<p>This gives the first 6 (default) rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day.</p>
-<p>The data frame is a table (matrix) of values. The <code>dim()</code> function gives the size (number of rows and columns).</p>
+<p>This shows the first 6 rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day. The number of rows shown can be changed with the <code>n =</code> argument (e.g., <code>head(airquality, n = 10)</code> will display the first ten rows.</p>
+<p>The data frame is a matrix of values with column names. Think of it as a table you might see in a report. The <code>dim()</code> function gives the size (number of rows and columns).</p>
 <pre class="r"><code>dim(airquality)</code></pre>
 <pre><code>## [1] 153   6</code></pre>
 <pre class="r"><code>length(airquality$Ozone)</code></pre>

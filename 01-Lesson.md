@@ -21,7 +21,7 @@ After this lesson you will (1) know what this class is about, (2) know how you w
 
 Email: <jelsner@fsu.edu>
 
-Important links:
+Links to Elsner's stuff:
 
 * [Canvas](https://cas.fsu.edu/cas/login)
 * [GitHub](https://github.com/jelsner/quant-geo)
@@ -30,11 +30,11 @@ Important links:
 
 ### Required Materials
 
-A laptop computer with R and RStudio installed. Bring the laptop to each class.
+A laptop computer with R and RStudio installed. Bring your laptop to every class.
 
 ### Short Description
 
-This course is an introduction to data science and statistical thinking for geographers. The platform we will use is the R programming language. Access to R is done within the RStudio environment.
+This course is an introduction to data science and statistical thinking for geographers. You will use is the R programming language. You will use the RStudio integrated development environment (IDE) to work with R.
 
 ### Learning Outcomes
 
@@ -115,11 +115,11 @@ Week | Day      | Date         | Topic
 
 ## Data Science
 
-Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
-
-Being able to code is an important skill. 
+Data science must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
 A spreadsheet is convenient, but it is ultimately limiting and hampers three properties essential for proper scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
+
+Today coding is an important skill for most technical jobs. Here I will teach you how to code using R. Just like learning to write doesn't necessarily make you a writer, learning to code doesn't mean you will be a coder.
 
 ### Reproducibility
 
@@ -213,7 +213,7 @@ NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R s
 
 ### Examine some data
 
-You will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
+We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 
 ```r
 head(airquality)
@@ -229,9 +229,9 @@ head(airquality)
 ## 6    28      NA 14.9   66     5   6
 ```
 
-This gives the first 6 (default) rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day.
+This shows the first 6 rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day. The number of rows shown can be changed with the `n = ` argument (e.g., `head(airquality, n = 10)` will display the first ten rows.
 
-The data frame is a table (matrix) of values. The `dim()` function gives the size (number of rows and columns).
+The data frame is a matrix of values with column names. Think of it as a table you might see in a report. The `dim()` function gives the size (number of rows and columns).
 
 ```r
 dim(airquality)
