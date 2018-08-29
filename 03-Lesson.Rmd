@@ -11,8 +11,6 @@ output:
 
 Last time: How to make a plot using `ggplot`, simple functions. 
 
-Problem set 1. Hint for problem #1: type `data(package = "ggplot2")`.
-
 RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes. You can name the code chunk by using ```{r MyCodeChunkName}. Helps identify a chunk that may not be working properly. Each code chunk name must be unique.
 
 **knitr** is a package that executes the R markdown file (.Rmd) to create HTML (also Word and pdf).
@@ -24,6 +22,8 @@ Basic idea behind Rmd: code + narrative = scientific report (computer language [
 The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
 
 After today's class you will know how to work with data as vectors and data frames, compute some statistics, and create structured data.
+
+## Review: Problem Set 1
 
 ## Getting and loading packages from CRAN
 
