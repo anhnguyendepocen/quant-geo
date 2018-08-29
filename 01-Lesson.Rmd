@@ -115,11 +115,11 @@ Week | Day      | Date         | Topic
 
 ## Data Science
 
-Data science (statistics) must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
-
-Being able to code is an important skill. 
+Data science must be done on a computer. You have two choices: use a spreadsheet or code with a programming language. 
 
 A spreadsheet is convenient, but it is ultimately limiting and hampers three properties essential for proper scientific data analysis: *Reproducibility*, *Communication*, *Automation*.
+
+Today coding is an important skill for most technical jobs. Here I will teach you how to code using R. Just like learning to write doesn't necessarily make you a writer, learning to code doesn't mean you will be a coder.
 
 ### Reproducibility
 
@@ -127,7 +127,7 @@ If your analysis is to be convincing, the trail from the data you started with t
 
 It is difficult to create a reproducible trail with a spreadsheet. It is easy to make mistakes (e.g., accidentally sorting just a column rather than the entire table).
 
-A scientific paper describing the result of your analysis is advertisement for a specific claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
+A scientific paper is advertisement for a claim. But the `proof` is the procedure that was used to obtain the result. The code should be the exact procedure.
 
 ### Communication
 
@@ -212,14 +212,14 @@ NOTE: Step (1) is done once. Step (2) must be done everytime you open an new R s
 
 ### Examine some data
 
-You will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
+We will use the `airquality` data frame. It is a built-in data set in the **datasets** package that was loaded as part of the base R installation. The data set contains daily air quality measurements from New York City during May through September 1973. Type:
 ```{r}
 head(airquality)
 ```
 
-This gives the first 6 (default) rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day.
+This shows the first 6 rows of the data frame. The data set contains ozone concentration (ppm), solar radiation, wind speed, temperature (F), month and day. The number of rows shown can be changed with the `n = ` argument (e.g., `head(airquality, n = 10)` will display the first ten rows.
 
-The data frame is a table (matrix) of values. The `dim()` function gives the size (number of rows and columns).
+The data frame is a matrix of values with column names. Think of it as a table you might see in a report. The `dim()` function gives the size (number of rows and columns).
 ```{r}
 dim(airquality)
 ```

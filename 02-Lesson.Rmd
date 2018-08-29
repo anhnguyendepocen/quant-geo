@@ -467,3 +467,5 @@ rm(cD1, cD2)
 * Install the package **swirl**. Type `swirl()` and select R Programming > Vectors, Missing Values, Subsetting Vectors, and Matrices and Data Frames
 
 * The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
+
+* https://rstudio.cloud/
