@@ -7,10 +7,6 @@ output:
     keep_md: true
 ---
 
-```{r}
-date()
-```
-
 Due Date: September 11, 2018
 
 Total Points: 21
