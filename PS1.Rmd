@@ -12,9 +12,9 @@ Due Date: September 6, 2018
 
 Total Points: 14
 
-**1** Use the `mpg` data frame in the `ggplot2` package to create a scatter plot showing how fuel consumption in cars during highway driving depends on engine displacement. Hint: let the horizontal axis (`x = `) be the variable `displ` and the vertical axis (`y = `) be the variable `hwy`. Type: `?mpg` for details on the variables in the data frame. (6)
+**1** Use the `mpg` data frame in the **ggplot** package to create a scatter plot showing how fuel consumption in cars during highway driving depends on engine fuel displacement (liters). Hint: let the horizontal axis (`x = `) be the variable `displ` and the vertical axis (`y = `) be the variable `hwy`. Type: `?mpg` for details on the variables in the data frame. (6)
 
-**2** Remake the scatter plot by coloring the points according to the number of cylinders (`cyl`). (3)
+**2** Remake the scatter plot by coloring the points conditional on the number of cylinders (`cyl`). (3)
 
 **3** Assign to an object `x` the sum of 3 and 5. Find the square root of the sum. (4)
 

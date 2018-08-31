@@ -9,21 +9,25 @@ output:
 
 "**...the massive collective international effort represented by the R project exceeds the most idealistic Marxist imagination.**"---Roger Koenker
 
-Last time: How to make a plot using `ggplot`, simple functions. 
+Problem Set #1 is a review of last week's material. Download the file `PS1.Rmd` file from Canvas (or GitHub).
 
-Problem set 1. Hint for problem #1: type `data(package = "ggplot2")`.
 
-RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes. You can name the code chunk by using ```{r MyCodeChunkName}. Helps identify a chunk that may not be working properly. Each code chunk name must be unique.
-
-**knitr** is a package that executes the R markdown file (.Rmd) to create HTML (also Word and pdf).
+## Getting help
 
 Basic idea behind Rmd: code + narrative = scientific report (computer language [R] + authoring language [MD])
 
-**swirl** is a package for learning R on your own.
+* The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
+* https://rstudio.cloud/
 
-The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
+Learning path: 
 
-After today's class you will know how to work with data as vectors and data frames, compute some statistics, and create structured data.
+1. Install R
+2. Install RStudio
+3. Google "How do I [THING I WANT TO DO] in R?"
+
+RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes.
+
+**knitr** is a package that executes the R markdown file (.Rmd) to create HTML (also Word and pdf).
 
 ## Getting and loading packages from CRAN
 
@@ -40,12 +44,12 @@ install.packages("UsingR")
 The function retrieves the package from CRAN and installs it on your computer. 
 
 ```{r}
-suppressPackageStartupMessages(library("UsingR"))
+library("UsingR")
 ```
 
 The `library()` function second makes the package available to your current R session (loads the function).  
 
-When you restart R you will need to reload the package, but you will not need to re-install it. The function `require()` works much like `library()`. 
+When you restart R you will need to reload the package, but you will not need to re-install it.
 
 In RStudio you can use the Packages tab and the Install Packages link. The packages on your computer are listed alphabetically. Check mark indicate which are available to your current session.
 
@@ -57,7 +61,7 @@ The `c()` function gets small amounts of data into R. It combines (concatenates)
 
 To enter these into your environment, type
 ```{r}
-counts = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
+counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
 counts
 ```
 
@@ -65,7 +69,7 @@ Notice a few things. You assigned the values to an object called `counts`. The a
 
 To assign and print, enclose the line in parentheses.
 ```{r}
-(counts = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1))
+(counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1))
 ```
 
 When working in the console, you save typing by using the arrow keys to retrieve previous commands. Each command is stored in a history file and the up arrow key will move backwards through the history file and the down arrow forwards. The left and right arrow keys also work as expected.
@@ -100,8 +104,8 @@ The count data is stored as a vector. R keeps track of the order that the data w
 
 Suppose `counts` contain the annual number of land-falling hurricanes from the first decade of a longer record. You want to keep track of counts over other decades. This could be done by the following, example.
 ```{r}
-cD1 = counts
-cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
+cD1 <- counts
+cD2 <- c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
 ```
  
 Note that you make a duplicate copy of the vector called `counts` giving it a different name.
@@ -138,8 +142,8 @@ Note: The formula is given as LaTeX math code with the double dollar signs start
 
 Although the `var()` function will compute this for you, here we see how it can be computed from other simpler functions. The first step is to find the squared difference between each value and the mean. To simplify things first create a new vector `x` and assign the mean of the `x`'s to `xbar`.
 ```{r}
-x = cD1
-xbar  = mean(x)
+x <- cD1
+xbar <- mean(x)
 x - xbar
 (x - xbar)^2
 ```
@@ -147,7 +151,7 @@ x - xbar
 The sum of the differences is zero, but not the sum of the squared differences.
 ```{r}
 sum((x - xbar)^2)
-n = length(x)
+n <- length(x)
 n
 sum((x - xbar)^2)/(n - 1)
 ```
@@ -161,7 +165,7 @@ var(x)
 
 One restriction on data vectors is that all the elements must have the same type. This can be numeric as in counts or character strings as in
 ```{r}
-simpsons = c("Homer", "Marge", "Bart", "Lisa", "Maggie")
+simpsons <- c("Homer", "Marge", "Bart", "Lisa", "Maggie")
 simpsons
 ```
 
@@ -171,13 +175,13 @@ If you mix element types within a data vector, all elements will be coerced into
 
 Returning to the land falling hurricane counts.
 ```{r}
-cD1 = c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)   
-cD2 = c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
+cD1 <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)   
+cD2 <- c(0, 5, 4, 2, 3, 0, 3, 3, 2, 1)
 ```
 
 Now suppose the National Hurricane Center (NHC) reanalyzes a storm, and that the 6th year of the 2nd decade is a 1 rather than a 0 for the number of landfalls. In this case you type
 ```{r}
-cD2[6] = 1
+cD2[6] <- 1
 ```
 
 The assignment to the 6th element in the vector cD2 is done by referencing the 6th element of the vector with square brackets `[]`. 
@@ -299,14 +303,6 @@ To remove an object from the environment use the `rm()` function.
 ```{r}
 rm(cD1, cD2)
 ```
-
-## Getting help
-
-Learning path: 
-
-1. Install R
-2. Install RStudio
-3. Google "How do I [THING I WANT TO DO] in R?"
 
 ## Tables and summaries
 
