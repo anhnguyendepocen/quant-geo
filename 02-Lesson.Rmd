@@ -34,7 +34,7 @@ We will use the functions in the **ggplot2** package to make graphs. First downl
 install.packages("ggplot2")
 ```
 
-Next make the functions from the package available for this particular session.
+Next make the functions from the **ggplot2** package available for this particular session.
 ```{r}
 library(ggplot2)
 ```
@@ -89,11 +89,7 @@ You will submit your problem sets (and exams) to me through email. Email both th
 4. In the file replace 'Your Name' with your name.
 5. Answer the questions by typing the code between the chunk markers.
 6. Select the Knit button to generate the HTML.
-7. Attach the HTML and Rmd files in an email to me. Include a subject line like Assignment X.
-
-Alternative:
-7. Select the Publish button on the HTML document (You will need an RPubs account--it's free).
-8. Attach the Rmd file and a copy of the web link in an email to me.
+7. Attach the HTML and Rmd files in an email (<jelsner@fsu.edu>) to me. Include a subject line (e.g. Assignment X).
 
 ## Finishing R
 
@@ -473,5 +469,3 @@ rm(cD1, cD2)
 * The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
 
 * https://rstudio.cloud/
-
-## Problem Set 1
