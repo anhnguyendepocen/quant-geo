@@ -1,18 +1,17 @@
-Problem Set # 2
-===============
-
-Your Name
----------
-
-```{r}
-date()
-```
+---
+title: "Problem Set #2"
+author: "Your Name"
+date: September 6, 2018
+output: 
+  html_document:
+    keep_md: true
+---
 
 Due Date: September 13, 2018
 
 Total Points: 39
 
-**1** The following values are the annual number hurricanes that have hit the United States since 1990. Answer the questions by typing R commands.
+**1** The following values are the annual number of hurricanes that have hit the United States since 1990. Answer the questions by typing R commands.
 
 0 1 1 1 0 2 2 1 3 3 0 0 1 2 6 6 0 1 3 0 1
 
