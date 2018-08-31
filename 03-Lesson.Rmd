@@ -18,11 +18,7 @@ Basic idea behind Rmd: code + narrative = scientific report (computer language [
 * The online book [R for Data Science](http://r4ds.had.co.nz/) by Grolemund and Wickham is an excellent resource for getting started with using R.
 * https://rstudio.cloud/
 
-Learning path: 
-
-1. Install R
-2. Install RStudio
-3. Google "How do I [THING I WANT TO DO] in R?"
+Learning path: 1. Install R 2. Install RStudio 3. Google "How do I [THING I WANT TO DO] in R?"
 
 RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes.
 
