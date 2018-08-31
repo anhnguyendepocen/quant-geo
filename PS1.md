@@ -7,8 +7,13 @@ output:
     keep_md: true
 ---
 
-```{r}
+
+```r
 date()
+```
+
+```
+## [1] "Fri Aug 31 12:30:42 2018"
 ```
 
 Due Date: September 11, 2018
