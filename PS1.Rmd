@@ -17,7 +17,7 @@ Total Points: 21
 
 **3** Assign to an object `x` the sum of 3 and 5. Find the square root of the sum. (4)
 
-**4** Create a vector `h` with the following integers and create a table of frequencies: 2 4 0 3 1 0 0 1 2 0. Hint: use the `table()` function. (4)
+**4** Create a vector `h` containing the following integers: 2 4 0 3 1 0 0 1 2 0. Then create a table showing the count frequencies. Hint: use the `table()` function. (4)
 
 **5** Find the mean and median values for the set of integers assigned in question **4**. (4)
 
