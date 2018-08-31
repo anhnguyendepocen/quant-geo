@@ -11,14 +11,7 @@ output:
 
 Problem Set #1 is a review of last week's material. Download the file `PS1.Rmd` file from Canvas (or GitHub).
 
-<<<<<<< HEAD
-
 ## Getting help
-=======
-RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes. You can name the code chunk by using ```{r MyCodeChunkName}. Helps identify a chunk that may not be working properly. Each code chunk name must be unique.
-
-**knitr** is a package that executes the R markdown file (.Rmd) to create HTML (also Word and pdf).
->>>>>>> 641ce5977712cff8e9f3227cd640755da2d8f87a
 
 Basic idea behind Rmd: code + narrative = scientific report (computer language [R] + authoring language [MD])
 
@@ -34,8 +27,6 @@ Learning path:
 RStudio is an IDE (integrated development environment) for the R programming language. Code begins with three open quotes and curly brackets around the letter r and ends with three open quotes.
 
 **knitr** is a package that executes the R markdown file (.Rmd) to create HTML (also Word and pdf).
-
-## Review: Problem Set 1
 
 ## Getting and loading packages from CRAN
 
