@@ -9,7 +9,7 @@ output:
 
 "**...the massive collective international effort represented by the R project exceeds the most idealistic Marxist imagination.**"---Roger Koenker
 
-Problem Set #1 is a review of last week's material. Download the file `PS1.Rmd` file from Canvas (or GitHub).
+Problem Set #1 as a review of last week's material. Download the file `PS1.Rmd` file from Canvas (or GitHub).
 
 ## Getting help
 
@@ -42,11 +42,11 @@ The function retrieves the package from CRAN and installs it on your computer.
 library("UsingR")
 ```
 
-The `library()` function second makes the package available to your current R session (loads the function).  
+The `library()` function second makes the package available to your current R session (loads the function). 
 
-When you restart R you will need to reload the package, but you will not need to re-install it.
+When you restart RStudio you will need to reload the package, but you will not need to re-install it.
 
-In RStudio you can use the Packages tab and the Install Packages link. The packages on your computer are listed alphabetically. Check mark indicate which are available to your current session.
+You can use the Packages tab and the Install Packages link. The packages on your computer are listed alphabetically. Check mark indicate which are available to your current session.
 
 ## Entering data
 
@@ -192,7 +192,7 @@ cD2[-4]
 cD2[c(1, 3, 5, 7, 9)] 
 ```
 
-One way to remember how to use functions is to think of them as pets. They don't come unless they are called by name (spelled properly). They have a mouth (parentheses) that likes to be fed (arguments), and they will complain if they are not feed properly.
+One way to remember how to use functions is to think of them as pets. They don't come unless they are called by name (spelled properly). They have a mouth (parentheses). They like to be fed (arguments), and they will complain if they are not fed properly.
 
 ## Finding help
 
@@ -266,7 +266,7 @@ Which years had the most?
 cD1 == 3
 ```
 
-Notice the double equals signs (`==`).  This tests each value in `cD1` to see if it is equal to 3. The 2nd and 4th values are equal to 3 so TRUEs are returned. Think of this as asking R a question. Is the value equal to 3?  R answers all at once with a vector of TRUE's and FALSE's.
+Notice the double equals signs (`==`). This tests each value in `cD1` to see if it is equal to 3. The 2nd and 4th values are equal to 3 so TRUEs are returned. Think of this as asking R a question. Is the value equal to 3?  R answers all at once with a vector of TRUE's and FALSE's.
 
 Now the question is, how do you get the vector element corresponding to the TRUE values?  That is, which years have 3 landfalls?
 ```{r}
@@ -305,15 +305,15 @@ All elements of a vector must be of the same type. For example, the vectors A, B
 
 First create the vectors then check their class.
 ```{r}
-A = c(1, 2.2, 3.6, -2.8) 
-B = c(TRUE, TRUE, FALSE, TRUE)
-C = c("Cat 1", "Cat 2", "Cat 3")
+A <- c(1, 2.2, 3.6, -2.8) 
+B <- c(TRUE, TRUE, FALSE, TRUE)
+C <- c("Cat 1", "Cat 2", "Cat 3")
 class(A); class(B); class(C)
 ```
 
 With logical and character vectors the `table()` function indicates how many occurrences for each element type.  For instance, let the vector `wx` denote the weather conditions for five forecast periods as character data.
 ```{r}
-wx = c("sunny", "clear", "cloudy", "cloudy", "rain")
+wx <- c("sunny", "clear", "cloudy", "cloudy", "rain")
 class(wx)
 table(wx)
 ```
@@ -322,13 +322,13 @@ The output is a list of the character strings and the corresponding number of oc
 
 As another example, let the vector `ss` denote the Saffir-Simpson category for a set of five hurricanes.
 ```{r}
-ss = c("Cat 3", "Cat 2", "Cat 1", "Cat 3", "Cat 3")
+ss <- c("Cat 3", "Cat 2", "Cat 1", "Cat 3", "Cat 3")
 table(ss)
 ```
 
 Here the character strings correspond to different intensity levels as ordered categories with Cat 1 < Cat 2 < Cat 3.  In this case convert the character vector to an ordered factor with levels. This is done with the `factor()` function.
 ```{r}
-ss = factor(ss, order = TRUE)
+ss <- factor(ss, order = TRUE)
 class(ss)
 ss
 ```
@@ -359,7 +359,7 @@ Finally, does your data file have column names? These are given in the first lin
 
 Make sure the text file *US.txt* is in your working directory and type
 ```{r, eval=FALSE}
-H = read.table(file = "US.txt", header = TRUE)
+H <- read.table(file = "US.txt", header = TRUE)
 ```
 
 If you get a prompt without an error message, the data has been imported. If you get an error it is likely that the data file is not in your working directory. This will give an error message along the lines of 'cannot open the connection' or 'cannot open file.' If this happens, move the file to your working directory or change your working directory, then try again.
@@ -374,8 +374,8 @@ Your work flow might be to export your data from a spreadsheet to a csv file the
 
 You import data directly from the web by specifying the URL instead of the local file name. Of course you must be online.
 ```{r}
-loc = "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
-H = read.table(file = loc, header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
+H <- read.table(file = loc, header = TRUE)
 ```
 
 The distribution of Florida hurricanes by year is obtained by typing
@@ -418,8 +418,8 @@ tail(H, n = 3)
 
 The number of years in the record is obtained and saved in `nY` and the average number of U.S. hurricanes is saved in rate using the following two lines of code.
 ```{r}
-nY = length(H$All)
-rate = mean(H$All)
+nY <- length(H$All)
+rate <- mean(H$All)
 ```
 
 By typing the names of the saved objects, the values are printed.
@@ -432,7 +432,7 @@ Thus over the `r I(nY)` years of data the average number of hurricanes per year 
 
 If you want to change the names of the columns in the data frame, type
 ```{r}
-names(H)[4] = "GC"
+names(H)[4] <- "GC"
 names(H)
 ```
 
@@ -477,14 +477,14 @@ Get monthly precipitation values for the state back to the year 1895. Copy/paste
 
 Here I did it for you and posted the file on my website. Missing values are coded as -9.900.
 ```{r}
-loc = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(loc, na.string = "-9.900", 
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, na.string = "-9.900", 
                  header = TRUE)
 ```
 
 Plot a time series graph.
 ```{r}
-library("ggplot2")
+library(ggplot2)
 ggplot(FLp, aes(x = Year, y = Jan)) +
   geom_line() +
   ylab("January Precipitation in Florida (in)")
@@ -498,12 +498,12 @@ The median is the "middle" value of the distribution of numbers that are arrange
 
 What does "resistant" refer to? Consider the wealth (in 1000s of $) of five bar patrons.
 ```{r}
-bar = c(50, 60, 100, 75, 200)
+bar <- c(50, 60, 100, 75, 200)
 ```
 
 Now consider the same bar and patrons after Bill Gates walks in.
 ```{r}
-bar.with.gates = c(bar, 50000)
+bar.with.gates <- c(bar, 50000)
 ```
 
 ```{r}
@@ -520,8 +520,8 @@ The median value divides the data set into the top 50% of the data values and th
 Another example, the cfb (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This is common in income distributions, as a few people tend accumulate enormous wealth.
 
 ```{r}
-library("UsingR")
-income = cfb$INCOME
+library(UsingR)
+income <- cfb$INCOME
 mean(income)
 median(income)
 ```
@@ -550,8 +550,8 @@ sd(income)
 
 To illustrate consider two sets of test scores.
 ```{r}
-ts1 = c(80, 85, 75, 77, 87, 82, 88)
-ts2 = c(100, 90, 50, 57, 82, 100, 86)
+ts1 <- c(80, 85, 75, 77, 87, 82, 88)
+ts2 <- c(100, 90, 50, 57, 82, 100, 86)
 ```
 
 Some test score statistics are
@@ -566,9 +566,9 @@ Quantiles cut a set of ordered data into equal-sized data bins. The ordering com
 
 The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
 ```{r}
-con = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(con, na.string = "-9.900", 
-                 header = TRUE)
+con <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(con, na.string = "-9.900", 
+                  header = TRUE)
 sort(FLp$Jun)
 ```
 Note the use of the dollar sign to indicate the June column in the data frame.
@@ -586,8 +586,8 @@ Another example: Consider the set of North Atlantic Oscillation (NAO) index valu
 
 First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
 ```{r}
-loc = "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO = read.table(loc, header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO <- read.table(loc, header = TRUE)
 head(NAO)
 ```
 

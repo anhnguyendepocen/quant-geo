@@ -9,7 +9,41 @@ output:
 
 "**No one can know it all, we are expected to look shit up [google it] when programming.**"---Deirdre Toher
 
-Problem Set 2 is posted on Canvas. It's due next Thursday (September 14).
+### Schedule (subject to change with notice)
+
+Week | Day      | Date         | Topic
+-----|----------|--------------|------
+1    | Tuesday  | August 28    | Introduction
+1    | Thursday | August 30    | RStudio and R 
+2    | Tuesday  | September 4  | Working with R
+2    | Thursday | September 6  | Data and Data Frames
+3    | Tuesday  | September 11 | Data Munging
+3    | Thursday | September 13 | Data Munging
+4    | Tuesday  | September 18 | Making Graphs
+4    | Thursday | September 20 | Making Graphs
+5    | Tuesday  | September 25 | Maps in R
+5    | Thursday | September 27 | Maps in R
+6    | Tuesday  | October 2    | Review for First Exam
+6    | Thursday | October 4    | FIRST EXAM
+7    | Tuesday  | October 9    | Bayesian Data Analysis
+7    | Tuesday  | October 11   | Bayesian Data Analysis
+8    | Tuesday  | October 16   | Linear Regression
+8    | Thursday | October 18   | Linear Regression
+9    | Tuesday  | October 23   | Linear Regression
+9    | Thursday | October 25   | Classification & Regression Trees
+10   | Tuesday  | October 30   | Logistic Regression
+10   | Thursday | November 1   | Quantile Regression
+11   | Tuesday  | November 6   | Spatial Data
+11   | Thursday | November 8   | Geographic Regression
+12   | Tuesday  | November 13  | Geographic Regression
+12   | Thursday | November 15  | Spatial Autocorrelation
+13   | Tuesday  | November 20  | NO CLASS (out of town)
+13   | Thursday | November 22  | NO CLASS (Thanksgiving)
+14   | Tuesday  | November 27  | Spatial Autocorrelation
+14   | Thursday | November 29  | Spatial Regression
+15   | Tuesday  | December 4   | Spatial Regression
+15   | Thursday | December 6   | Review for Second Exam
+16   | Friday   | December 14  | SECOND EXAM (3-5p)
 
 After today you will know how to get data into R, how to read data from a file (and the cloud), and how data frames are structured.
 

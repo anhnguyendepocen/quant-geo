@@ -85,23 +85,23 @@ Week | Day      | Date         | Topic
 1    | Thursday | August 30    | RStudio and R 
 2    | Tuesday  | September 4  | Working with R
 2    | Thursday | September 6  | Data and Data Frames
-3    | Tuesday  | September 11 | Grammar for Data
-3    | Thursday | September 13 | Grammar for Data
-4    | Tuesday  | September 18 | Grammar for Graphs
-4    | Thursday | September 20 | Grammar for Graphs
-5    | Tuesday  | September 25 | Maps with R
-5    | Thursday | September 27 | Maps with R
+3    | Tuesday  | September 11 | Data Munging
+3    | Thursday | September 13 | Data Munging
+4    | Tuesday  | September 18 | Making Graphs
+4    | Thursday | September 20 | Making Graphs
+5    | Tuesday  | September 25 | Maps in R
+5    | Thursday | September 27 | Maps in R
 6    | Tuesday  | October 2    | Review for First Exam
 6    | Thursday | October 4    | FIRST EXAM
 7    | Tuesday  | October 9    | Bayesian Data Analysis
 7    | Tuesday  | October 11   | Bayesian Data Analysis
-8    | Tuesday  | October 16   | Regression
-8    | Thursday | October 18   | Regression
-9    | Tuesday  | October 23   | Regression
+8    | Tuesday  | October 16   | Linear Regression
+8    | Thursday | October 18   | Linear Regression
+9    | Tuesday  | October 23   | Linear Regression
 9    | Thursday | October 25   | Classification & Regression Trees
 10   | Tuesday  | October 30   | Logistic Regression
 10   | Thursday | November 1   | Quantile Regression
-11   | Tuesday  | November 6   | Grammar for Spatial Data
+11   | Tuesday  | November 6   | Spatial Data
 11   | Thursday | November 8   | Geographic Regression
 12   | Tuesday  | November 13  | Geographic Regression
 12   | Thursday | November 15  | Spatial Autocorrelation
