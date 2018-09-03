@@ -479,7 +479,7 @@ Here I did it for you and posted the file on my website. Missing values are code
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
 FLp <- read.table(loc, na.string = "-9.900", 
-                 header = TRUE)
+                  header = TRUE)
 ```
 
 Plot a time series graph.
