@@ -45,11 +45,11 @@ Week | Day      | Date         | Topic
 15   | Thursday | December 6   | Review for Second Exam
 16   | Friday   | December 14  | SECOND EXAM (3-5p)
 
-After today you will know how to work with data in R. Let's review a few things from last class.
+After today you will know how to work with data (small amounts) in R. Let's review a few things from last class.
 
-1. You work with R using the RStudio IDE. RStudio has four windows. The upper left window contains the markdown file. This is your electronic notebook. Each class lesson, problem set, etc is in a different Rmd file. The lower left window is the R console. This is your 'sandbox' for testing code.
+1. You interact with R using the RStudio IDE. RStudio has four windows. The upper left window contains the markdown file. This is your electronic notebook. Each class lesson, problem set, etc is in a different Rmd file. The lower left window is the R console. This is your 'sandbox' for testing code.
 
-2. The Rmd file contains regular text and code chunks. Code chunks start with three grave accents `(```)` followed by `{r}`. The code chunk ends with three additional grave accents. The `Knit` button in the upper left window changes (renders) the Rmd file to HTML. The rendering includes executing the code. An error will occur when you press the `Knit` button if the code refers to a function in a package that is not loaded in the workspace. 
+2. The Rmd file contains text and code chunks. Code chunks start with three grave accents `(```)` followed by `{r}`. The code chunk ends with three additional grave accents. The `Knit` button in the upper left window changes (renders) the Rmd file to HTML. The rendering includes executing the code. An error will occur when you press the `Knit` button if the code refers to a function in a package that is not loaded in the workspace. 
 
 3. The workspace refers to a directory on your computer. You can see your current workspace along the top of the Console panel. NOTE: The workspace used when you render is NOT the same as your current workspace.
 
@@ -229,7 +229,7 @@ More complicated patterns can be repeated by specifying pairs of equal-sized vec
 rep(c("long", "short"), c(1, 2))
 ```
 
-## Asking questions about our data
+## Asking questions
 
 To find the most landfalls in the first decade, type:
 ```{r}
@@ -576,8 +576,8 @@ Another example: Consider the set of North Atlantic Oscillation (NAO) index valu
 
 First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
 ```{r}
-loc = "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO = read.table(loc, header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO <- read.table(loc, header = TRUE)
 head(NAO)
 ```
 
@@ -631,7 +631,7 @@ head(H)
 
 The column name in the data frame is the name of the vector.
 
-Similarly for the ice volume data you can use the function cbind() within the function as.data.frame().
+Similarly for the ice volume data you can use the function `cbind()` within the function `as.data.frame()`.
 ```{r}
 as.data.frame(cbind(Year, Volume))
 ```
