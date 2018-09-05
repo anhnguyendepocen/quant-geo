@@ -203,8 +203,8 @@ Many times we wish to change only a small part of a previous command, such as wh
 
 We can save the history into a file and then load it later.
 ```{r eval=FALSE}
-savehistory("Sep5")
-loadhistory("Sep5")
+savehistory("Sep6")
+loadhistory("Sep6")
 ```
 
 There is often no need to save a history file. We can reproduce everything Run > Run All in the Rmd.
@@ -322,42 +322,49 @@ The vector object is now an ordered factor. Printing the object results in a lis
 
 ## Getting data into R
 
-The working directory is where R looks to get and put things outside of the software.
+Two steps (1) where will R look for things and (2) what kind of data file do we want to import?
+
+### Working directory
+
+The working directory is where R looks to get and put things outside of the software. For example, this is where R looks for data. To determine your working directory type
 ```{r}
 getwd()
 ```
 
-For example, this is where R looks for data. 
+A good strategy for this class is to download the Rmd lesson and problem set files into a folder on your desktop (call it `QG`). Then open the file. The working directory should then be something like `.../Desktop/QG/04-Lesson.Rmd`.
 
-You can use one of the menu options in RStudio. Under Session > Set Working Directory >
+We can change the working directory from inside R (e.g., Under Session > Set Working Directory >) but it is not advisable. 
 
-To list the files in your working directory you type 
+To list the files in our working directory (outside folder) we type 
 ```{r, eval=FALSE}
 dir()
 ```
 
-You also need to know what kind of data file you have. This determines the read function.  
+### What kind of data file do we want to import?
+
+We also need to know what kind of data file we have. This determines the import function.  
 
 For example, the data set *US.txt* on Canvas contains a list of tropical cyclone counts by year making land fall in the United States (excluding Hawaii) at hurricane intensity. The file is a space-delimited text file so you use the `read.table()` function to import data. 
 
-Finally, does your data file have column names? These are given in the first line of your file, usually as a series of character strings. The line is called a 'header' (header record) and if your data has one, you need to specify `header=TRUE`.
+If our data file has column names (header record) then use the `header = TRUE` argument.
 
 Make sure the text file *US.txt* is in your working directory and type
-```{r, eval=FALSE}
-H <- read.table(file = "US.txt", header = TRUE)
+```{r}
+H <- read.table(file = "US.txt", 
+                header = TRUE)
 ```
 
 If you get a prompt without an error message, the data has been imported. If you get an error it is likely that the data file is not in your working directory. This will give an error message along the lines of 'cannot open the connection' or 'cannot open file.' If this happens, move the file to your working directory or change your working directory, then try again.
 
-If your file has comma's between columns then use the argument `sep=","` in the function. No changes are made to your original data file.
+If your file has comma's between columns then use the argument `sep = ","` in the function. No changes are made to your original data file.
 
 `NA` is used for missing values and `NaN` for not a number. If the missing value character in your file is coded as `99`, specify `na.strings = "99"`.
 
 Several variants of `read.table()` differ only in the default argument settings. `read.csv()` has settings that are suitable for comma delimited (csv) files that have been exported from a spreadsheet.  
 
-Your work flow might be to export your data from a spreadsheet to a csv file then import it to R using the `read.csv()` function.
+A typical work flow might be to export data from a spreadsheet using the csv file format then import it to R using the `read.csv()` function.
 
-You import data directly from the web by specifying the URL instead of the local file name. Of course you must be online.
+We can import data directly from the web by specifying the URL instead of the local file name. Of course this requires that we are connected to the internet.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
 H <- read.table(file = loc, header = TRUE)
@@ -368,26 +375,27 @@ The distribution of Florida hurricanes by year is obtained by typing
 table(H$FL)
 ```
 
-You reference the columns using the object$column syntax. For example, type
+We reference the columns using the `$` syntax. For example, type
 ```{r}
 H$FL
 sum(H$FL)
+table(H$FL)
 ```
 
-There are 88 years without a FL hurricane, 42 years with exactly one, and so on.
+There are 93 years without a FL hurricane, 43 years with exactly one, and so on.
 
 ## Data frames
 
 The function `read.table()` (and its variants) return data frames. `H` is a data frame.  
 
-A data frame is similar to a spreadsheet. Values are arranged in rows and columns. The rows are the cases (observations) and the columns are the variables. The `dim()` function returns the size of your data frame (number of rows and number of columns).
+A data frame is like a spreadsheet. Values are arranged in rows and columns. Rows are the cases (observations) and columns are the variables. The `dim()` function gives the size of the data frame (number of rows and number of columns).
 ```{r}
 dim(H)
 ```
 
-This tells you there are `r I(dim(H)[1])` rows and `r I(dim(H)[2])` columns in your data frame.
+There are `r I(dim(H)[1])` rows and `r I(dim(H)[2])` columns in the data frame.
 
-Note: Here I use inline code. Open with begin single quote r and close with begin single quote.
+Note: Here we use inline code. Open with a single grave accent followed by the letter r and close with a grave accent.
 
 To list the first six lines of the data object, type
 ```{r}
@@ -396,12 +404,12 @@ head(H)
 
 The columns include year, number of hurricanes, number of major hurricanes, number of Gulf coast hurricanes, number of Florida hurricanes, and number of East coast hurricanes in order. Column names are printed as well.  
 
-The last six lines of your data frame are listed similarly using the `tail()` function. The number of lines listed is changed with using the argument `n =`.
+The last six lines of the data frame are listed similarly using the `tail()` function. The number of lines listed is changed using the argument `n =`.
 ```{r}
 tail(H, n = 3)
 ```
 
-The number of years in the record is obtained and saved in `nY` and the average number of U.S. hurricanes is saved in rate using the following two lines of code.
+The number of years in the record is assigned to the object `nY` and the annual average number of hurricanes (rate) is assigned to the object `rate`.
 ```{r}
 nY <- length(H$All)
 rate <- mean(H$All)
@@ -415,7 +423,7 @@ rate
 
 Thus over the `r I(nY)` years of data the average number of hurricanes per year is `r I(round(rate, digits = 2))`.
 
-If you want to change the names of the columns in the data frame, type
+If we want to change the names of the columns in the data frame, type
 ```{r}
 names(H)[4] <- "GC"
 names(H)
@@ -423,7 +431,7 @@ names(H)
 
 This changes the 4th column name from G to GC. Note that this change occurs to the data frame in R and not to your original data file.
 
-Most of your work with R will involve data frames. A data frame is a tabular (rectangular) data structure, which means it has rows and columns.  It is like a matrix with column names. Actually it is a list:
+Most of our work with R will involve data frames. A data frame is a tabular (rectangular) data structure, which means it has rows and columns.  It is like a matrix with column names. Actually it is a list:
 
 * Elements of the list are vectors.
 * Vectors are the columns in the data frame.
@@ -458,9 +466,9 @@ H[10, 4]
 
 Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
 
-Get monthly precipitation values for the state back to the year 1895. Copy/paste into a  text editor (notepad) then import into R using the `read.table()` function. Add column names.
+Get monthly precipitation values for the state back to the year 1895. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
 
-Here I did it for you and posted the file on my website. Missing values are coded as -9.900.
+Here I did it for Florida and posted the file on my website. Missing values are coded as -9.900.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
 FLp <- read.table(loc, na.string = "-9.900", 
@@ -483,12 +491,12 @@ The median is the "middle" value of the distribution of numbers that are arrange
 
 What does "resistant" refer to? Consider the wealth (in 1000s of $) of five bar patrons.
 ```{r}
-bar = c(50, 60, 100, 75, 200)
+bar <- c(50, 60, 100, 75, 200)
 ```
 
 Now consider the same bar and patrons after Bill Gates walks in.
 ```{r}
-bar.with.gates = c(bar, 50000)
+bar.with.gates <- c(bar, 50000)
 ```
 
 ```{r}
@@ -506,7 +514,7 @@ Another example, the `cfb` (**UsingR**) data set contains a sampling of the data
 
 ```{r}
 library("UsingR")
-income = cfb$INCOME
+income <- cfb$INCOME
 mean(income)
 median(income)
 ```
@@ -514,7 +522,7 @@ median(income)
 The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more very large values than very small values.  The "tail" of the distribution is longer on the right side.
 
 Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
-```{r}
+```{r, eval=FALSE}
 data(package = "UsingR")
 ```
 
@@ -535,14 +543,16 @@ sd(income)
 
 To illustrate consider two sets of test scores.
 ```{r}
-ts1 = c(80, 85, 75, 77, 87, 82, 88)
-ts2 = c(100, 90, 50, 57, 82, 100, 86)
+ts1 <- c(80, 85, 75, 77, 87, 82, 88)
+ts2 <- c(100, 90, 50, 57, 82, 100, 86)
 ```
 
 Some test score statistics are
 ```{r}
-mean(ts1); mean(ts2)
-var(ts1); var(ts2)
+mean(ts1)
+mean(ts2)
+var(ts1)
+var(ts2)
 ```
 
 ## Quantiles
@@ -551,9 +561,10 @@ Quantiles cut a set of ordered data into equal-sized data bins. The ordering com
 
 The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
 ```{r}
-con = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(con, na.string = "-9.900", 
-                 header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
+                  header = TRUE)
 sort(FLp$Jun)
 ```
 
@@ -593,20 +604,20 @@ Columns with missing values get a row output from the `summary()` function indic
 
 ## Creating a data frame
 
-Most work is done on data frames. The `data.frame()1 function creates a data frame from a set of vectors.
+Most work is done on data frames. The `data.frame()` function creates a data frame from a set of vectors.
 
 Consider ice volume (10$^3$ km$^3$) measurements from the arctic from 2002 to 2012. The measurements are taken on January 1st each year and are available from http://psc.apl.washington.edu/wordpress/research/projects/arctic-sea-ice-volume-anomaly/data/
 
 ```{r}
-Volume = c(20.233, 19.659, 18.597, 18.948, 17.820, 
+Volume <- c(20.233, 19.659, 18.597, 18.948, 17.820, 
            16.736, 16.648, 17.068, 15.916, 14.455, 
            14.569)
 ```
 
 Since the data have a sequential order you create a data frame with year in the first column and volume in the second.
 ```{r}
-Year = 2002:2012
-Ice.df = data.frame(Year, Volume)
+Year <- 2002:2012
+Ice.df <- data.frame(Year, Volume)
 head(Ice.df)
 ```
 
@@ -619,9 +630,9 @@ Ice.df$Year[which.min(Ice.df$Volume)]
 
 To coerce an object to a data frame use the function `as.data.frame()`. For example, let counts be a vector of integers.
 ```{r}
-counts = rpois(100, lambda = 1.66)
+counts <- rpois(100, lambda = 1.66)
 head(counts)
-H = as.data.frame(counts)
+H <- as.data.frame(counts)
 head(H)
 ```
 

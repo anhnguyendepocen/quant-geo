@@ -11,46 +11,9 @@ output:
 
 Today you will learn how to manipulate data using functions from the **dplyr** package. You will learn how to write readable code using the pipe operator. 
 
-Data wrangling is a key component in exploratory data analysis. Exploratory data analysis preceeds data modeling.
+Data wrangling (munging) is a key component in exploratory data analysis. Exploratory data analysis preceeds data modeling.
 
 Problem Set 3 is posted on Canvas. It's due next Tuesday (3 October).
-
-## Revised schedule
-
-Week | Day      | Date         | Topic
------|----------|--------------|------
-1    | Tuesday  | August 29    | Introduction
-1    | Thursday | August 31    | RStudio and R
-2    | Tuesday  | September 5  | Working with R
-2    | Thursday | September 7  | Data and Data Frames
-3    | Tuesday  | September 12 | NO CLASS IRMA
-3    | Thursday | September 14 | NO CLASS IRMA
-4    | Tuesday  | September 19 | NO CLASS (out of town)
-4    | Thursday | September 21 | NO CLASS (out of town)
-WE ARE HERE | | 
-5    | Tuesday  | September 26 | Grammar for Data
-5    | Thursday | September 28 | Grammar for Graphs
-6    | Tuesday  | October 3    | Maps in R
-6    | Thursday | October 5    | Review for First Exam
-7    | Tuesday  | October 10   | FIRST EXAM
-7    | Thursday | October 12   | Bayesian Data Analysis
-8    | Tuesday  | October 17   | Bayesian Data Analysis
-8    | Tuesday  | October 19   | Regression
-9    | Tuesday  | October 24   | Regression
-9    | Thursday | October 26   | Regression
-10   | Tuesday  | October 31   | Classification Trees
-10   | Thursday | November 2   | Logistic Regression
-11   | Tuesday  | November 7   | Quantile Regression
-11   | Thursday | November 9   | Grammar for Spatial Data
-12   | Tuesday  | November 14  | NO CLASS (out of town)
-12   | Thursday | November 16  | NO CLASS (out of town)
-13   | Tuesday  | November 21  | Geographic Regression
-13   | Thursday | November 23  | NO CLASS (Thanksgiving)
-14   | Tuesday  | November 28  | Spatial Autocorrelation
-14   | Thursday | November 30  | Spatial Regression
-15   | Tuesday  | December 5   | Spatial Regression
-15   | Thursday | December 7   | Review for Second Exam
-16   | Friday   | December 15  | SECOND EXAM (3-5p)
 
 ### Creating a data frame
 
