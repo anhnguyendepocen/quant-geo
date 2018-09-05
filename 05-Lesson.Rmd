@@ -15,6 +15,9 @@ Data wrangling (munging) is a key component in exploratory data analysis. Explor
 
 Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
 
+Use google to search for data sets.
+https://toolbox.google.com/datasetsearch
+
 ### Creating a data frame
 
 Quick review. Consider ice volume (1000 km$^3$) measurements from the arctic from 2002 to 2012. The measurements are taken on January 1st each year and are available from http://psc.apl.washington.edu/wordpress/research/projects/arctic-sea-ice-volume-anomaly/data/
