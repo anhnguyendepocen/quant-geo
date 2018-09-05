@@ -211,7 +211,7 @@ There is often no need to save a history file. We can reproduce everything Run >
 
 ## Creating structured data
 
-Sometimes data have a pattern. For instance the integers 1 through 99. The colon `:` function is used for creating simple sequences.
+When data are in a pattern; for instance the integers 1 through 99. The colon `:` function is used for creating simple sequences.
 ```{r}
 1:100
 rev(1:100)
@@ -236,7 +236,7 @@ More complicated patterns can be repeated by specifying pairs of equal-sized vec
 rep(c("long", "short"), c(1, 2))
 ```
 
-## Examining your data
+## Examining our data
 
 To find the most landfalls in the first decade, type:
 ```{r}
@@ -248,9 +248,9 @@ Which years had the most?
 cD1 == 3
 ```
 
-Notice the double equals signs (`==`). This tests each value in `cD1` to see if it is equal to 3. The 2nd and 4th values are equal to 3 so TRUEs are returned. Think of this as asking R a question. Is the value equal to 3?  R answers all at once with a vector of TRUE's and FALSE's.
+Notice the double equals signs (`==`). This tests each value (element) in `cD1` to see if it is equal to 3. The 2nd and 4th values are equal to 3 so TRUEs are returned. Think of this as asking R a question. Is the value equal to 3?  R answers all at once with a vector of TRUE's and FALSE's.
 
-Now the question is, how do you get the vector element corresponding to the TRUE values?  That is, which years have 3 landfalls?
+How do we get the vector element corresponding to the TRUE values?  That is, which years have 3 landfalls?
 ```{r}
 which(cD1 == 3)
 ```
@@ -260,40 +260,43 @@ The function `which.max()` can be used to get the first maximum.
 which.max(cD1)
 ```
 
-You might also want to know the total number of landfalls in each decade and the number of years in a decade without a landfall.  Or how about the ratio of the mean number of landfalls over the two decades.
+We might also want to know the total number of landfalls in each decade and the number of years in a decade without a landfall. Or how about the ratio of the mean number of landfalls over the two decades.
 ```{r}
-sum(cD1); sum(cD2)
+sum(cD1)
+sum(cD2)
 ```
 
-Here you put function calls on a single line by using the semicolon `;`.
 ```{r}
-sum(cD1 == 0); sum(cD2 == 0)
+sum(cD1 == 0)
+sum(cD2 == 0)
 ```
 
 ```{r}
 mean(cD2)/mean(cD1)
 ```
 
-So there is 85% more landfalls during the second decade.  Is this statistically significant?
+There are 85% more landfalls during the second decade. Is this increase statistically significant?
 
-To remove an object from the environment use the `rm()` function.
+To remove an object from the environment we use the `rm()` function. Usually not needed unless we have very large objects (e.g., million cases).
 ```{r}
 rm(cD1, cD2)
 ```
 
 ## Tables and summaries
 
-All elements of a vector must be of the same type. For example, the vectors A, B, and C below are constructed as numeric, logical, and character, respectively.
+All elements of a vector must be of the same type. For example, the vectors `A`, `B`, and `C` below are constructed as numeric, logical, and character, respectively.
 
-First create the vectors then check their class.
+First create the vectors then check the class.
 ```{r}
 A <- c(1, 2.2, 3.6, -2.8) 
 B <- c(TRUE, TRUE, FALSE, TRUE)
 C <- c("Cat 1", "Cat 2", "Cat 3")
-class(A); class(B); class(C)
+class(A)
+class(B)
+class(C)
 ```
 
-With logical and character vectors the `table()` function indicates how many occurrences for each element type.  For instance, let the vector `wx` denote the weather conditions for five forecast periods as character data.
+With logical and character vectors the `table()` function indicates how many occurrences for each element type. For instance, let the vector `wx` denote the weather conditions for five forecast periods as character data.
 ```{r}
 wx <- c("sunny", "clear", "cloudy", "cloudy", "rain")
 class(wx)
@@ -308,23 +311,23 @@ ss <- c("Cat 3", "Cat 2", "Cat 1", "Cat 3", "Cat 3")
 table(ss)
 ```
 
-Here the character strings correspond to different intensity levels as ordered categories with Cat 1 < Cat 2 < Cat 3.  In this case convert the character vector to an ordered factor with levels. This is done with the `factor()` function.
+Here the character strings correspond to different intensity levels as ordered categories with Cat 1 < Cat 2 < Cat 3.  In this case convert the character vector to an ordered factor with levels. This is done with the function `factor()`.
 ```{r}
 ss <- factor(ss, order = TRUE)
 class(ss)
 ss
 ```
 
-The vector object is now an ordered factor. Printing the object results in a list of the elements in the vector and a list of the levels in order.  Note: if you do the same for the `wx` object, the order is alphabetical by default. Try it.
+The vector object is now an ordered factor. Printing the object results in a list of the elements in the vector and a list of the levels in order.  Note: if we do the same for the `wx` object, the order is alphabetical by default. Try it.
 
 ## Getting data into R
 
-Your working directory is where R looks to get and put things outside of the software.
+The working directory is where R looks to get and put things outside of the software.
 ```{r}
 getwd()
 ```
 
-This is also the directory where R will look for your data. Use the `setwd()` function and specifying the path name within quotes.  
+For example, this is where R looks for data. 
 
 You can use one of the menu options in RStudio. Under Session > Set Working Directory >
 
