@@ -13,7 +13,7 @@ Today you will learn how to manipulate data using functions from the **dplyr** p
 
 Data wrangling (munging) is a key component in exploratory data analysis. Exploratory data analysis preceeds data modeling.
 
-Problem Set 3 is posted on Canvas. It's due next Tuesday (3 October).
+Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
 
 ### Creating a data frame
 

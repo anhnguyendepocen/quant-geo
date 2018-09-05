@@ -45,7 +45,7 @@ Week | Day      | Date         | Topic
 15   | Thursday | December 6   | Review for Second Exam
 16   | Friday   | December 14  | SECOND EXAM (3-5p)
 
-After today you will know the basic data structures in R. Before we begin let's review a few things from last class.
+After today you will know how to work with data in R. Let's review a few things from last class.
 
 1. You work with R using the RStudio IDE. RStudio has four windows. The upper left window contains the markdown file. This is your electronic notebook. Each class lesson, problem set, etc is in a different Rmd file. The lower left window is the R console. This is your 'sandbox' for testing code.
 
@@ -53,9 +53,9 @@ After today you will know the basic data structures in R. Before we begin let's 
 
 3. The workspace refers to a directory on your computer. You can see your current workspace along the top of the Console panel. NOTE: The workspace used when you render is NOT the same as your current workspace.
 
-## Entering data
+## Concatenate
 
-The `c()` function gets small amounts of data into R. It combines (concatenates) items (elements). Example: consider a set of annual land falling hurricane counts over a ten-year period.
+The `c()` function is used to get data (small amounts) into R. It combines (concatenates) the numbers into a single vector of data. Example: consider a set of annual land falling hurricane counts over a ten-year period.
 
 2  3  0  3  1  0  0  1  2  1
 
@@ -67,13 +67,6 @@ counts
 
 Notice a few things. We assign the values to an object called `counts`. The assignment operator is an equal sign (`=`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]).
 
-To assign and print, enclose the line in parentheses.
-```{r}
-(counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1))
-```
-
-When working in the console, we save typing by using the arrow keys to retrieve previous commands. Each command is stored in a history file and the up arrow key will move backwards through the history file and the down arrow forwards. The left and right arrow keys also work as expected.
- 
 ## Applying a function
 
 Once the data are stored in an object we perform calculations on them.
@@ -159,7 +152,7 @@ So the variance is 1.344. To verify with the `var()` function type
 var(x)
 ```
 
-## Data vectors have a type
+## Vector types
 
 One restriction on data vectors is that all the elements must have the same type. This can be numeric as in counts or character strings as in
 ```{r}
@@ -209,7 +202,7 @@ loadhistory("Sep6")
 
 There is often no need to save a history file. We can reproduce everything Run > Run All in the Rmd.
 
-## Creating structured data
+## Structured data
 
 When data are in a pattern; for instance the integers 1 through 99. The colon `:` function is used for creating simple sequences.
 ```{r}
@@ -236,7 +229,7 @@ More complicated patterns can be repeated by specifying pairs of equal-sized vec
 rep(c("long", "short"), c(1, 2))
 ```
 
-## Examining our data
+## Asking questions about our data
 
 To find the most landfalls in the first decade, type:
 ```{r}
@@ -320,7 +313,7 @@ ss
 
 The vector object is now an ordered factor. Printing the object results in a list of the elements in the vector and a list of the levels in order.  Note: if we do the same for the `wx` object, the order is alphabetical by default. Try it.
 
-## Getting data into R
+## Importing data
 
 Two steps (1) where will R look for things and (2) what kind of data file do we want to import?
 
