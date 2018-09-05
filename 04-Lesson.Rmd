@@ -510,7 +510,7 @@ The difference in the mean wealth with and without Bill Gates present is substan
 
 The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
 
-Another example, the `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This is common in income distributions, as a few people tend accumulate enormous wealth.
+Another example, the `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This tendency is common in income distributions, as a few people tend to accumulate enormous wealth.
 
 ```{r}
 library("UsingR")
@@ -519,7 +519,7 @@ mean(income)
 median(income)
 ```
 
-The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more very large values than very small values.  The "tail" of the distribution is longer on the right side.
+The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more large values than small values. The "tail" of the distribution is longer on the right side.
 
 Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
 ```{r, eval=FALSE}
