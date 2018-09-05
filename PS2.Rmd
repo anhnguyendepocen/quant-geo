@@ -11,25 +11,17 @@ Due Date: September 18, 2018
 
 Total Points: 
 
-**1** The following values are the annual number of hurricanes that have hit the United States since 1990. Answer the questions by typing R commands.
+**1** The following values are the annual number of hurricanes that have hit the United States since 1990. Answer the questions by typing the correct R code.
 
 0 1 1 1 0 2 2 1 3 3 0 0 1 2 6 6 0 1 3 0 1
 
-a. Enter the data into R. (2)
+a. Import the data. (2)
 
 b. How many years are there? (2)
 
 c. What is the total number of hurricanes over all years? (2)
 
-**2** Answer the following questions by typing R commands.
-
-a. Create a vector of numbers starting with -5 and ending with 2. (2)
-
-b. What is the length of this vector? (2)
-
-c. Create a new vector from the original vector by subtracting the mean value over all numbers in the vector. (2)
-
-**3** Suppose you keep track of your mileage each time you fill your car's gas tank. At your last 8 fill-ups the mileage was
+**2** Suppose you keep track of your mileage each time you fill your car's gas tank. At your last 8 fill-ups the mileage was
 
 65311 65624 65908 66219 66499 66821 67145 67447
 
@@ -39,7 +31,7 @@ b. Use the function `diff()` to determine the number of miles between fill-ups. 
 
 c. What is the maximum, minimum, and mean number of miles between fill-ups?  (3)
 
-**4** Create the following sequences using the `seq()` and `rep()` functions as appropriate.
+**3** Create the following sequences using the `seq()` and `rep()` functions as appropriate.
 
 a.  "a", "a", "b", "b", "b" (2)
 
@@ -49,8 +41,7 @@ c.  1, 1, 1, 2, 2, 2, 3, 3, 3  (2)
 
 d.  1, 1, 1, 2, 2, 3  (2)
 
-
-**5** Read the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt).
+**4** Import the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt) into R.
 
 a. What are the wettest and driest values for the month of June? (2)
 
@@ -62,19 +53,19 @@ d. What is the 95th percentile value of June rainfall? (2)
 
 e. Create a graph of June rainfall with year along the horizontal axis. (4)
 
-**6** The dataset *hflights* from the **hflights** package contains all 227,496 flights that departed Houston in 2011. Using the functions in the **dplyr** package
+**5** The dataset *hflights* from the **hflights** package contains all 227,496 airline flights that departed Houston in 2011. Using the functions in the **dplyr** package do the following:
 
 a. Create a new data frame from *hflights* containing only those flights that departed on September 11th of that year. (5)
 
-b. How many flights departed on that day? (5)
+b. Determine how many flights departed on that day. (5)
 
 c. Create a data frame with the first column being the tail number and the second being the number of departures from Houston the plane made that year sorted by most to least number of flights. (5)
 
-**7** Answer the following questions using the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt).
+**6** With the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) do the following:
 
-a. Use the functions `group_by()` and `summarize()` to determine the number of tornadoes by each state. (5)
+a. Use the functions `group_by()` and `summarize()` to determine the number of tornadoes by state. (5)
 
-b. Create a new column with path length in meters (the length variable is in miles). Create a new data frame by removing rows with EF damage rating below 3. Group by year and summarize the average path length. Make a graph with year on the x axis and average path length on the y axis. (10)
+b. Create a new column with path length in meters (the length variable is in miles). Create a new data frame by removing rows with EF damage rating less than 3. Group by year and summarize the average path length. Make a graph with year on the x axis and average path length on the y axis. (10)
 
 c. Compute the number of tornadoes with EF damage rating 1 or higher by year and graph the results as a time series (year along the horizontal axis). (10)
 
