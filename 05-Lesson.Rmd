@@ -1,5 +1,5 @@
 ---
-title: "Grammar for Data"
+title: "Data Munging"
 author: "James B. Elsner"
 date: September 11, 2018
 output: 
@@ -9,28 +9,251 @@ output:
 
 "**Science is the belief in the ignorance of experts.**"---Richard Feynman
 
-Today you will learn how to manipulate data using functions from the **dplyr** package. You will learn how to write readable code using the pipe operator. 
-
-Data wrangling (munging) is a key component in exploratory data analysis. Exploratory data analysis preceeds data modeling.
+Today we learn how to work with data frames.
 
 Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
 
 Use google to search for data sets.
 https://toolbox.google.com/datasetsearch
 
+## Data frames
+
+The function `read.table()` (and its variants) return data frames. `H` is a data frame.  
+
+We import data directly from the web by specifying the URL instead of the local file name. Of course this requires that we are connected to the internet.
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
+H <- read.table(file = loc, 
+                header = TRUE)
+```
+
+A data frame is like a spreadsheet. Values are arranged in rows and columns. Rows are the cases (observations) and columns are the variables. The `dim()` function gives the size of the data frame (number of rows and number of columns).
+```{r}
+dim(H)
+```
+
+There are `r I(dim(H)[1])` rows and `r I(dim(H)[2])` columns in the data frame.
+
+Note: Here we use inline code. Open with a single grave accent followed by the letter r and close with a grave accent.
+
+To list the first six lines of the data object, type
+```{r}
+head(H)
+```
+
+The columns include year, number of hurricanes, number of major hurricanes, number of Gulf coast hurricanes, number of Florida hurricanes, and number of East coast hurricanes in order. Column names are printed as well.  
+
+The last six lines of the data frame are listed similarly using the `tail()` function. The number of lines listed is changed using the argument `n =`.
+```{r}
+tail(H, n = 3)
+```
+
+The number of years in the record is assigned to the object `nY` and the annual average number of hurricanes (rate) is assigned to the object `rate`.
+```{r}
+nY <- length(H$All)
+rate <- mean(H$All)
+```
+
+By typing the names of the saved objects, the values are printed.
+```{r}
+nY
+rate
+```
+
+Thus over the `r I(nY)` years of data the average number of hurricanes per year is `r I(round(rate, digits = 2))`.
+
+If we want to change the names of the columns in the data frame, type
+```{r}
+names(H)[4] <- "GC"
+names(H)
+```
+
+This changes the 4th column name from G to GC. Note that this change occurs to the data frame in R and not to your original data file.
+
+Most of our work with R will involve data frames. A data frame is a tabular (rectangular) data structure, which means it has rows and columns.  It is like a matrix with column names. Actually it is a list:
+
+* Elements of the list are vectors.
+* Vectors are the columns in the data frame.
+* Vectors must all have the same length; in other words, all columns must have the same height.
+* Equal-height columns gives it a rectangular shape.
+* Columns must have names.
+
+To print the first column of values (the years) you can type:
+```{r, eval=FALSE}
+H[1]
+```
+
+Or
+```{r, eval=FALSE}
+H[, 1]
+H[[1]]
+H$Year
+```
+
+Data frames have two indices indicating the rows and columns in that order.
+```{r}
+H[10, 4]
+```
+
+* To a statistician a data frame is a table of observations. Each row contains one observation. Each observation must contain the same variables. These variables are called columns, and you can refer to them by name.  You can also refer to the contents by row number and column number, just as with a matrix.
+
+* To an Excel user a data frame is like a worksheet (or a range within a worksheet). A data frame is more restrictive, however, in that each column has a type.
+
+* To an R programmer a data frame is a data structure, part matrix and part list.  A column can contain numbers, character strings, or factors but not a mix of them.  You can index the data frame just like you index a matrix. The data frame is also a list, where the list elements are the columns, so you can access columns by using list operators.
+
+## Example: Florida precipitation by month
+
+Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
+
+Get monthly precipitation values for the state back to the year 1895. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
+
+Here I did it for Florida and posted the file on my website. Missing values are coded as -9.900.
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, na.string = "-9.900", 
+                  header = TRUE)
+```
+
+Plot a time series graph.
+```{r}
+library(ggplot2)
+ggplot(FLp, aes(x = Year, y = Jan)) +
+  geom_line() +
+  ylab("January Precipitation in Florida (in)")
+```
+
+## Central tendency
+
+The sample mean is the average. Typically there are more values near the average. 
+
+The median is the "middle" value of the distribution of numbers that are arranged from smallest to largest. With an odd number of data values, the median is the middle one; with an even number of data values, the median is the average of the two middle values.
+
+What does "resistant" refer to? Consider the wealth (in 1000s of $) of five bar patrons.
+```{r}
+bar <- c(50, 60, 100, 75, 200)
+```
+
+Now consider the same bar and patrons after Jeff Bezos walks in.
+```{r}
+bar.with.Bezos <- c(bar, 50000)
+```
+
+```{r}
+mean(bar)
+mean(bar.with.Bezos)
+median(bar)
+median(bar.with.Bezos)
+```
+
+The difference in the mean wealth with and without Jeff Bezos present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant statistics.
+
+The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
+
+The `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This tendency is common in income distributions (and it's getting worse), as a few people tend to accumulate enormous wealth.
+
+```{r}
+library("UsingR")
+income <- cfb$INCOME
+mean(income)
+median(income)
+```
+
+The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more large values than small values. The "tail" of the distribution is longer on the right side.
+
+Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
+```{r, eval=FALSE}
+data(package = "UsingR")
+```
+
+## Spread
+
+A simple measure of the spread of data values is the range. The range is given by the minimum and maximum value or by the difference between them.
+```{r}
+range(income)
+diff(range(income))
+```
+
+Or using the central tendency as the center of a set of values, we can define spread in terms of deviations from the center. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
+```{r}
+var(income)
+sqrt(var(income))
+sd(income)
+```
+
+To illustrate consider two sets of test scores.
+```{r}
+ts1 <- c(80, 85, 75, 77, 87, 82, 88)
+ts2 <- c(100, 90, 50, 57, 82, 100, 86)
+```
+
+Some test score statistics are
+```{r}
+mean(ts1)
+mean(ts2)
+var(ts1)
+var(ts2)
+```
+
+## Quantiles
+
+Quantiles cut a set of ordered data into equal-sized data bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the data have values less than this quantile value. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the data have values less than this quantile value.
+
+The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
+                  header = TRUE)
+sort(FLp$Jun)
+```
+
+Note the use of the dollar sign to indicate the column in the data frame.
+
+Next find the 25th and 50th percentile values.
+```{r}
+quantile(FLp$Jun, probs = c(.25, .5))
+```
+
+Of the `r I(length(FLp$Jun))` monthly precipitation values, 25% of them are less than `r round(quantile(FLp$Jun,probs=.25),2)` inches, 50% are less than `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.  Thus there are an equal number of years with June precipitation between `r I(round(quantile(FLp$Jun,probs=.25),2))` and `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.
+
+The third quartile value corresponding to the .75 quantile (75th percentile) indicates that 75% of the data have a value less than this. The difference between the first and third quartile values is called the interquartile range (IQR). Fifty percent of all values lie within the IQR. The IQR is obtained using the `IQR()` function.
+
+Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
+
+First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO <- read.table(loc, header = TRUE)
+head(NAO)
+```
+
+Determine the 5th and 95th percentile values for the month of June.
+```{r}
+quantile(NAO$Jun, prob = c(.05, .95))
+```
+
+## The summary method
+
+The `summary()` function provides summary statistics for each column in your data frame. The statistics include output the mean, median, minimum, maximum, along with the first quartile and third quartile values.
+```{r}
+summary(FLp)
+```
+
+Columns with missing values get a row output from the `summary()` function indicating the number of them (NA's).
+
 ### Creating a data frame
 
-Quick review. Consider ice volume (1000 km$^3$) measurements from the arctic from 2002 to 2012. The measurements are taken on January 1st each year and are available from http://psc.apl.washington.edu/wordpress/research/projects/arctic-sea-ice-volume-anomaly/data/
+Consider ice volume (1000 km$^3$) measurements from the arctic from 2002 to 2012. The measurements are taken on January 1st each year and are available from http://psc.apl.washington.edu/wordpress/research/projects/arctic-sea-ice-volume-anomaly/data/
 ```{r}
-Volume = c(20.233, 19.659, 18.597, 18.948, 17.820, 
+Volume <- c(20.233, 19.659, 18.597, 18.948, 17.820, 
            16.736, 16.648, 17.068, 15.916, 14.455, 
            14.569)
 ```
 
 The object `Volume` is a vector. Since the data values are ordered (earliest to latest) we can create another vector containing the sequence of corresponding years. Then, the function `data.frame()` creates the data frame object from the two vectors.
 ```{r}
-Year = 2002:2012
-Ice.df = data.frame(Year, Volume)
+Year <- 2002:2012
+Ice.df <- data.frame(Year, Volume)
 head(Ice.df)
 ```
 
@@ -45,9 +268,9 @@ Ice.df$Year[which.min(Ice.df$Volume)]
 
 To change a single vector object to a data frame use the function `as.data.frame()`. For example, let `counts` be a vector of random integers. We generate a sample of size 100 with values from a Poisson distribution having a rate of 1.69. 
 ```{r}
-counts = rpois(100, lambda = 1.69)
+counts <- rpois(100, lambda = 1.69)
 head(counts)
-H = as.data.frame(counts)
+H <- as.data.frame(counts)
 head(H)
 ```
 
@@ -94,7 +317,7 @@ The function `select()` picks variables by name.
 
 For example, create a new data frame containing only the month, day, and temperature columns from the `airquality` data frame.
 ```{r}
-df = select(airquality, Month, Day, Temp)
+df <- select(airquality, Month, Day, Temp)
 head(df)
 ```
 
