@@ -39,7 +39,7 @@ install.packages("UsingR")
 The function retrieves the package from CRAN and installs it on your computer. 
 
 ```{r}
-library("UsingR")
+library(UsingR)
 ```
 
 The `library()` function second makes the package available to your current R session (loads the function). 
@@ -60,7 +60,7 @@ counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
 counts
 ```
 
-Notice a few things. You assigned the values to an object called `counts`. The assignment operator is an equal sign (`=`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]). More on this later.
+Notice a few things. You assigned the values to an object called `counts`. The assignment operator is an equal sign (`=` or `<-`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]). More on this later.
 
 To assign and print, enclose the line in parentheses.
 ```{r}

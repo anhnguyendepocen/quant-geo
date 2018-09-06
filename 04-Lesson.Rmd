@@ -45,11 +45,11 @@ Week | Day      | Date         | Topic
 15   | Thursday | December 6   | Review for Second Exam
 16   | Friday   | December 14  | SECOND EXAM (3-5p)
 
-After today you will know how to work with data (small amounts) in R. Let's review a few things from last class.
+After today you will know how to work with data (small amounts) in R. Let's review a few things from last time.
 
-1. You interact with R using the RStudio IDE. RStudio has four windows. The upper left window contains the markdown file. This is your electronic notebook. Each class lesson, problem set, etc is in a different Rmd file. The lower left window is the R console. This is your 'sandbox' for testing code.
+1. You interact with R using the RStudio IDE. RStudio has four windows. The upper left window contains the markdown file. This is your electronic notebook. Each class lesson, problem set, etc is a separate Rmd file. The lower left window is the R console. This is your 'sandbox' for testing code.
 
-2. The Rmd file contains text and code chunks. Code chunks start with three grave accents `(```)` followed by `{r}`. The code chunk ends with three additional grave accents. The `Knit` button in the upper left window changes (renders) the Rmd file to HTML. The rendering includes executing the code. An error will occur when you press the `Knit` button if the code refers to a function in a package that is not loaded in the workspace. 
+2. The Rmd file contains text and code chunks. Code chunks start with three grave accents `(```)` followed by `{r}`. The code chunk ends with three additional grave accents. The `Knit` button in the upper left window creates (renders) an HTML file from the Rmd file. The render includes executing the code. An error will occur when you press the `Knit` button if the code refers to a function in a package that is not loaded in the workspace. 
 
 3. The workspace refers to a directory on your computer. You can see your current workspace along the top of the Console panel. NOTE: The workspace used when you render is NOT the same as your current workspace.
 
@@ -65,7 +65,7 @@ counts <- c(2, 3, 0, 3, 1, 0, 0, 1, 2, 1)
 counts
 ```
 
-Notice a few things. We assign the values to an object called `counts`. The assignment operator is an equal sign (`=`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]).
+Notice a few things. We assign the values to an object called `counts`. The assignment operator is an equal sign (`<-` or `=`). Values do not print. They are assigned to an object name. They are printed by typing the object name as we did on the second line. Finally, the values when printed are prefaced with a `[1]`. This indicates that the object is a vector and the first entry in the vector is a value of 2 (The number immediately to the right of [1]).
 
 ## Applying a function
 
@@ -91,7 +91,7 @@ mean(counts)
 
 ## Data vectors
 
-The count data is stored as a vector. R keeps track of the order that the data were entered. First element, second element, and so on. This is good for a couple of reasons. Here the data have a natural order - year 1, year 2, etc. You don't want to mix these. You would like to be able to make changes to the data item by item instead of entering the entire data again. Also vectors are math objects making them easy to manipulate.
+The `count` data is stored as a vector. R keeps track of the order that the data were entered. First element, second element, and so on. This is good for a couple of reasons. Here the data have a natural order - year 1, year 2, etc. You don't want to mix these. You would like to be able to make changes to the data item by item instead of entering the entire data again. Also vectors are math objects making them easy to manipulate.
 
 Suppose `counts` contain the annual number of land-falling hurricanes from the first decade of a longer record. You want to keep track of counts over other decades. This could be done by the following, example.
 ```{r}
@@ -106,7 +106,7 @@ Most functions operate on each element of the data vector at the same time.
 cD1 + cD2
 ```
 
-The first year of the first decade is added from the first year of the second decade and so on.
+The first year of the first decade is added to the first year of the second decade and so on.
 
 What happens if you apply the `c()` function to these two vectors?
 ```{r}
@@ -175,7 +175,7 @@ Now suppose the National Hurricane Center (NHC) reanalyzes a storm, and that the
 cD2[6] <- 1
 ```
 
-The assignment to the 6th element in the vector cD2 is done by referencing the 6th element of the vector with square brackets `[]`. 
+The assignment to the 6th element in the vector `cD2` is done by referencing the 6th element of the vector with square brackets `[]`. 
 
 It's important to keep this in mind: Parentheses `()` are used for functions and square brackets `[]` are used to get values from vectors (and arrays, lists, etc). REPEAT: `[]` are used to extract or subset values from vectors, data frames, matrices, etc.
 
@@ -347,7 +347,7 @@ H <- read.table(file = "US.txt",
                 header = TRUE)
 ```
 
-If you get a prompt without an error message, the data has been imported. If you get an error it is likely that the data file is not in your working directory. This will give an error message along the lines of 'cannot open the connection' or 'cannot open file.' If this happens, move the file to your working directory or change your working directory, then try again.
+If you get a prompt without an error message, the data have been imported. If you get an error it is likely that the data file is not in your working directory. This will give an error message along the lines of 'cannot open the connection' or 'cannot open file.' If this happens, move the file to your working directory or change your working directory, then try again.
 
 If your file has comma's between columns then use the argument `sep = ","` in the function. No changes are made to your original data file.
 
@@ -360,7 +360,8 @@ A typical work flow might be to export data from a spreadsheet using the csv fil
 We can import data directly from the web by specifying the URL instead of the local file name. Of course this requires that we are connected to the internet.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
-H <- read.table(file = loc, header = TRUE)
+H <- read.table(file = loc, 
+                header = TRUE)
 ```
 
 The distribution of Florida hurricanes by year is obtained by typing
