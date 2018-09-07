@@ -72,8 +72,9 @@ The difference in the mean wealth with and without the millionaire present is su
 
 The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
 
-The `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This tendency is common in income distributions (and it's getting worse), as a few people tend to accumulate enormous wealth.
+The `cfb` (**UsingR**) data set contains data from the Survey of Consumer Finances conducted by the U.S. Federal Reserve Board (in 2001). Some of the income values are much higher than the bulk of the data. This tendency is common in income distributions (and it's getting worse). A few people tend to accumulate enormous wealth.
 
+Make the functions (and data) from the package available then assign to `income` the column `INCOME` in the `cfb` data frame. Then compute the mean and median.
 ```{r}
 library("UsingR")
 income <- cfb$INCOME
@@ -81,9 +82,17 @@ mean(income)
 median(income)
 ```
 
-The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more large values than small values. The "tail" of the distribution is longer on the right side.
+The mean is larger than the median. This indicates there are more large values than small values. 
 
-Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
+This can be seen using a histogram plot. A histogram displays the frequency of the values using intervals that divide the values into equal bins. This is done with the `hist()` function. Here we specify the number of intervals with the `breaks = ` argument.
+```{r}
+hist(income, 
+     breaks = 25)
+```
+
+The distribution is right skewed. It has a long right tail.
+
+Note: Many packages have built-in datasets. To see what datasets are available in a package, type
 ```{r, eval=FALSE}
 data(package = "UsingR")
 ```
@@ -96,7 +105,7 @@ range(income)
 diff(range(income))
 ```
 
-Or using the central tendency as the center of a set of values, we can define spread in terms of deviations from the center. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
+We can define spread in terms of deviations from the center value. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
 ```{r}
 var(income)
 sqrt(var(income))
