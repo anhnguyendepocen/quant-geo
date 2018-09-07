@@ -99,7 +99,7 @@ data(package = "UsingR")
 
 ## Spread
 
-A simple measure of the spread of data values is the range. The range is given by the minimum and maximum value or by the difference between them.
+One measure of the spread of data values is the range. The range is given by the minimum and maximum value (or by the difference between the minimum and maximum).
 ```{r}
 range(income)
 diff(range(income))
@@ -163,7 +163,6 @@ Determine the 5th and 95th percentile values for the month of June.
 ```{r}
 quantile(NAO$Jun, prob = c(.05, .95))
 ```
-
 
 ## Data frames
 
