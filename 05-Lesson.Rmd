@@ -11,10 +11,150 @@ output:
 
 Today we learn how to work with data frames.
 
-Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
+??Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
 
 Use google to search for data sets.
 https://toolbox.google.com/datasetsearch
+
+## Median
+
+We saw last week that the mean is a statistic that provides a model for our data. Typically there are more data values near the mean than far from it.
+
+The median is a statistic that is defined as the "middle" value.  Given a set of data values arranged from lowest value to highest value, the median is the middle value.
+
+For example, consider a set of seven data values. Here generated randomly but exactly reproducible.
+```{r}
+set.seed(3043)
+data <- rnorm(7)
+sort(data)
+```
+
+The middle value is the fourth value from the left in the ordered list of data values.
+```{r}
+median(data)
+```
+
+With an odd number of data values, the median is the middle one; with an even number of data values, the median is the average of the two middle values.
+
+```{r}
+data <- rnorm(8)
+sort(data)
+median(data)
+```
+
+We can check to see this is true no matter what the values are
+```{r}
+data <- rnorm(8)
+data_sorted <- sort(data)
+median(data) == mean(c(data_sorted[4], data_sorted[5]))
+```
+
+The median value as a statistic representing the middle of a set of data values is said to be resistant to outliers.
+
+Consider the wealth (in 1000s of $) of five bar patrons.
+```{r}
+bar <- c(50, 60, 100, 75, 200)
+```
+
+Now consider the same bar and patrons after a multimillionaire walks in.
+```{r}
+bar_with_mm <- c(bar, 50000)
+```
+
+```{r}
+mean(bar)
+mean(bar_with_mm)
+median(bar)
+median(bar_with_mm)
+```
+
+The difference in the mean wealth with and without the millionaire present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant statistics.
+
+The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
+
+The `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This tendency is common in income distributions (and it's getting worse), as a few people tend to accumulate enormous wealth.
+
+```{r}
+library("UsingR")
+income <- cfb$INCOME
+mean(income)
+median(income)
+```
+
+The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more large values than small values. The "tail" of the distribution is longer on the right side.
+
+Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
+```{r, eval=FALSE}
+data(package = "UsingR")
+```
+
+## Spread
+
+A simple measure of the spread of data values is the range. The range is given by the minimum and maximum value or by the difference between them.
+```{r}
+range(income)
+diff(range(income))
+```
+
+Or using the central tendency as the center of a set of values, we can define spread in terms of deviations from the center. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
+```{r}
+var(income)
+sqrt(var(income))
+sd(income)
+```
+
+To illustrate consider two sets of test scores.
+```{r}
+ts1 <- c(80, 85, 75, 77, 87, 82, 88)
+ts2 <- c(100, 90, 50, 57, 82, 100, 86)
+```
+
+Some test score statistics are
+```{r}
+mean(ts1)
+mean(ts2)
+var(ts1)
+var(ts2)
+```
+
+## Quantiles
+
+Quantiles cut a set of ordered data into equal-sized data bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the data have values less than this quantile value. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the data have values less than this quantile value.
+
+The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
+                  header = TRUE)
+sort(FLp$Jun)
+```
+
+Note the use of the dollar sign to indicate the column in the data frame.
+
+Next find the 25th and 50th percentile values.
+```{r}
+quantile(FLp$Jun, probs = c(.25, .5))
+```
+
+Of the `r I(length(FLp$Jun))` monthly precipitation values, 25% of them are less than `r round(quantile(FLp$Jun,probs=.25),2)` inches, 50% are less than `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.  Thus there are an equal number of years with June precipitation between `r I(round(quantile(FLp$Jun,probs=.25),2))` and `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.
+
+The third quartile value corresponding to the .75 quantile (75th percentile) indicates that 75% of the data have a value less than this. The difference between the first and third quartile values is called the interquartile range (IQR). Fifty percent of all values lie within the IQR. The IQR is obtained using the `IQR()` function.
+
+Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
+
+First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO <- read.table(loc, header = TRUE)
+head(NAO)
+```
+
+Determine the 5th and 95th percentile values for the month of June.
+```{r}
+quantile(NAO$Jun, prob = c(.05, .95))
+```
+
 
 ## Data frames
 
@@ -120,116 +260,6 @@ library(ggplot2)
 ggplot(FLp, aes(x = Year, y = Jan)) +
   geom_line() +
   ylab("January Precipitation in Florida (in)")
-```
-
-## Central tendency
-
-The sample mean is the average. Typically there are more values near the average. 
-
-The median is the "middle" value of the distribution of numbers that are arranged from smallest to largest. With an odd number of data values, the median is the middle one; with an even number of data values, the median is the average of the two middle values.
-
-What does "resistant" refer to? Consider the wealth (in 1000s of $) of five bar patrons.
-```{r}
-bar <- c(50, 60, 100, 75, 200)
-```
-
-Now consider the same bar and patrons after Jeff Bezos walks in.
-```{r}
-bar.with.Bezos <- c(bar, 50000)
-```
-
-```{r}
-mean(bar)
-mean(bar.with.Bezos)
-median(bar)
-median(bar.with.Bezos)
-```
-
-The difference in the mean wealth with and without Jeff Bezos present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant statistics.
-
-The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
-
-The `cfb` (**UsingR**) data set contains a sampling of the data contained in the Survey of Consumer Finances conducted in the year 2001 by the U.S. Federal Reserve Board. Some of the income values are much bigger than the bulk of the data. This tendency is common in income distributions (and it's getting worse), as a few people tend to accumulate enormous wealth.
-
-```{r}
-library("UsingR")
-income <- cfb$INCOME
-mean(income)
-median(income)
-```
-
-The data is skewed to the right. The mean value is larger than the median value. Skewed right indicates that there are more large values than small values. The "tail" of the distribution is longer on the right side.
-
-Note: Some packages have built-in datasets. To see what datasets are available in a downloaded package, type
-```{r, eval=FALSE}
-data(package = "UsingR")
-```
-
-## Spread
-
-A simple measure of the spread of data values is the range. The range is given by the minimum and maximum value or by the difference between them.
-```{r}
-range(income)
-diff(range(income))
-```
-
-Or using the central tendency as the center of a set of values, we can define spread in terms of deviations from the center. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
-```{r}
-var(income)
-sqrt(var(income))
-sd(income)
-```
-
-To illustrate consider two sets of test scores.
-```{r}
-ts1 <- c(80, 85, 75, 77, 87, 82, 88)
-ts2 <- c(100, 90, 50, 57, 82, 100, 86)
-```
-
-Some test score statistics are
-```{r}
-mean(ts1)
-mean(ts2)
-var(ts1)
-var(ts2)
-```
-
-## Quantiles
-
-Quantiles cut a set of ordered data into equal-sized data bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the data have values less than this quantile value. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the data have values less than this quantile value.
-
-The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
-```{r}
-loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp <- read.table(loc, 
-                  na.string = "-9.900", 
-                  header = TRUE)
-sort(FLp$Jun)
-```
-
-Note the use of the dollar sign to indicate the column in the data frame.
-
-Next find the 25th and 50th percentile values.
-```{r}
-quantile(FLp$Jun, probs = c(.25, .5))
-```
-
-Of the `r I(length(FLp$Jun))` monthly precipitation values, 25% of them are less than `r round(quantile(FLp$Jun,probs=.25),2)` inches, 50% are less than `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.  Thus there are an equal number of years with June precipitation between `r I(round(quantile(FLp$Jun,probs=.25),2))` and `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.
-
-The third quartile value corresponding to the .75 quantile (75th percentile) indicates that 75% of the data have a value less than this. The difference between the first and third quartile values is called the interquartile range (IQR). Fifty percent of all values lie within the IQR. The IQR is obtained using the `IQR()` function.
-
-Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
-
-First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
-```{r}
-loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO <- read.table(loc, header = TRUE)
-head(NAO)
-```
-
-Determine the 5th and 95th percentile values for the month of June.
-```{r}
-quantile(NAO$Jun, prob = c(.05, .95))
 ```
 
 ## The summary method
