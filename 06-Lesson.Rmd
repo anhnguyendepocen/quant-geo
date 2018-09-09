@@ -9,11 +9,19 @@ output:
 
 "**You're doing it right if you get frustrated: if you're not frustrated, you're (probably) not stretching yourself mentally.**"---Hadley Wickham
 
-Problem Set #3 is due next Tuesday.
+Problem Set #2 is available on Canvas. It is due next Thursday (September 20).
 
-Today I'll start with a review of how to manipulate data using the verbs from the **dplyr** package. Then I'll elaborate on how to make graphs using functions from the **ggplot2** package. Graphs (and maps) are important to exploratory data analysis (EDA) in geography.
+Today we will continue learning how to manipulate data frames.
 
-EDA is fundamentally a creative process. The key to asking good questions is to ask many of them. 
+
+Then I'll elaborate on how to make graphs using functions from the **ggplot2** package. Graphs (and maps) are important to exploratory data analysis (EDA) in geography.
+
+Use google to search for data sets.
+https://toolbox.google.com/datasetsearch
+
+
+
+EDA is a creative process. The key to asking good questions is to ask many of them. 
 
 It's hard at first to ask good questions because you do not know what insights are contained in your dataset. But each new question exposes you to a new aspect of your data and increases your chance of making a discovery. You can quickly drill down into the most interesting parts of your data---and develop a set of thought-provoking questions---if you follow up each question with a new question based on what you find.
 

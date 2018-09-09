@@ -9,20 +9,15 @@ output:
 
 "**Science is the belief in the ignorance of experts.**"---Richard Feynman
 
-Today we learn how to work with data frames.
-
-??Problem Set 2 is posted on Canvas. It's due next Tuesday (September 18).
-
-Use google to search for data sets.
-https://toolbox.google.com/datasetsearch
+After today you will know how to manipulate data frames. 
 
 ## Median
 
-We saw last week that the mean is a statistic that provides a model for our data. Typically there are more data values near the mean than far from it.
+Recall from last week that the mean is a statistic that provides a model for our data. Typically there are more data values near the mean than far from it. The mean is often near the middle value of a set of observations.
 
-The median is a statistic that is defined as the "middle" value.  Given a set of data values arranged from lowest value to highest value, the median is the middle value.
+The median is a statistic defined as the "middle" value. Given a set of data values arranged from lowest value to highest value, the median is the middle value.
 
-For example, consider a set of seven data values. Here generated randomly but exactly reproducible.
+For example, consider a set of seven data values. Here the seven values are generated randomly but reproducibly. The `set.seed()` function will guarantee the everyone using the seed number (here 3042) will get the same set of values.
 ```{r}
 set.seed(3043)
 data <- rnorm(7)
@@ -128,14 +123,24 @@ var(ts2)
 
 ## Quantiles
 
-Quantiles cut a set of ordered data into equal-sized data bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the data have values less than this quantile value. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the data have values less than this quantile value.
+Quantiles cut a set of ordered data values into equal-sized bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the values are less than this quantile number. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the values are less than this quantile number.
 
-The `quantile()` function calculates sample quantiles on a vector of data. For example, consider again Florida precipitation for the month of June. First apply the `sort()` function on the June values (column indicated by the label Jun).
+The `quantile()` function calculates sample quantiles on a vector of data. For example, consider Florida precipitation for the month of June. Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
+
+Get monthly precipitation values for the state back to the year 1895. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
+
+Here I did it for Florida and posted the file on my website. Missing values are coded as -9.900.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
 FLp <- read.table(loc, 
                   na.string = "-9.900", 
                   header = TRUE)
+```
+
+
+
+Apply the `sort()` function on the June values (column indicated by the label Jun).
+```{r}
 sort(FLp$Jun)
 ```
 
@@ -143,25 +148,30 @@ Note the use of the dollar sign to indicate the column in the data frame.
 
 Next find the 25th and 50th percentile values.
 ```{r}
-quantile(FLp$Jun, probs = c(.25, .5))
+quantile(FLp$Jun, 
+         probs = c(.25, .5))
 ```
 
 Of the `r I(length(FLp$Jun))` monthly precipitation values, 25% of them are less than `r round(quantile(FLp$Jun,probs=.25),2)` inches, 50% are less than `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.  Thus there are an equal number of years with June precipitation between `r I(round(quantile(FLp$Jun,probs=.25),2))` and `r I(round(quantile(FLp$Jun,probs=.5),2))` inches.
 
 The third quartile value corresponding to the .75 quantile (75th percentile) indicates that 75% of the data have a value less than this. The difference between the first and third quartile values is called the interquartile range (IQR). Fifty percent of all values lie within the IQR. The IQR is obtained using the `IQR()` function.
 
-Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
+Another example: Consider the set of North Atlantic Oscillation (NAO) index values for the month of June from the period 1851--2010.  The NAO is a variation in the climate over the North Atlantic Ocean featuring fluctuations in the difference of atmospheric pressure at sea level between the Iceland and the Azores. 
 
-First read the data consisting of monthly NAO values, then list the column names and the first few data lines.
+The index is computed as the difference in standardized sea-level pressures. The standardization is done by subtracting the mean and dividing by the standard deviation. The units on the index is standard deviation.
+
+First import the data consisting of monthly NAO values, then list the column names and the first few lines of the data frame.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO <- read.table(loc, header = TRUE)
+NAO <- read.table(loc, 
+                  header = TRUE)
 head(NAO)
 ```
 
 Determine the 5th and 95th percentile values for the month of June.
 ```{r}
-quantile(NAO$Jun, prob = c(.05, .95))
+quantile(NAO$Jun, 
+         prob = c(.05, .95))
 ```
 
 ## Data frames
@@ -251,18 +261,7 @@ H[10, 4]
 
 ## Example: Florida precipitation by month
 
-Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
-
-Get monthly precipitation values for the state back to the year 1895. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
-
-Here I did it for Florida and posted the file on my website. Missing values are coded as -9.900.
-```{r}
-loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp <- read.table(loc, na.string = "-9.900", 
-                  header = TRUE)
-```
-
-Plot a time series graph.
+Plot a time series graph of January precipitation in Florida.
 ```{r}
 library(ggplot2)
 ggplot(FLp, aes(x = Year, y = Jan)) +
@@ -312,7 +311,7 @@ H <- as.data.frame(counts)
 head(H)
 ```
 
-Similarly for the ice volume data you can use the function `cbind()` [columns combine] within the function `as.data.frame()`.
+Similarly for the ice volume data you can use the function `cbind()` [combine columns] within the function `as.data.frame()`.
 ```{r}
 as.data.frame(cbind(Year, Volume))
 ```
@@ -338,7 +337,7 @@ There are 153 rows and 6 columns. The rows are called observations and the colum
 
 The notes below follow: http://genomicsclass.github.io/book/pages/dplyr_tutorial.html
 
-The important **dplyr** verbs to remember are
+The important **dplyr** verbs are
 
 Verb        | Description
 -----------:|:-----------
@@ -355,27 +354,35 @@ The function `select()` picks variables by name.
 
 For example, create a new data frame containing only the month, day, and temperature columns from the `airquality` data frame.
 ```{r}
-df <- select(airquality, Month, Day, Temp)
+df <- airquality %>%
+      select(Month, Day, Temp)
 head(df)
 ```
 
-All verbs work the same way: The first argument is a data frame; The subsequent arguments describe what to do with the data frame, using the variable names; The result is always a new data frame
+The result is a data frame `df` that contains only the columns listed in the `select()` function.
+
+The operator `%>%` is called the 'pipe' and your read it as 'then'. For example, we read the above code as "Take the data frame `airquality` THEN (`%>%`) select the columns `Month`, `Day`, and `Temp`."
+
+All verbs work the same way: The first argument is a data frame and this argument is passed into the function with the pipe operator; The subsequent arguments describe what to do with the data frame, using the variable names; The result is always a new data frame
 
 Select all the columns *except*  solar radiation.
 ```{r}
-df = select(airquality, -Solar.R)
+df <- airquality %>% 
+  select(-Solar.R)
 head(df)
 ```
 
 To select a range of columns by names, use the colon (`:`) operator.
 ```{r}
-df = select(airquality, Wind:Day)
+df <- airquality %>%
+   select(Wind:Day)
 head(df)
 ```
 
 To select all columns that contain the character "n", use the function `contains()`.
 ```{r}
-df = select(airquality, contains("n"))
+df <- airquality %>%
+  select(contains("n"))
 head(df)
 ```
 
@@ -390,17 +397,19 @@ Criteria       | Description
 
 ### Filter
 
-The function `filter()` is used to subset observations based on their values.
+The function `filter()` is used to subset observations based on specific values.
 
 Create a new data frame with June values of air quality measurements.
 ```{r}
-df = filter(airquality, Month == 6)
+df <- airquality %>%
+  filter(Month == 6)
 head(df)
 ```
 
 Filter the rows for temperature at least 80 F and winds less than 5 mph.
 ```{r}
-df = filter(airquality, Temp >= 80 & Wind < 5)
+df <- airquality %>% 
+  filter(Temp >= 80 & Wind < 5)
 head(df)
 ```
 
@@ -410,43 +419,28 @@ For other types of combinations, we need to use Boolean operators: `&` is "and",
 
 The following code finds all observations taken in May and September.
 ```{r}
-df = filter(airquality, Month == 5 | Month == 9)
+df <- airquality %>% 
+  filter(Month == 5 | Month == 9)
 ```
 
-Note: You can't write `filter(airquality, Month == 5 | 9)` although `filter(airquality, Month %in% c(5, 9))` would work. 
+Note: We can't write `filter(Month == 5 | 9)` although `filter(Month %in% c(5, 9))` works. 
 
-We can use the operators (e.g., `>`, `<`, `>=`, `<=`, `!=`, `|` (or)) to create logical tests for filtering.
+We use the operators (e.g., `>`, `<`, `>=`, `<=`, `!=`, `|` (or)) to create logical tests for filtering.
 
-The easiest mistake to make is to use `=` instead of `==` when testing for equality.
+NOTE: A common mistake is to use `=` instead of `==` when testing for equality.
 
-### The pipe operator
+The output from the function (or object) to the left of the pipe operator is assumed as the first argument of the function to the right of the pipe. 
 
-Above, with each function you assign the result to a new data frame and then you print the first six rows of the new data frame with the function `head()`. You can nest function like this
-```{r}
-head(filter(airquality, Temp >= 80 & Wind < 5))
-```
+The `%>%` operator works by taking the output from the function (or object) immediately before the pipe as the first arugment to the function immediately after the pipe.
 
-This is a bit hard to read as you are reading from inside out. The pipe operator `%>%` from the **magrittr** package (installed with **dplyr**) allows you to direct (pipe) the output from one function to the input of the next function. It produces code that is easier to read.
-
-For the example above, you start with the name of the data frame followed by the pipe operator followed by the action verb. You read this as "Take the data frame `airquality` THEN filter for `Temp` at least 80 AND `Wind` less than 5, THEN list the first six rows."
-```{r}
-airquality %>%
-  filter(Temp >= 80 & Wind < 5) %>%
-  head()
-```
-
-The output from the function (or object) to the left of the pipe operator is assumed as the first argument of the function to the right of the pipe. It involves a bit more code but it's simpler to read. 
-
-Another example
+For example: take the data frame `airquality` THEN select the columns `Temp`, `Day`, and `Month`, THEN list the first six rows is written as:
 ```{r}
 airquality %>% 
   select(Temp, Day, Month) %>% 
   head()
 ```
 
-"Take the data frame `airquality` THEN select the columns `Temp`, `Day`, and `Month`, THEN list the first six rows."
-
-This is handy when you want to create a new data frame that is a filtered, subsetted, etc version of the original one. For example, suppose you only want to work with the ozone, wind and temperature data from August and September when the winds are light.
+Suppose we want to create a new data frame that is a filtered and subsetted version of the original one. For example, suppose we only want to work with the ozone, wind and temperature data from August and September when the winds are light.
 ```{r}
 df = airquality %>%
   filter(Month == 8 | Month == 9 & Wind < 5) %>%
@@ -464,7 +458,7 @@ airquality %>%
   head()
 ```
 
-Now select three columns from `airquality`, arrange the rows by temperature and then arrange by solar radiation. Assign this manipulation to a new data frame.
+Make a new data frame by selecting three columns (`Solar.R`, `Wind`, and `Temp`) from `airquality`, arrange the rows by temperature and then arrange by solar radiation.
 ```{r}
 df = airquality %>%
   select(Solar.R, Wind, Temp) %>%
@@ -494,7 +488,7 @@ The second variable breaks the ties from the first variable.
 
 ### Mutate
 
-The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` which is the temperature in Celcius.
+The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` which is the temperature in Celcius. Also create a column called `WindMS` which is the wind speed in meters per second.
 ```{r}
 airquality %>%
   mutate(TempC = (Temp - 32) * 5/9,
@@ -523,12 +517,12 @@ We've looked at several summary functions already including `sum()`, `sd()`, `mi
 
 Summary function  | Description
 -----------------:|:-----------
-`n()`               | Length of the column
-`first()`           | First value of the column
-`last()`           | Last value of the column
-`n_distinct()`      | Number of distinct values
+`n()`             | Length of the column
+`first()`         | First value of the column
+`last()`          | Last value of the column
+`n_distinct()`    | Number of distinct values
 
-Find the maximum and median wind speed and maximum ozone concentration values during May. Also determine the number of days.
+Find the maximum and median wind speed and maximum ozone concentration values during the month of May. Also determine the number of days during Mays.
 ```{r}
 airquality %>%
   filter(Month == 5) %>%
@@ -540,7 +534,7 @@ airquality %>%
 
 ### Grouping
 
-What if you want to do the above summary separately for each month? Use the `group_by()` function. You split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
+What if we want to apply the above summary separately for each month? Use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
 
 Find the highest ozone concentration for each month.
 ```{r}
@@ -618,7 +612,7 @@ Often you work with large datasets with many columns but only a few may be of in
 
 How would you create a data frame containing only the dates, carrier, and flight numbers?
 ```{r}
-df = flights %>%
+df <- flights %>%
   select(year:day, carrier, flight)
 df
 ```
@@ -718,7 +712,7 @@ The ampersand means 'and'. Filter by removing tornadoes except those occurring d
 
 You use the assignment statement to save the result of the filtering. The resulting object is a data frame and can be used by the function `ggplot()`.
 ```{r}
-df = Torn.df %>%
+df <- Torn.df %>%
   filter(MONTH == 6 & DAY == 16)
 ```
 
@@ -749,7 +743,7 @@ The first tie on fatalities occurs with 58. The tie is broken by the number of i
 
 Add a column that is the path area in square meters. Select only the date, EF rating, and columns corresponding to the path length, width and area.
 ```{r}
-df = Torn.df %>%
+df <- Torn.df %>%
   mutate(Length = LENGTH * 1609,
          Width = WIDTH * .9144,
          Area = Length * Width * pi/4) %>%
@@ -784,7 +778,7 @@ You use the `group_by()` function to create a grouped object, which is a data fr
 
 In the following example, you group the data frame into `FSCALE` ratings and then count the number of tornadoes (`nT = n()`) and average the length (`mL = mean(Length)`) and width (`mW = mean(Width)`) for each group. Results are saved in a new data frame called `Paths`.
 ```{r}
-Paths = Torn.df %>%
+Paths <- Torn.df %>%
   mutate(Length = LENGTH * 1609,
          Width = WIDTH * .9144) %>%
   group_by(FSCALE) %>%
@@ -802,7 +796,7 @@ ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
   geom_bar(stat = "identity")
 ```
 
-You use `summarise()` with aggregate functions, which take a vector of values, and return a single number. There are many useful functions in base R like `min()`, `max()`, `mean()`, `sum()`, `sd()`, `median()`, and `IQR()`. Other include:
+We use `summarise()` with aggregate functions, which take a vector of values, and return a single number. There are many useful functions in base R like `min()`, `max()`, `mean()`, `sum()`, `sd()`, `median()`, and `IQR()`. Other include:
 
 * `n()`: number of observations in the current group.
 * `n_distinct(x)`: number of unique values in x.
@@ -833,26 +827,3 @@ Your goal during EDA is to develop and understanding of your data. Use questions
 On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 Please check out http://r4ds.had.co.nz/index.html for additional help.
-
-## Problem Set # 3
-
-Due Date: October 3, 2017
-Total Points: 45
-
-**1** The dataset *hflights* from the **hflights** package contains all 227,496 flights that departed Houston in 2011. Using the functions in the **dplyr** package
-
-a. Create a new data frame from *hflights* containing only those flights that departed on September 11th of that year. (5)
-
-b. How many flights departed on that day? (5)
-
-c. Create a data frame with the first column being the tail number and the second being the number of departures from Houston the plane made that year sorted by most to least number of flights. (5)
-
-**2** Answer the following questions using the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt).
-
-a. Use the functions `group_by()` and `summarize()` to determine the number of tornadoes by each state. (5)
-
-b. Create a new column with path length in meters. Create a new data frame by removing rows with EF damage rating below 3. Group by year and summarize the average path length. Make a graph with year on the x axis and average path length on the y axis. (10)
-
-c. Compute the number of tornadoes with EF damage rating 1 or higher by year and graph the results. (10)
-
-d. Create a data frame with the year in the first column and the total number of tornadoes in Kansas by year in the second column. List the first six rows of this new data frame. (5)
