@@ -11,16 +11,17 @@ output:
 
 Problem Set #2 is available on Canvas. It is due next Thursday (September 20).
 
+After today you will know some additional ways to manipulate data frames. 
 
 ## Grammar
 
-The syntax of the verb functions are all the same:
+The syntax of the verb functions in the **dplyr** package are all the same:
 
 * The first argument is a data frame.
 * The subsequent arguments describe what to do with the data frame. Notice that you can refer to columns in the data frame directly without using $.
 * The result is a new data frame
 
-These properties make it easy to chain together many simple steps to achieve a complex result.
+These properties make it easy to chain together many simple steps to get at something that is more complex.
 
 The five functions provide the basis of a grammar for data. At the most basic level, you can only alter a data frame in five useful ways: you can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
 

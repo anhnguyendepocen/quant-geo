@@ -1,5 +1,5 @@
 ---
-title: "Data Munging"
+title: "Introduction to Data Munging"
 author: "James B. Elsner"
 date: September 11, 2018
 output: 
@@ -15,61 +15,60 @@ After today you will know some ways to manipulate data frames.
 
 ## Median
 
-Recall from last week that the mean is a statistic that provides a model for our data. Typically there are more data values near the mean than far from it. The mean is often near the middle value of a set of observations.
+Recall that the mean is a statistic from our data. Typically there are more data values near the mean than far from it. The mean is often near the middle value of a set of observations.
 
-The median is a statistic defined as the "middle" value. Given a set of data values arranged from lowest value to highest value, the median is the middle value.
+The median is a statistic defined as the "middle" value.
 
-For example, consider a set of seven data values. Here the seven values are generated randomly but reproducibly. The `set.seed()` function will guarantee the everyone using the seed number (here 3042) will get the same set of values.
+For example, consider a set of seven data values. Here the seven values are generated randomly but reproducibly. The `set.seed()` function guarantees that everyone (with a particular seed number) will get the same set of values.
 ```{r}
 set.seed(3043)
-data <- rnorm(7)
-sort(data)
+y <- rnorm(7)
+sort(y)
 ```
 
-The middle value is the fourth value from the left in the ordered list of data values.
+There are seven values. They are sorted from lowest on the left to highest on the right. The middle value is the fourth value from the left in the ordered list of data values.
 ```{r}
-median(data)
+median(y)
 ```
 
-With an odd number of data values, the median is the middle one; with an even number of data values, the median is the average of the two middle values.
+The median divides the data set into the top 50% of the data values and the bottom 50% of the data values.
 
+With an odd number of values, the median is the middle one; with an even number of values, the median is the average of the two middle values.
 ```{r}
-data <- rnorm(8)
-sort(data)
-median(data)
+y <- rnorm(8)
+sort(y)
+median(y)
 ```
 
 We can check to see this is true no matter what the values are
 ```{r}
-data <- rnorm(8)
-data_sorted <- sort(data)
-median(data) == mean(c(data_sorted[4], data_sorted[5]))
+y <- rnorm(8)
+y_sorted <- sort(y)
+median(y) == mean(c(y_sorted[4], y_sorted[5]))
 ```
 
 The median value as a statistic representing the middle of a set of data values is said to be resistant to outliers.
 
 Consider the wealth (in 1000s of $) of five bar patrons.
 ```{r}
-bar <- c(50, 60, 100, 75, 200)
+patrons <- c(50, 60, 100, 75, 200)
 ```
 
 Now consider the same bar and patrons after a multimillionaire walks in.
 ```{r}
-bar_with_mm <- c(bar, 50000)
+patrons_with_mm <- c(patrons, 50000)
 ```
 
 ```{r}
-mean(bar)
-mean(bar_with_mm)
-median(bar)
-median(bar_with_mm)
+mean(patrons)
+mean(patrons_with_mm)
+median(patrons)
+median(patrons_with_mm)
 ```
 
-The difference in the mean wealth with and without the millionaire present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant statistics.
+The difference in the mean wealth with and without the millionaire present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant.
 
-The median value divides the data set into the top 50% of the data values and the bottom 50% of the data values.
-
-The `cfb` (**UsingR**) data set contains data from the Survey of Consumer Finances conducted by the U.S. Federal Reserve Board (in 2001). Some of the income values are much higher than the bulk of the data. This tendency is common in income distributions (and it's getting worse). A few people tend to accumulate enormous wealth.
+The `cfb` (available from the **UsingR** package) data set contains data from the Survey of Consumer Finances conducted by the U.S. Federal Reserve Board (in 2001). Some of the income values are much higher than the bulk of the data. This tendency is common in income distributions. A few people tend to accumulate enormous wealth (and it's getting worse).
 
 Make the functions (and data) from the package available then assign to `income` the column `INCOME` in the `cfb` data frame. Then compute the mean and median.
 ```{r}
@@ -79,7 +78,7 @@ mean(income)
 median(income)
 ```
 
-The mean is larger than the median. This indicates there are more large values than small values. 
+Mean income is greater than median income. This indicates there are more very large income values than very small income values. 
 
 This can be seen using a histogram plot. A histogram displays the frequency of the values using intervals that divide the values into equal bins. This is done with the `hist()` function. Here we specify the number of intervals with the `breaks = ` argument.
 ```{r}
@@ -96,7 +95,7 @@ data(package = "UsingR")
 
 ## Spread
 
-One measure of the spread of data values is the range. The range is given by the minimum and maximum value (or by the difference between the minimum and maximum).
+A measure of the spread of data values is the range. The range is given by the minimum and maximum value (or by the difference between the minimum and maximum). Here we use the `range()` function.
 ```{r}
 range(income)
 diff(range(income))
@@ -108,6 +107,8 @@ var(income)
 sqrt(var(income))
 sd(income)
 ```
+
+The mean and the variance describe different things about the distribution of data values. A set of values can have the same mean but different variance.
 
 To illustrate consider two sets of test scores.
 ```{r}
@@ -127,9 +128,9 @@ var(ts2)
 
 Quantiles cut a set of ordered data values into equal-sized bins. The ordering comes from rearranging the data from lowest to highest. The first, or lower, quartile corresponding to the .25 quantile (25th percentile), indicates that 25% of the values are less than this quantile number. The third quartile corresponding to the .75 quantile (75th percentile), indicates that 75% of the values are less than this quantile number.
 
-The `quantile()` function calculates sample quantiles on a vector of data. For example, consider Florida precipitation for the month of June. Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
+The `quantile()` function returns sample quantiles from a vector of data. For example, consider Florida precipitation for the month of June. Source: Monthly climate series. http://www.esrl.noaa.gov/psd/data/timeseries/
 
-Get monthly precipitation values for the state back to the year 1895. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
+First get the data into R. Copy/paste into a text editor (notepad) then import into R using the `read.table()` function. Add column names.
 
 Here I did it for Florida and posted the file on my website. Missing values are coded as -9.900.
 ```{r}
@@ -139,14 +140,12 @@ FLp <- read.table(loc,
                   header = TRUE)
 ```
 
-
-
 Apply the `sort()` function on the June values (column indicated by the label Jun).
 ```{r}
 sort(FLp$Jun)
 ```
 
-Note the use of the dollar sign to indicate the column in the data frame.
+Recall: the dollar sign is used after the data frame name to indicate that what follows is the name of the column of interest.
 
 Next find the 25th and 50th percentile values.
 ```{r}
@@ -172,7 +171,7 @@ NAO <- read.table(loc,
 head(NAO)
 ```
 
-Determine the 5th and 95th percentile values for the month of June.
+Find the 5th and 95th percentile values of the NAO during the month of June.
 ```{r}
 quantile(NAO$Jun, 
          prob = c(.05, .95))
@@ -180,14 +179,14 @@ quantile(NAO$Jun,
 
 ## Data frames
 
-The function `read.table()` (and its variants) return data frames. `H` is a data frame.  
-
-We import data directly from the web by specifying the URL instead of the local file name. Of course this requires that we are connected to the internet.
+We import data directly from the web by specifying the URL instead of the local file name. This requires that we are connected to the internet.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
 H <- read.table(file = loc, 
                 header = TRUE)
 ```
+
+The function `read.table()` (and its variants) return data frames. `H` is a data frame.  
 
 A data frame is like a spreadsheet. Values are arranged in rows and columns. Rows are the cases (observations) and columns are the variables. The `dim()` function gives the size of the data frame (number of rows and number of columns).
 ```{r}
@@ -291,7 +290,7 @@ Volume <- c(20.233, 19.659, 18.597, 18.948, 17.820,
            14.569)
 ```
 
-The object `Volume` is a vector. Since the data values are ordered (earliest to latest) we can create another vector containing the sequence of corresponding years. Then, the function `data.frame()` creates the data frame object from the two vectors.
+The object `Volume` is a vector. Since the data values are ordered (earliest to latest) we create another vector containing the sequence of corresponding years and the function `data.frame()` creates the data frame object from these two vectors.
 ```{r}
 Year <- 2002:2012
 Ice.df <- data.frame(Year, Volume)
@@ -307,7 +306,7 @@ Ice.df[10, ]
 Ice.df$Year[which.min(Ice.df$Volume)]
 ```
 
-To change a single vector object to a data frame use the function `as.data.frame()`. For example, let `counts` be a vector of random integers. We generate a sample of size 100 with values from a Poisson distribution having a rate of 1.69. 
+To convert a vector to a data frame use the function `as.data.frame()`. For example, let `counts` be a vector of random integers. We generate a sample of size 100 with values from a Poisson distribution having a rate of 1.69. 
 ```{r}
 counts <- rpois(100, lambda = 1.69)
 head(counts)
@@ -392,8 +391,8 @@ head(df)
 
 Additional options to select columns based on specific criteria include.
 
-Criteria       | Description
---------------:|:-----------
+Criteria         | Description
+----------------:|:-----------
 `ends_with()`    | select columns that end with character string
 `starts_with()`  | select columns that start with a character string
 `matches()`      | select columns that match a regular expression
