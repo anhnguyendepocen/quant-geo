@@ -11,7 +11,7 @@ editor_options:
 
 "**Science is the belief in the ignorance of experts.**"---Richard Feynman
 
-After today you will know some ways to manipulate data frames. 
+After today you will be able to manipulate data frames. 
 
 ## Median
 
@@ -101,16 +101,14 @@ range(income)
 diff(range(income))
 ```
 
-We can define spread in terms of deviations from the center value. As we've seen the sum of the squared deviations from the center divided by sample length minus one is the sample variance.
+We also define spread in terms of deviations from the center value. As we've seen the sum of the squared deviations from the center divided by one minus the number of values is defined as the variance.
 ```{r}
 var(income)
 sqrt(var(income))
 sd(income)
 ```
 
-The mean and the variance describe different things about the distribution of data values. A set of values can have the same mean but different variance.
-
-To illustrate consider two sets of test scores.
+The mean and the variance describe different things about the distribution of data values. A set of values can have the same mean but different variance. To illustrate consider two sets of test scores.
 ```{r}
 ts1 <- c(80, 85, 75, 77, 87, 82, 88)
 ts2 <- c(100, 90, 50, 57, 82, 100, 86)
@@ -123,6 +121,8 @@ mean(ts2)
 var(ts1)
 var(ts2)
 ```
+
+Nearly the same mean but large difference in variances.
 
 ## Quantiles
 
