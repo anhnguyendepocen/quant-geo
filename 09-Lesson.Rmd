@@ -1,0 +1,388 @@
+---
+title: "Maps in R"
+author: "James B. Elsner"
+date: September 25, 2018
+output: 
+  html_document:
+    keep_md: true
+---
+
+"**...conditioning is not only something one does with ones hair, but something you also can do with data.**''---Rasmus Baath
+
+Problem Set #3 due today. If you don't get an email from me it means I've graded your homework and you received a full grade. I'll use this same protocol when I grade your exams next week.
+
+Today: Scatter plots, correlation, conditioning plots, getting data onto a map
+
+Fun examples. [Simpsons by the data](https://www.r-bloggers.com/the-simpsons-by-the-data/)
+### Correlation
+
+A scatter plot is a graphical depiction of correlation. Correlation describes the linear relationship between two variables with a single number.
+
+Correlation is computed with the `cor()` function.
+```{r}
+cor(cars$speed, cars$dist)
+```
+
+The correlation computed on a set of data values a statistic. It describes whether larger- and smaller-than-average values of one variable are related to larger- or smaller-than-average values of the other variable.  If larger than average values of one variable tend to be associated with larger than average values of the other variable then the correlation is positive.
+
+The scatter plot shows that the faster the car is moving the greater the stopping distance indicating a positive correlation.
+
+A small arabic r is used to indicate correlation. The default correlation is called Pearson correlation and is defined as
+$$
+r = \frac{1}{n-1} \sum \left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+$$
+where $n$ is the sample size, $\bar x$ and $\bar y$ are the average of the x and y variables, respectively and $s_x$ and $s_y$ are the standard deviation of the x and y variables.
+
+Correlation ranges between -1 and +1.
+
+The correlation between x and y is the same as the correlation between y and x. We can check this by typing
+```{r}
+cor(cars$dist, cars$speed) == cor(cars$speed, cars$dist)
+```
+
+You can include the correlation on the scatter plot by adding a label layer (`geom_layer()` function). First assign the output from the correlation and `round()` functions. Then append this as a character string using the `paste()` function.
+```{r}
+r = round(cor(cars$speed, cars$dist), 2)
+p + geom_label(label = paste("Linear correlation is ", r), 
+                   x = 10, y = 100)
+```
+
+The label is centered using the arguments `x =` and `y =` in the cartisian plane defined by the variables `speed` and `dist`. Note there is no 'hard' coding of the correlation value. Appearance is organic to the code sequence.
+
+Consider the Old Faithful data frame (`faithful`). The correlation between wait time and eruption length is found by
+```{r}
+cor(faithful$eruptions, faithful$waiting)
+```
+
+Here interest centers on predicting eruption times based on waiting times. Are wait times correlated with eruption durations?
+```{r}
+ggplot(faithful, aes(x = waiting, y = eruptions)) + 
+  geom_point() + 
+  xlab("Wait Time (min)") + 
+  ylab("Eruption Time (min)") +
+  geom_density2d()
+```
+
+A 2-D kernel density layer is added to the plot with the `geom_density2d()` function.
+
+The point density is shown with contours without units. You control the grid spacing and kernel width with the arguments `n =` and `h =`, respectively. If you want units, it is best to use the `kde2d()` function from the **MASS** package (part of the base install) and then use the `geom_contour()` function.
+
+Is there a trend in hurricane landfalls?  One way to get an answer is to correlate the counts with the year.
+```{r}
+H = read.table("http://myweb.fsu.edu/jelsner/temp/data/US.txt", header = TRUE)
+cor(H$Year, H$All)
+```
+
+Another example: The data set `kid.weights` (**UsingR**) contains height and weight data for children 0 to 12 years. `?kid.weights`.
+```{r}
+library(UsingR)
+str(kid.weights)
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point()
+```
+
+As expected weight increases with height. However, the weight increase with height is more abrupt for the tallest kids suggesting a nonlinear relationship.  
+
+In fact, body mass index (BMI) is a ratio of weight to squared height suggesting height and weight have a nonlinear relationship. Correlation only tells you about the linear relationship.
+
+To see this add a linear and nonlinear trend line as layers on the plot with the `geom_smooth()` function.
+```{r}
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_smooth(se = FALSE, color = "red")
+```
+
+The default is a local regression smoother, which creates the curved line. With the argument `method = lm` the blue (default color) line is the best fit straight line.
+
+If the relationship between the variables is not linear it is often better to report the Spearman rank correlation. The rank correlation is the Pearson correlation applied to the ranks of the values.
+
+That is, the data values are ordered from smallest to largest, and a particular data value's rank is its position after sorting, with 1 being the smallest and n being the largest, where n is the vector length. 
+```{r}
+x = c(30, 20, 7, 42, 50, 21, 22)
+rank(x)
+```
+
+The first three numbers are interpreted as: 30 is the fifth smallest value, 20 is the second and 7 is the smallest. If there are ties, the ranks are averaged.
+```{r}
+x = c(30, 20, 7, 42, 50, 7, 22)
+rank(x)
+```
+
+The rank correlation is obtained from the `cor()` function with the argument `method = "spearman"`.
+```{r}
+cor(kid.weights$weight, kid.weights$height)
+cor(kid.weights$weight, kid.weights$height, method = "spearman")
+```
+
+As expected the the correlation is somewhat larger using ranks as the relationship appears to be more quadratic than linear.
+
+Generate two vectors each with 10 random standard normal values. Verify that the rank correlation equals the Pearson correlation on the ranked values.
+```{r}
+x = rnorm(10)
+y = rnorm(10)
+cor(x, y, method = "spearman") == cor(rank(x), rank(y))
+```
+
+[Rank Correlation](http://en.wikipedia.org/wiki/Spearman's_rank_correlation_coefficient)
+
+### Conditioning plots
+
+Let's return to the kids weights data frame.
+```{r}
+head(kid.weights)
+```
+
+Note that by using the subset function `[]` you can list the weight for boys only
+```{r}
+kid.weights$weight[kid.weights$gender == "M"]
+```
+
+So the correlation between weight and height for the set of boys is
+```{r}
+cor(kid.weights$weight[kid.weights$gender == "M"], 
+    kid.weights$height[kid.weights$gender == "M"])
+```
+
+Or using the syntax of the grammar for data.
+```{r}
+library(dplyr)
+kid.weights %>%
+  group_by(gender) %>%
+  dplyr::summarize(r = cor(height, weight))
+```
+
+Let's look at the relationship between weight and height using a *conditioning* plot. Here we condition on the variable `gender`.
+```{r}
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point() + 
+  facet_grid(~ gender)
+```
+
+The conditioning is done using the `facet_grid()` function as a layer. Inside the function you specify the conditioning variable. The conditioning variable should be an integer, factor, or character. The tilde symbol (`~`) is read "depends on" or "conditioned on" or "function of". When the tilde is placed to the left of the conditioning variable then the plot is split left to right.
+
+Another example: USA mortality rates (per one million inhabitants) for white males due to malignant melanoma 1950-1969.
+```{r}
+library(HSAUR2)
+head(USmelanoma)
+```
+
+### Try it
+
+1. Create a scatter plot showing male melanoma mortality on the y-axis (response variable) and latitude on the x-axis (explanatory variable).
+2. Add a best-fit straight line on the plot. 
+3. Condition the scatter plot on the variable 'ocean.' Is the relationship different for coastal states compared to non-coastal states?
+
+```{r eval=FALSE}
+ggplot(USmelanoma, aes(y = mortality, x = latitude )) + 
+  geom_point() + 
+  geom_smooth(method = lm) + 
+  facet_grid(~ ocean )
+```
+
+Another example. Florida precipitation. Read the data then create a moltened data frame with the `melt()` function.
+```{r}
+L = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp = read.table(L, na.string = "-9.900", header = TRUE)
+head(FLp)
+library(reshape2)
+FLpL = melt(FLp, id.vars = "Year")
+```
+
+Time series by month.
+```{r}
+ggplot(FLpL, aes(x = Year, y = value)) + 
+  geom_point() + 
+  facet_wrap(~ variable, ncol = 12) + 
+  geom_smooth(method = lm) +
+  xlab("") + ylab("Precipitation (in)") +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+### Data on a map
+
+The **ggmap** package contains functions for creating various kinds of static maps using the **ggplot2** grammar. The result is an easy & consistent way of specifying plots which are readily interpretable.
+```{r}
+library(ggmap)
+```
+
+The functions in **ggmap** depend on functions in the **ggplot2** package so that package gets loaded as well. The dataset *crime* is part of the **ggmap** package. You are interested in the variable called `offense`.  It is a factor with 7 levels. You are only interested in `murder` so you create a new data frame that is a filtered version of the original data frame. 
+```{r}
+df = crime %>%
+  filter(offense == "murder")
+head(df)
+```
+
+Retrieve a map of Houston. This is done with the `get_map()` function. It queries Google Maps, OpenStreetMaps, or Stamen Maps server.  The function downloads the map as an image from the server and formats the image for plotting. Here we assign the retrieved map to the object `HoustonMap`.
+```{r}
+HoustonMap = get_map(location = "Houston",
+                     zoom = 10)
+```
+
+The location argument accepts an address (or a character string that gets parsed as an address), a lon/lat pair (in that order), or a left/bottom/right/top bounding box. The string, whether containing an address, zip code, or proper name, is then passed to the `geocode()` function which determines the appropriate longitude/latitude coordinate for the center.  For example we can use the function directly.
+```{r}
+geocode("Fermentation Lounge, Tallahassee")
+```
+
+The `zoom =` argument is an integer from 3 to 20 specifying how large the spatial extent should be around the center, with 3 being the continent level and 20 being roughly the single building level. The default zoom is 10 (city level).
+
+`HoustonMap` is a ggmap object with a 1280 by 1280 raster of colors and some attributes. 
+```{r}
+str(HoustonMap)
+```
+
+We plot the map using the `ggmap()` function.
+```{r}
+ggmap(HoustonMap)
+```
+
+A google map of Houston is rendered on the plot device.
+
+### Add locations to the map
+
+The `ggmap()` function provides a graph layer. So we can add the locations of the murders in Houston using the `geom_point()` function.
+```{r}
+ggmap(HoustonMap) +
+  geom_point(data = df, 
+             aes(x = lon, y = lat), color = "darkred")
+```
+
+The map has geographic coordinates (lat, lon) so the data to add to the plot must also have latitude and longitude columns.
+
+### Tornado touchdown locations
+
+Let's return to the tornado dataset.
+```{r}
+L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
+Torn.df = read.table(L, header = TRUE)
+```
+
+Get the map from the google map server. Specify location, map type, and zoom.
+```{r}
+KSmap = get_map(location = 'kansas', 
+              maptype = "terrain", 
+              zoom = 7, source = 'google')
+```
+
+The map is in geographic coordinates so we add the start location of the tornadoes, which are given in decimal degrees of latitude and longitude, as a layer.
+```{r}
+df = Torn.df %>%
+  filter(STATE == "KS" & FSCALE > 1)
+ggmap(KSmap) +
+  geom_point(data = df, 
+             aes(x = SLON, y = SLAT), color = "red") 
+```
+
+Use the `stat_bin2d()` function to create a two-dimensional (in this case spatial) histogram layer.
+```{r}
+ggmap(KSmap) +
+  stat_bin2d(data = df, 
+             aes(x = SLON, y = SLAT),
+             bins = 17,
+             alpha = .7)
+```
+
+### Spatial data
+
+Here we get the tornado data directly from the Storm Prediction Center (SPC) http://www.spc.noaa.gov/gis/svrgis/ as a shapefile.
+```{r}
+download.file("http://www.spc.noaa.gov/gis/svrgis/zipped/tornado.zip",
+              "tornado.zip", mode = "wb")
+unzip("tornado.zip")
+```
+
+The data are downloaded as a zipped file then unzipped using the `unzip()` function. This results in a folder called `torn` containing the shapefiles `torn.*`
+
+Shapefiles can be imported in several ways. Here we use the `st_read()` function from the **sf** package.
+```{r}
+library(sf)
+sfdf = st_read(dsn = "torn", 
+               layer = "torn", 
+               stringsAsFactors = FALSE)
+```
+
+The result is a simple feature collection with 23 features (attributes) and 5 fields (geometry type, dimension, bounding box, epsg, projection). To glimpse the data use the `select()`, and `head()` functions.
+```{r}
+sfdf %>%
+  dplyr::select(date, st, mag, inj, fat, geometry) %>%
+  head()
+```
+
+The `geometry` column is in well known text (WKT) format. Each tornado is a `LINESTRING` with a start and end location.
+
+Choose only tornadoes that originated in Florida after 2000.
+```{r}
+df = sfdf %>%
+  dplyr::filter(st == "FL", yr > 2000) %>%
+  dplyr::select(yr, mo, dy, slat, slon, mag)
+```
+  
+The **ggmap** package contains functions for creating various kinds of static maps using the **ggplot2** framework. The result is an intuitive & consistent way of specifying plots which are easy to interpret.
+```{r}
+Florida = get_map(location = "florida", zoom = 7)
+ggmap(Florida) +
+  geom_point(data = df, 
+             aes(x = slon, y = slat, size = mag), alpha = .25)
+```
+
+## Thematic maps
+
+Suppose we want to count the number of tornadoes originating in each state and then make a choropleth map of the counts? We first group and summarize.
+```{r}
+df = as.data.frame(sfdf) %>%
+  dplyr::filter(st != "PR") %>%
+  dplyr::group_by(st) %>%
+  dplyr::summarize(nT = n())
+glimpse(df)
+```
+
+By using the `as.data.frame()` function we 
+
+Next we get a spatial domain. Here we use the composite counties (Alaska and Hawaii inserted) from Bob Rudis's  **albersusa** package available on GitHub. Make sure you have the **devtools** package installed.
+```{r}
+#devtools::install_github("hrbrmstr/albersusa")
+library(albersusa)
+us_sf = usa_sf("aeqd") %>%
+  mutate(st = as.character(iso_3166_2))
+plot(us_sf["census_area"])
+```
+
+This is the domain we want. 
+
+Next we join the tornado counts with the map simple feature object.
+```{r}
+sfdf2 = left_join(df, 
+                  as.data.frame(us_sf), by = "st") %>%
+         sf::st_as_sf() %>%
+         dplyr::select(nT)
+```
+
+Next we use the functions in the **tmap** package. The **tmap** package is a flexible, layer-based, and easy to use approach to create thematic maps including choropleths and bubble maps. It is based on the grammar of graphics, and resembles the syntax of **ggplot2**.
+
+Functions are applied in layers with the `+` symbol. We start with the simple feature data frame called with the `tm_shape` function. Then add a polygon layer with the `tm_shape` function that points to the column in the `sfdf2` data frame that we want choroplethed.
+```{r}
+library(tmap)
+tm_shape(sfdf2) +
+  tm_polygons("nT", 
+              title = "Tornado Counts",
+              palette = "Reds") +
+  tm_format_NLD()
+```
+
+We can improve the defaults with additional layers including text, compass, and scale bar. The last layer is the print view.
+```{r}
+tm_shape(sfdf2) +
+  tm_polygons("nT", 
+              border.col = NULL,
+              title = "Tornado Counts",
+              palette = "Reds") +
+  tm_text("nT", size = .5) +
+tm_shape(us_sf) + tm_borders(alpha = .2) +
+  tm_compass() + tm_scale_bar(lwd = .5) +
+  tm_format_Europe2(legend.position = c("left", "bottom"),
+                attr.position = c("left", "bottom"))
+```
+
+The format of the **tmap** map objects (meoms) are like those of the **ggplot2** geometric objects (geoms) making it easy to get to a publication-quality map. The fine details can be worked out in production.
+
+More information? See: https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html

@@ -11,22 +11,257 @@ output:
 
 Problem Set #2 is on Canvas. It's due next Thursday (September 20).
 
+<<<<<<< HEAD
 After today you will be better at manipulating data frames. 
+=======
+After today you will know additional ways to manipulate data frames. 
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 
-## Grammar
+## Grammar for data
+
+The **dplyr** package has functions ('verbs') that perform common operations on data frames. Selecting specific columns, filtering on rows, re-ordering rows, adding new columns, and summarizing data. Let's review using the `airquality` data frame.
+```{r}
+library(dplyr)
+head(airquality)
+dim(airquality)
+```
+
+### Select
+
+The function `select()` selects variables by name. For example, create a new data frame containing only the month, day, and temperature columns from the `airquality` data frame.
+```{r}
+df <- airquality %>%
+      select(Month, Day, Temp)
+head(df)
+```
+
+### Filter
+
+The function `filter()` filters observations based on specific values. Create a new data frame by filtering the rows keeping only the rows where temperature is at least 80 F and winds are less than 5 mph.
+```{r}
+df <- airquality %>% 
+  filter(Temp >= 80 & Wind < 5)
+head(df)
+```
+
+### Arrange
+
+The function `arrange()` arranges (orders) rows by a particular column.
+```{r}
+airquality %>%
+  arrange(Solar.R) %>%
+  head()
+```
+
+String the verbs together.
+```{r}
+airquality %>%
+  select(Solar.R, Wind, Temp) %>%
+  filter(Temp > 90) %>%
+  arrange(Temp, Solar.R)
+```
+
+### Mutate
+
+The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` which is the temperature in Celcius. Also create a column called `WindMS` which is the wind speed in meters per second.
+```{r}
+airquality %>%
+  mutate(TempC = (Temp - 32) * 5/9,
+         WindMS = Wind * .44704) %>%
+  head()
+```
+
+On days when the temperature is below 60 F compute the apparent temperature based on wind chill and arrange from coldest to warmest apparent temperature.
+```{r}
+airquality %>%
+  filter(Temp < 60) %>%
+  mutate(TempAp = 35.74 + .6215 * Temp - 35.75 * Wind^.16 + .4275 * Temp * Wind^.16) %>%
+  arrange(TempAp)
+```
+
+### Summarize
+
+The `summarize()` (or `summarise()`) function allows reduces the data frame using summary statistics. To compute the average wind speed during July type
+```{r}
+airquality %>%
+  filter(Month == 7) %>%
+  summarize(Wavg = mean(Wind))
+```
+
+We've looked at several summary functions already including `sum()`, `sd()`, `min()`, `max()`, `var()`, `range()`, `median()`. Others include
+
+Summary function  | Description
+-----------------:|:-----------
+`n()`             | Length of the column
+`first()`         | First value of the column
+`last()`          | Last value of the column
+`n_distinct()`    | Number of distinct values
+
+Find the maximum and median wind speed and maximum ozone concentration values during the month of May. Also determine the number of days during Mays.
+```{r}
+airquality %>%
+  filter(Month == 5) %>%
+  summarize(Wmax = max(Wind),
+            Wmed = median(Wind),
+            OzoneMax = max(Ozone, na.rm = TRUE),
+            NumDays = n())
+```
+
+### Grouping
+
+What if we want to apply the above summary separately for each month? In this case we use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
+
+Find the highest ozone concentration for each month.
+```{r}
+airquality %>%
+  group_by(Month) %>%
+  summarize(OzoneMax =  max(Ozone, na.rm = TRUE),
+            NumDays = n())
+```
+
+Find the average ozone concentration when temperatures are above and below 70 F.
+```{r}
+airquality %>%
+  group_by(Temp >= 70) %>%
+  summarize(OzoneAvg =  mean(Ozone, na.rm = TRUE),
+            NumDays = n())
+```
+
+On average ozone concentrations are higher on warm days (Temp >= 70 F) days. That is to say mean ozone concentration depends on temperature, where the word 'depends' implies statistical dependency.
+
+The mean is a model for the data. The statistical dependency of the mean implies that a model for ozone concentration will likely be improved by including temperature as an explanatory variable.
+
+The important **dplyr** verbs are
+
+Verb          | Description
+-------------:|:-----------
+`select()`    | selects columns; pick variables by their names
+`filter()`    | filters rows; pick observations by their values
+`arrange()`   | re-orders the rows
+`mutate()`    | creates new columns; create new variables with functions of existing variables
+`summarize()` | summarizes values; collapse many values down to a single summary
+`group_by()`  | allows operations to be grouped
 
 The syntax of the verb functions in the **dplyr** package are all the same:
 
+<<<<<<< HEAD
 * The first argument is a data frame. This argument is implicit when using the `%>%` operator.
 * The subsequent arguments describe what to do with the data frame. We refer to columns in the data frame directly (without using `$`).
+=======
+* The first argument is a data frame.
+* The subsequent arguments describe what to do with the data frame. Notice that we refer to columns in the data frame directly without using $.
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 * The result is a new data frame
 
 These properties make it easy to chain together many simple lines of code to do something complex.
 
 The five functions provide the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
+<<<<<<< HEAD
+=======
 
-## Tornado data
+## New York City flight data
 
+Let's apply these operations to a larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The notes follow closely from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
+```{r}
+library(nycflights13)
+dim(flights)
+```
+
+The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
+
+The object `flights` is a tibble (tabled data frame). When we have a large data frame it is useful to make it a tibble so that we don't accidently print it to the screen.
+
+For example, `airquality` is not a tibble. So when we type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
+```{r}
+airquality
+airquality = tbl_df(airquality)
+airquality
+```
+
+Returning to the NYC flights data.
+```{r}
+flights
+```
+
+The function `filter()` selects a set of rows in a data frame 
+
+How would we select all flights occurring on February 1st?
+```{r}
+flights %>%
+  filter(month == 2 & day == 1)
+```
+
+The function `arrange()` works like `filter()` except that it reorders the rows. If we provide more than one column name, each additional column is used to break ties in the values of the preceding columns.
+
+How would we arrange all flights in descending order of departure delay?
+```{r}
+flights %>%
+  arrange(desc(dep_delay))
+```
+
+Often we work with large datasets with many columns but only a few are of interest. The function `select()` allows us to zoom in on an interesting subset of the columns.
+
+How would we create a data frame containing only the dates, carrier, and flight numbers?
+```{r}
+df <- flights %>%
+  select(year:day, carrier, flight)
+df
+```
+
+We add new columns with the function `mutate()`.
+
+Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
+```{r}
+flights %>%
+  mutate(gain = arr_delay - dep_delay) %>%
+  select(year:day, carrier, flight, gain) %>%
+  arrange(desc(gain))
+```
+
+Determine the mean departure delay.
+```{r}
+flights %>%
+  summarize(avgDelay = mean(dep_delay, na.rm = TRUE))
+```
+
+### Randomly sample rows
+
+We use `sample_n()` and `sample_frac()` to take random sample of rows from the data frame. Take a random sample of five rows from the flights data frame.
+```{r}
+flights %>%
+  sample_n(5)
+```
+
+Take a random sample of 1% of the rows.
+```{r}
+flights %>%
+  sample_frac(.01)
+```
+
+Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
+
+The verbs are powerful when we apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
+```{r}
+flights %>%
+  group_by(tailnum) %>%
+  summarize(delayAvg = mean(arr_delay, na.rm = TRUE)) %>%
+  arrange(desc(delayAvg))
+```
+
+Determine the number of distinct planes and flights by destination location.
+```{r}
+flights %>%
+  group_by(dest) %>%
+  summarize(planes = n_distinct(tailnum),
+            flights = n())
+```
+
+Repeat but arrange from most to fewest planes.
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
+
+## Tornadoes
+
+<<<<<<< HEAD
 Let's continue using data from my research project. The dataset was used to publish this recent [paper](http://myweb.fsu.edu/jelsner/PDF/Research/ElsnerEtAl2016.pdf). The data set through 2011 is available as a spreadsheet on my website.
 ```{r}
 L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
@@ -193,10 +428,19 @@ Let's apply these functions to an even larger set of data. The data frame is in 
 ```{r}
 library(nycflights13)
 dim(flights)
+=======
+Let's consider the SPC tornado data. The dataset through 2011 is available as a spreadsheet on my website.
+```{r}
+L <- "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
+Torn.df <- read.table(L, header = TRUE)
+dim(Torn.df)
+head(Torn.df)
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```
 
 The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
 
+<<<<<<< HEAD
 The object `flights` is a tibble (tabled data frame). When you are dealing with a large data frame it is useful to make it a tibble so that you don't accidently print it to the screen.
 
 For example, `airquality` is not a tibble. So when you type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
@@ -204,6 +448,13 @@ For example, `airquality` is not a tibble. So when you type the name of the data
 airquality
 airquality = tbl_df(airquality)
 airquality
+=======
+There are many tornadoes (56,221) so we first make a tibble version of the data frame.
+```{r}
+library(dplyr)
+Torn.df <- tbl_df(Torn.df)
+Torn.df
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```
 
 Returning to the NYC flights data.
@@ -221,7 +472,11 @@ flights %>%
 
 The function `arrange()` works like `filter()` except that it reorders the rows. If you provide more than one column name, each additional column will be used to break ties in the values of the preceding columns.
 
+<<<<<<< HEAD
 How would you arrange all flights in descending order of departure delay?
+=======
+We use the assignment statement to save the result of the filtering. Or we can send ('pipe') the resulting object to `ggplot()`. For example: Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```{r}
 flights %>%
   arrange(desc(dep_delay))
@@ -240,10 +495,19 @@ You add new columns with the function `mutate()`.
 
 Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
 ```{r}
+<<<<<<< HEAD
 flights %>%
   mutate(gain = arr_delay - dep_delay) %>%
   select(year:day, carrier, flight, gain) %>%
   arrange(desc(gain))
+=======
+df <- Torn.df %>%
+  mutate(Length = LENGTH * 1609,
+         Width = WIDTH * .9144,
+         Area = Length * Width * pi/4) %>%
+  select(DATE, FSCALE, Length, Width, Area)
+df
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```
 
 Determine the mean departure delay.
@@ -256,12 +520,24 @@ flights %>%
 
 You use `sample_n()` and `sample_frac()` to take random sample of rows from your data frame. Take a random sample of five rows from the flights data frame.
 ```{r}
+<<<<<<< HEAD
 flights %>%
   sample_n(5)
+=======
+Paths <- Torn.df %>%
+  mutate(Length = LENGTH * 1609,
+         Width = WIDTH * .9144) %>%
+  group_by(FSCALE) %>%
+  summarise(nT = n(),
+            mL = mean(Length),
+            mW = mean(Width))
+Paths
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```
 
 Take a random sample of 1% of the rows.
 ```{r}
+<<<<<<< HEAD
 flights %>%
   sample_frac(.01)
 ```
@@ -269,6 +545,15 @@ flights %>%
 Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
 
 The verbs are powerful when you apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
+=======
+Paths <- Paths %>%
+  filter(FSCALE >= 0)
+ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
+  geom_bar(stat = "identity")
+```
+
+We use `summarise()` with aggregate functions, which take a vector of values, and return a single number. For example, we find the number of tornadoes by state and the number of months in which there was at least one tornado.
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```{r}
 flights %>%
   group_by(tailnum) %>%
@@ -276,7 +561,11 @@ flights %>%
   arrange(desc(delayAvg))
 ```
 
+<<<<<<< HEAD
 Determine the number of distinct planes and flights by destination location.
+=======
+We can group by multiple variables. For example how many tornadoes have occurred by day of year?
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 ```{r}
 flights %>%
   group_by(dest) %>%
@@ -284,6 +573,7 @@ flights %>%
             flights = n())
 ```
 
+<<<<<<< HEAD
 Repeat but arrange from most to fewest planes.
 
 
@@ -292,12 +582,15 @@ https://toolbox.google.com/datasetsearch
 
 
 EDA is an interative cycle. You:
+=======
+Data munging is part of data science. It is an interative cycle:
+>>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 
-1. Generate questions about your data.
-2. Search for answers by transforming, visualizing, and modeling your data.
-3. Use what you learn to refine your questions and/or ask new ones.
+1. Generate questions about our data.
+2. Search for answers by transforming, visualizing, and modeling the data.
+3. Use what we learn to refine our questions and/or ask new ones.
 
-Your goal is to develop an understanding of your data. Use questions as tools to guide your investigation. When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which transformations to make. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
+The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 ```{r}
 Torn.df %>%

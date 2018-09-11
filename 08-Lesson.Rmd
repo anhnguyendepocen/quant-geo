@@ -1,0 +1,99 @@
+---
+title: "Making Graphs 2"
+author: "James B. Elsner"
+date: September 20, 2018
+output: 
+  html_document:
+    keep_md: true
+---
+
+### Graphs for communication
+
+Adding labels turns our exploratory graphic into an expository graphic. For example consider the `mpg` dataset and plot highway mileage (`hwy`) as a function of engine size (`displ`) with the color of the point layer given by automobile class (`class`).
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(title = "Fuel efficiency generally decreases with engine size")
+```
+
+The purpose of a plot title is to summarise the main finding. Avoid titles that just describe what the plot is, e.g. "A scatterplot of engine displacement vs. fuel economy". If you need to add more text, there are two other useful labels.
+
+* `subtitle =` adds additional detail in a smaller font beneath the title.
+* `caption = ` adds text at the bottom right of the plot, often used to describe the source of the data.
+
+```{r}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Fuel efficiency generally decreases with engine size",
+    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+    caption = "Data from fueleconomy.gov")
+```
+
+### Create a plot object
+
+The assignment operator can be used to save the plot as an object. The object can be modified and printed.
+
+Example: Given the 'cars' data frame from the **datasets** package. 
+```{r}
+str(cars)
+```
+
+Plot the car's stopping distance (`dist`) on the vertical (y) axis and the car's forward speed (`speed`) on the horizontal axis (x). Create the plot but assign it to an object called `p`.
+```{r}
+p = ggplot(cars, aes(x = speed, y = dist)) +
+        geom_point() +
+        xlab("Forward Speed (mph)") +
+        ylab("Stopping Distance (ft)")
+p
+p = p + theme_bw()
+p
+p + geom_rug()
+```
+
+Notes:
+
+1. the `aes()` function creates a list of variables to map. Here speed and dist from the data frame cars. The default argument list is ordered with the x variable first then the y variable, but it is good coding practice to name them using `x =` , etc.
+2. The first layer is `geom_point()`. It maps the aesthetics to a cartesian plane. The `geom_point()` function needs an x and y aesthetic, but also understands `color`, `fill`, `shape`, `size`, `alpha`.
+3. The second and third layers add labels to the axes. 
+4. The graph is first saved as an object called `p` rather than rendered by the graphical device. It gets rendered by typing its name.
+5. Additional layers are added to `p` using the `+` symbol.
+
+The ggplot object `p` is a list of length 9 elements. Type
+```{r, eval=FALSE}
+str(p)
+```
+
+The first element is the data frame. The last element are the labels.
+
+### Export a graph
+
+When you knit to HTML and a plot is produced it gets output as a png file in a folder called "figure" in the directory where your .Rmd file is located.
+
+You can also use the Export button under the Plots tab.
+
+Or you can export the file directly using R code. Here the file gets put into your working directory.
+```{r eval = FALSE, dev=c("pdf", "png")}
+png(file = "MayNAO.png")
+ggplot(NAO, aes(x = Year, y = May)) + 
+  geom_line() + 
+  xlab("Year") + 
+  ylab("May NAO (s.d.)")
+dev.off()
+```
+
+Note that the function `png()` opens the device and the function `dev.off()` closes it.  
+
+Recall to list the files in your working directory type `dir()`.
+
+My workflow. 
+
+### Give it a try
+
+Use the `cars` data frame (**datasets**) to create a histogram and box plot of stopping distance (column name `dist`). Also create a scatter plot of stopping distance (`dist`) versus `speed` with `speed` on the horizontal axis.
+
+gganimate
+
+## Problem Set #3
