@@ -1,106 +1,19 @@
-# Grammar for Graphs (2) {#GG2}
-
-October 3, 2017
+---
+title: "Maps in R"
+author: "James B. Elsner"
+date: September 25, 2018
+output: 
+  html_document:
+    keep_md: true
+---
 
 "**...conditioning is not only something one does with ones hair, but something you also can do with data.**''---Rasmus Baath
-
-Exam next Tuesday (October 10).
 
 Problem Set #3 due today. If you don't get an email from me it means I've graded your homework and you received a full grade. I'll use this same protocol when I grade your exams next week.
 
 Today: Scatter plots, correlation, conditioning plots, getting data onto a map
 
 Fun examples. [Simpsons by the data](https://www.r-bloggers.com/the-simpsons-by-the-data/)
-
-### Box plots
-
-Box plots are a picture summary of your data (min, max, median, IQR). Multiple box plots of a single variable grouped by another variable makes it easy to see whether the grouping variable helps explain the variability.
-
-Often data values are arranged in a wide format. This means that the values a variable a spread across multiple columns. This is common with climate data where, for example, values are stacked in columns by month.
-
-In these cases it is necessary to turn your wide data frame into a long data frame. All the values are put into a single (`values`) column and the grouping variable names are placed in column called `variable`. This is done with the `melt()` function from the **reshape2** package.
-```{r}
-library(reshape2)
-L = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(L, na.string = "-9.900", 
-                 header = TRUE)
-head(FLp, n = 3)
-```
-
-Here we see that `FLp` is a wide data frame. The 'measured' variable names include `Jan`, `Feb`, etc. The 'id' variable is `Year`. To make this a long data frame we identify the id variable. By default all the other columns are 'measured'.
-```{r}
-FLpL = melt(FLp, id.vars = "Year")
-head(FLpL, n = 3)
-```
-
-The id variable `Year` is in the first column. The column `variable` contains the names of the measured variable columns from the wide data frame starting with `Jan`. The `value` column contains the precipitation values by year and month.
-
-Then to create a climograph let `x = variable` and `y = value` in the `aes()` function.
-```{r}
-library(ggplot2)
-ggplot(FLpL, aes(x = variable, y = value)) + 
-  geom_boxplot() +
-  xlab("Month") + 
-  ylab("Precipitation (in)")
-```
-
-The graph shows the variability of precipitation in the state by month. 
-
-To add another layer with different data you specify the data within a `geom_` function. For example, lets repeat the climograph highlighting the box plot of precipitation for the month of May.
-
-We first create a new data frame containing only the month of May and then add another `geom_boxplot()` layer.
-```{r}
-library(dplyr)
-FLpLMay = FLpL %>%
-  filter(variable == "May")
-
-ggplot(FLpL, aes(x = variable, y = value)) + 
-  geom_boxplot() +
-  xlab("Month") + 
-  ylab("Precipitation (in)") +
-  geom_boxplot(data = FLpLMay, 
-               aes(x = variable, y = value), 
-               fill = "green")
-```
-
-Practice: Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details.
-```{r eval=FALSE}
-L = "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
-SOI = read.table(file = L, header = TRUE)
-SOIL = melt(SOI, id.vars = "Year")
-ggplot(SOIL, aes(x = variable , y = value)) + 
-  geom_boxplot() +
-  xlab("Month") + 
-  ylab("SOI (s.d.)")
-```
-
-### Scatter plot
-
-The scatter plot is an important scientific graph. Here we use the `cars` data frame with `speed` on the horizontal axis and breaking distance (`dist`) on the vertical axis.
-```{r}
-p = ggplot(cars, aes(x = speed, y = dist)) +
-  geom_point() +
-  xlab("Forward Speed (mph)") +
-  ylab("Breaking Distance (ft)")
-p
-```
-
-Here the plot is assigned to `p` as a list object. The plot is rendered on the graphics device when we type its name.
-
-Notes:
-
-1. The `aes()` function creates a list of the variables to map. Here `speed` and `dist` from the data frame `cars`. The default argument list is ordered with the x variable first then the y variable, but it is good coding practice to name them using `x =` , etc.
-2. The next layer is `geom_point()`. It maps the aesthetics to a cartesian plane. The `geom_point()` function requires an x and y aesthetic, but it also understands color, fill, shape, size, alpha.
-3. The third and fourth layers add labels to the axes. 
-4. Layers are added using the `+` symbol.
-
-We can add a layer to `p` by
-```{r}
-p + geom_smooth()
-```
-
-Here we use the default local regression smoother. The blue line shows the smoothed relationship between forward speed and average breaking distance. The faster the car is moving the greater the distance needed before coming to a stop. The gray band shows the 95% uncertainty band about the smoothed estimates.
-
 ### Correlation
 
 A scatter plot is a graphical depiction of correlation. Correlation describes the linear relationship between two variables with a single number.
