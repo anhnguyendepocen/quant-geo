@@ -1,5 +1,5 @@
 ---
-title: "Data Munging 2"
+title: "Data Munging Again"
 author: "James B. Elsner"
 date: September 13, 2018
 output: 
@@ -9,124 +9,25 @@ output:
 
 "**You're doing it right if you get frustrated: if you're not frustrated, you're (probably) not stretching yourself mentally.**"---Hadley Wickham
 
-Problem Set #2 is available on Canvas. It is due next Thursday (September 20).
+Problem Set #2 is on Canvas. It's due next Thursday (September 20).
 
-After today you will know some additional ways to manipulate data frames. 
+After today you will be better at manipulating data frames. 
 
 ## Grammar
 
 The syntax of the verb functions in the **dplyr** package are all the same:
 
-* The first argument is a data frame.
-* The subsequent arguments describe what to do with the data frame. Notice that you can refer to columns in the data frame directly without using $.
+* The first argument is a data frame. This argument is implicit when using the `%>%` operator.
+* The subsequent arguments describe what to do with the data frame. We refer to columns in the data frame directly (without using `$`).
 * The result is a new data frame
 
-These properties make it easy to chain together many simple steps to get at something that is more complex.
+These properties make it easy to chain together many simple lines of code to do something complex.
 
-The five functions provide the basis of a grammar for data. At the most basic level, you can only alter a data frame in five useful ways: you can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
-
-## New York City flight data
-
-Let's apply these operations to a larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The notes follow closely from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
-```{r}
-library(nycflights13)
-dim(flights)
-```
-
-The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
-
-The object `flights` is a tibble (tabled data frame). When you are dealing with a large data frame it is useful to make it a tibble so that you don't accidently print it to the screen.
-
-For example, `airquality` is not a tibble. So when you type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
-```{r}
-airquality
-airquality = tbl_df(airquality)
-airquality
-```
-
-Returning to the NYC flights data.
-```{r}
-flights
-```
-
-The function `filter()` allows you to select a subset of rows in a data frame 
-
-How would you extract all flights occurring on February 1st?
-```{r}
-flights %>%
-  filter(month == 2 & day == 1)
-```
-
-The function `arrange()` works like `filter()` except that it reorders the rows. If you provide more than one column name, each additional column will be used to break ties in the values of the preceding columns.
-
-How would you arrange all flights in descending order of departure delay?
-```{r}
-flights %>%
-  arrange(desc(dep_delay))
-```
-
-Often you work with large datasets with many columns but only a few may be of interest. The function `select()` allows you to zoom in on an interesting subset of the columns.
-
-How would you create a data frame containing only the dates, carrier, and flight numbers?
-```{r}
-df <- flights %>%
-  select(year:day, carrier, flight)
-df
-```
-
-You add new columns with the function `mutate()`.
-
-Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
-```{r}
-flights %>%
-  mutate(gain = arr_delay - dep_delay) %>%
-  select(year:day, carrier, flight, gain) %>%
-  arrange(desc(gain))
-```
-
-Determine the mean departure delay.
-```{r}
-flights %>%
-  summarize(avgDelay = mean(dep_delay, na.rm = TRUE))
-```
-
-### Randomly sample rows
-
-You use `sample_n()` and `sample_frac()` to take random sample of rows from your data frame. Take a random sample of five rows from the flights data frame.
-```{r}
-flights %>%
-  sample_n(5)
-```
-
-Take a random sample of 1% of the rows.
-```{r}
-flights %>%
-  sample_frac(.01)
-```
-
-Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
-
-The verbs are powerful when you apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
-```{r}
-flights %>%
-  group_by(tailnum) %>%
-  summarize(delayAvg = mean(arr_delay, na.rm = TRUE)) %>%
-  arrange(desc(delayAvg))
-```
-
-Determine the number of distinct planes and flights by destination location.
-```{r}
-flights %>%
-  group_by(dest) %>%
-  summarize(planes = n_distinct(tailnum),
-            flights = n())
-```
-
-Repeat but arrange from most to fewest planes.
+The five functions provide the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
 
 ## Tornado data
 
-Let's review by using different data. The dataset was used to publish this recent [paper](http://myweb.fsu.edu/jelsner/PDF/Research/ElsnerEtAl2016.pdf). The data set through 2011 is available as a spreadsheet on my website.
+Let's continue using data from my research project. The dataset was used to publish this recent [paper](http://myweb.fsu.edu/jelsner/PDF/Research/ElsnerEtAl2016.pdf). The data set through 2011 is available as a spreadsheet on my website.
 ```{r}
 L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
 Torn.df = read.table(L, header = TRUE)
@@ -142,20 +43,20 @@ Reports are arranged chronologically starting with January 1950. The first torna
 
 There are quite a few tornadoes (56,221) so first make a tibble version of the data frame.
 ```{r}
-Torn.df = tbl_df(Torn.df)
+Torn.df <- tbl_df(Torn.df)
 Torn.df
 ```
 
 ### Filter
 
-Keep only tornadoes that occur in January.
+Keep only tornadoes that occur during the month of January.
 ```{r}
 Torn.df %>%
   filter(MONTH == 1) %>%
   dim()
 ```
 
-You read it as "Take the data frame `Torn.df` and filter it to remove all tornadoes except those occurring during the month of January."
+We read it as "Take the data frame `Torn.df` and filter it to remove all tornadoes except those occurring during the month of January."
 
 You now have a filtered version of the original data frame consisting only of tornadoes occurring during the month of January. The function `dim()` on the filtered data frame or the function `length()` on one of the columns let's you know how many January tornadoes.
 
@@ -286,159 +187,109 @@ On average what state has the longest tornadoes? Hint: `group_by()`, `summarize(
 Please check out http://r4ds.had.co.nz/index.html for additional help.
 
 
+## New York City flight data
 
-Then I'll elaborate on how to make graphs using functions from the **ggplot2** package. Graphs (and maps) are important to exploratory data analysis (EDA) in geography.
+Let's apply these functions to an even larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The notes follow closely from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
+```{r}
+library(nycflights13)
+dim(flights)
+```
+
+The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
+
+The object `flights` is a tibble (tabled data frame). When you are dealing with a large data frame it is useful to make it a tibble so that you don't accidently print it to the screen.
+
+For example, `airquality` is not a tibble. So when you type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
+```{r}
+airquality
+airquality = tbl_df(airquality)
+airquality
+```
+
+Returning to the NYC flights data.
+```{r}
+flights
+```
+
+The function `filter()` allows you to select a subset of rows in a data frame 
+
+How would you extract all flights occurring on February 1st?
+```{r}
+flights %>%
+  filter(month == 2 & day == 1)
+```
+
+The function `arrange()` works like `filter()` except that it reorders the rows. If you provide more than one column name, each additional column will be used to break ties in the values of the preceding columns.
+
+How would you arrange all flights in descending order of departure delay?
+```{r}
+flights %>%
+  arrange(desc(dep_delay))
+```
+
+Often you work with large datasets with many columns but only a few may be of interest. The function `select()` allows you to zoom in on an interesting subset of the columns.
+
+How would you create a data frame containing only the dates, carrier, and flight numbers?
+```{r}
+df <- flights %>%
+  select(year:day, carrier, flight)
+df
+```
+
+You add new columns with the function `mutate()`.
+
+Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
+```{r}
+flights %>%
+  mutate(gain = arr_delay - dep_delay) %>%
+  select(year:day, carrier, flight, gain) %>%
+  arrange(desc(gain))
+```
+
+Determine the mean departure delay.
+```{r}
+flights %>%
+  summarize(avgDelay = mean(dep_delay, na.rm = TRUE))
+```
+
+### Randomly sample rows
+
+You use `sample_n()` and `sample_frac()` to take random sample of rows from your data frame. Take a random sample of five rows from the flights data frame.
+```{r}
+flights %>%
+  sample_n(5)
+```
+
+Take a random sample of 1% of the rows.
+```{r}
+flights %>%
+  sample_frac(.01)
+```
+
+Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
+
+The verbs are powerful when you apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
+```{r}
+flights %>%
+  group_by(tailnum) %>%
+  summarize(delayAvg = mean(arr_delay, na.rm = TRUE)) %>%
+  arrange(desc(delayAvg))
+```
+
+Determine the number of distinct planes and flights by destination location.
+```{r}
+flights %>%
+  group_by(dest) %>%
+  summarize(planes = n_distinct(tailnum),
+            flights = n())
+```
+
+Repeat but arrange from most to fewest planes.
+
 
 Use google to search for data sets.
 https://toolbox.google.com/datasetsearch
 
-
-
-EDA is a creative process. The key to asking good questions is to ask many of them. 
-
-It's hard at first to ask good questions because you do not know what insights are contained in your dataset. But each new question exposes you to a new aspect of your data and increases your chance of making a discovery. You can quickly drill down into the most interesting parts of your data---and develop a set of thought-provoking questions---if you follow up each question with a new question based on what you find.
-
-There is no rule about which questions you should ask to guide your research. However, two types will always be useful. Loosely worded these are:
-
-* What type of variation occurs within my variables?
-* What type of covariation occurs between my variables?
-
-A variable is a quantity, quality, or property you can measure. A value is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.
-
-An observation is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. E.g., the observation of air temperatures at noon across Florida.
-
-Tabular data is a set of values, each associated with a variable and an observation. Tabular data is 'tidy' if each value is placed in its own 'cell', each variable in its own column, and each observation in its own row.
-
-## Review
-
-Let's review what we learned on Tuesday by using the SPC tornado data. The dataset was used to publish this recent [paper](http://myweb.fsu.edu/jelsner/PDF/Research/ElsnerEtAl2016.pdf). The data set through 2011 is available as a spreadsheet on my website.
-```{r}
-L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
-Torn.df = read.table(L, header = TRUE)
-dim(Torn.df)
-head(Torn.df)
-```
-
-Each observation is a separate tornado. Variables include date, time, state, EF damage rating scale (`FSCALE`), fatalities, injuries, loss, start location (`SLAT` and `SLON`), end location (`ELAT`, `ELON`), length (in miles) and width (in yards) of path, and a few other things. The start and end locations are given in decimal degrees of latitude and longitude. Missing locations are coded as 0.00. Reports are arranged chronologically starting with January 1950. The first tornado in the record is from January 3rd, 1950. It occurred in Missouri. 
-
-Number two of Problem Set 3 asks some questions about these data.
-
-There are many tornadoes (56,221) so we first make a tibble version of the data frame.
-```{r}
-library(dplyr)
-Torn.df = tbl_df(Torn.df)
-Torn.df
-```
-
-### Filter
-
-Keep only tornadoes that occurred during the month of January.
-```{r}
-Torn.df %>%
-  filter(MONTH == 1) %>%
-  dim()
-```
-
-We now have a filtered version of the original data frame consisting only of tornadoes occurring during January. The function `dim()` on the filtered data frame or the function `length()` on one of the columns let's us know how many January tornadoes are in the dataset.
-
-Multiple filtering conditions are joined together with a comma (or & for 'and').
-```{r}
-Torn.df %>%
-  filter(MONTH == 1 & FSCALE >= 2)
-```
-
-The ampersand means 'and'. Keep only tornadoes occurring during January AND with an damage rating of at least two.
-
-We can use the assignment statement to save the result of the filtering. Or we can send ('pipe') the resulting object to `ggplot()`. For example: Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
-```{r}
-library(ggplot2)
-Torn.df %>%
-  filter(MONTH == 6 & DAY == 16) %>%
-ggplot(., aes(x = YEAR, y = SLAT)) + 
-  geom_point() + 
-  geom_smooth(method = lm)
-```
-
-The function `aes()` with `x = YEAR` and `y = SLAT` puts the year on the horizontal axis and latitude on the vertical axis. The function `geom_point()` places points on the graph. The function `geom_smooth()` with argument `method = lm` adds a straightline fit through the points with a 95% uncertainty band about the line.
-
-The graph indicates that tornado activity is shifting northward over time. There is large variability from one year to the next and it is just one day of the year so no definitive conclusions can be drawn.
-
-### Arrange and select
-
-List the tornadoes in descending order of fatalities and injuries.
-```{r}
-Torn.df %>%
-  arrange(desc(FATALITIES), desc(INJURIES)) %>%
-  select(DATE, FATALITIES, INJURIES)
-```
-
-The first tie on fatalities occurs with 58. The tie is broken by the number of injuries. Note that the operations are commutative. We could have selected then arranged and the results would have been the same.
-
-### Mutate
-
-Add a column that gives the path area in square meters where the area is computed using the formula for an ellipse. Select only the date, EF rating, and columns corresponding to the path length, width and area.
-```{r}
-df = Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144,
-         Area = Length * Width * pi/4) %>%
-  select(DATE, FSCALE, Length, Width, Area)
-df
-```
-
-In this case the order is important.
-
-### Summarize
-
-Compute the median tornado path length and width.
-```{r}
-df %>%
-  summarize(mL = median(Length),
-            mW = median(Width))
-```
-
-The median path length is 805 meters and the median (max) path width is 37 meters.
-
-The functions `filter()`, `arrange()`, `select()`, `mutate()`, and `summarize()` have similar syntax. The first argument is always a data frame. Subsequent arguments describe what to do with it. You refer to columns in the data frame directly (without using `$`). The result is a new data frame. These properties make it easy to chain together multiple simple steps to achieve a complex result. These five functions provide the basis of a language of data manipulation.
-
-### Grouped operations
-
-We use the `group_by()` function to create a grouped object, which is a data frame divided by groups of rows. The verbs work 'by group' when the input is a grouped object
-
-In the following example, we group the data frame into `FSCALE` ratings and then count the number of tornadoes (`nT = n()`) and average the length (`mL = mean(Length)`) and width (`mW = mean(Width)`) for each group. Results are saved in a new data frame called `Paths`.
-```{r}
-Paths = Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144) %>%
-  group_by(FSCALE) %>%
-  summarise(nT = n(),
-            mL = mean(Length),
-            mW = mean(Width))
-Paths
-```
-
-Here we assign (save) the result in `Paths`. Next we remove observations without an F scale rating of -99 and create a bar plot.
-```{r}
-Paths = Paths %>%
-  filter(FSCALE >= 0)
-ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
-  geom_bar(stat = "identity")
-```
-
-You use `summarise()` with aggregate functions, which take a vector of values, and return a single number. For example, we find the number of tornadoes by state and the number of months in which there was at least one tornado.
-```{r}
-Torn.df %>%
-  group_by(STATE) %>%
-  summarize(months = n_distinct(MONTH),
-            nT = n())
-```
-
-We can also group by multiple variables. For example how many tornadoes have occurred by day of year?
-```{r}
-Torn.df %>%
-  group_by(MONTH, DAY) %>%
-  summarize(nT = n())
-```
 
 EDA is an interative cycle. You:
 
@@ -456,3 +307,5 @@ Torn.df %>%
 ```
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
+
+## Problem Set #2
