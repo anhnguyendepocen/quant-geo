@@ -15,9 +15,9 @@ After today you will be able to manipulate data frames.
 
 ## Median
 
-Recall that the mean is a statistic from our data. Typically there are more data values near the mean than far from it. The mean is often near the middle value of a set of observations.
+Recall that the mean is a statistic from our data. Typically there are more data values near the mean than far from it. The mean is often near the middle value in a set of observations.
 
-The median is a statistic defined as the "middle" value.
+The median is a statistic defined exactly as the middle value.
 
 For example, consider a set of seven data values. Here the seven values are generated randomly but reproducibly. The `set.seed()` function guarantees that everyone (with a particular seed number) will get the same set of values.
 ```{r}
@@ -26,12 +26,12 @@ y <- rnorm(7)
 sort(y)
 ```
 
-There are seven values. They are sorted from lowest on the left to highest on the right. The middle value is the fourth value from the left in the ordered list of data values.
+The argument value `7` guarantees seven values. They are sorted from lowest on the left to highest on the right with the `sort()` function. The middle value is the fourth value from the left in the ordered list of data values.
 ```{r}
 median(y)
 ```
 
-The median divides the data set into the top 50% of the data values and the bottom 50% of the data values.
+The median divides the data set into the top half (50%) of the data values and the bottom half of the data values.
 
 With an odd number of values, the median is the middle one; with an even number of values, the median is the average of the two middle values.
 ```{r}
@@ -40,14 +40,14 @@ sort(y)
 median(y)
 ```
 
-We can check to see this is true no matter what the values are
+We check to see this is true no matter what the values are
 ```{r}
 y <- rnorm(8)
 y_sorted <- sort(y)
 median(y) == mean(c(y_sorted[4], y_sorted[5]))
 ```
 
-The median value as a statistic representing the middle of a set of data values is said to be resistant to outliers.
+The median value, as a statistic representing the middle of a set of data values, is said to be resistant to outliers.
 
 Consider the wealth (in 1000s of $) of five bar patrons.
 ```{r}
@@ -66,7 +66,9 @@ median(patrons)
 median(patrons_with_mm)
 ```
 
-The difference in the mean wealth with and without the millionaire present is substantial while the difference in medians is small. Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant.
+The difference in the mean wealth with and without the millionaire present is substantial while the difference in median wealth with and without the millionaire is small. 
+
+Statistics that are not greatly influenced be a few values far from the bulk of the data are called resistant.
 
 The `cfb` (available from the **UsingR** package) data set contains data from the Survey of Consumer Finances conducted by the U.S. Federal Reserve Board (in 2001). Some of the income values are much higher than the bulk of the data. This tendency is common in income distributions. A few people tend to accumulate enormous wealth (and it's getting worse).
 
@@ -80,22 +82,22 @@ median(income)
 
 Mean income is greater than median income. This indicates there are more very large income values than very small income values. 
 
-This can be seen using a histogram plot. A histogram displays the frequency of the values using intervals that divide the values into equal bins. This is done with the `hist()` function. Here we specify the number of intervals with the `breaks = ` argument.
+This can be seen on a histogram. A histogram is a plot that displays the frequency of the values using intervals that divide the values into equal bins. This is done with the `hist()` function. Here we specify the number of intervals with the `breaks = ` argument.
 ```{r}
 hist(income, 
      breaks = 25)
 ```
 
-The distribution is right skewed. It has a long right tail.
+The distribution is said to be right skewed. It has a long right tail.
 
-Note: Many packages have built-in datasets. To see what datasets are available in a package, type
+Note: Packages often have built-in datasets. To see what datasets are available in a package, type
 ```{r, eval=FALSE}
 data(package = "UsingR")
 ```
 
 ## Spread
 
-A measure of the spread of data values is the range. The range is given by the minimum and maximum value (or by the difference between the minimum and maximum). Here we use the `range()` function.
+One measure of the spread of data values is the range. The range is given by the minimum and maximum value (or by the difference between the minimum and maximum). Here we use the `range()` function.
 ```{r}
 range(income)
 diff(range(income))
@@ -229,7 +231,7 @@ names(H)[4] <- "GC"
 names(H)
 ```
 
-This changes the 4th column name from G to GC. Note that this change occurs to the data frame in R and not to your original data file.
+This changes the 4th column name from G to GC. Note that this change occurs in the data frame (in R) and not in the original data file.
 
 Most of our work with R will involve data frames. A data frame is a tabular (rectangular) data structure, which means it has rows and columns.  It is like a matrix with column names. Actually it is a list:
 
@@ -239,7 +241,7 @@ Most of our work with R will involve data frames. A data frame is a tabular (rec
 * Equal-height columns gives it a rectangular shape.
 * Columns must have names.
 
-To print the first column of values (the years) you can type:
+To print the first column of values (the years) type:
 ```{r, eval=FALSE}
 H[1]
 ```
@@ -256,11 +258,11 @@ Data frames have two indices indicating the rows and columns in that order.
 H[10, 4]
 ```
 
-* To a statistician a data frame is a table of observations. Each row contains one observation. Each observation must contain the same variables. These variables are called columns, and you can refer to them by name.  You can also refer to the contents by row number and column number, just as with a matrix.
+* To a statistician a data frame is a table of observations. Each row contains one observation. Each observation must contain the same variables. These variables are called columns, and we refer to them by name. We can also refer to the contents by row number and column number, just as with a matrix.
 
 * To an Excel user a data frame is like a worksheet (or a range within a worksheet). A data frame is more restrictive, however, in that each column has a type.
 
-* To an R programmer a data frame is a data structure, part matrix and part list.  A column can contain numbers, character strings, or factors but not a mix of them.  You can index the data frame just like you index a matrix. The data frame is also a list, where the list elements are the columns, so you can access columns by using list operators.
+* To an R programmer a data frame is a data structure, part matrix and part list.  A column can contain numbers, character strings, or factors but not a mix of them. We can index the data frame just like we index a matrix. The data frame is also a list, where the list elements are the columns, so we can access columns by using list operators.
 
 ## Example: Florida precipitation by month
 
@@ -274,7 +276,7 @@ ggplot(FLp, aes(x = Year, y = Jan)) +
 
 ## The summary method
 
-The `summary()` function provides summary statistics for each column in your data frame. The statistics include output the mean, median, minimum, maximum, along with the first quartile and third quartile values.
+The `summary()` function provides summary statistics for each column in our data frame. The statistics include output the mean, median, minimum, maximum, along with the first quartile and third quartile values.
 ```{r}
 summary(FLp)
 ```
@@ -314,7 +316,7 @@ H <- as.data.frame(counts)
 head(H)
 ```
 
-Similarly for the ice volume data you can use the function `cbind()` [combine columns] within the function `as.data.frame()`.
+Similarly for the ice volume data we can use the function `cbind()` [combine columns] within the function `as.data.frame()`.
 ```{r}
 as.data.frame(cbind(Year, Volume))
 ```
@@ -336,7 +338,7 @@ head(airquality)
 dim(airquality)
 ```
 
-There are 153 rows and 6 columns. The rows are called observations and the columns are called variables. This is typically the way you store data collected in a spreadsheet.
+There are 153 rows and 6 columns. The rows are called observations and the columns are called variables. This is typically the way we store data collected in a spreadsheet.
 
 The notes below follow: http://genomicsclass.github.io/book/pages/dplyr_tutorial.html
 
@@ -364,7 +366,7 @@ head(df)
 
 The result is a data frame `df` that contains only the columns listed in the `select()` function.
 
-The operator `%>%` is called the 'pipe' and your read it as 'then'. For example, we read the above code as "Take the data frame `airquality` THEN (`%>%`) select the columns `Month`, `Day`, and `Temp`."
+The operator `%>%` is called the 'pipe' and we read it as 'then'. For example, we read the above code as "Take the data frame `airquality` THEN (`%>%`) select the columns `Month`, `Day`, and `Temp`."
 
 All verbs work the same way: The first argument is a data frame and this argument is passed into the function with the pipe operator; The subsequent arguments describe what to do with the data frame, using the variable names; The result is always a new data frame
 
