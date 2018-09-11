@@ -11,11 +11,7 @@ output:
 
 Problem Set #2 is on Canvas. It's due next Thursday (September 20).
 
-<<<<<<< HEAD
-After today you will be better at manipulating data frames. 
-=======
 After today you will know additional ways to manipulate data frames. 
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 
 ## Grammar for data
 
@@ -109,7 +105,9 @@ airquality %>%
 
 ### Grouping
 
-What if we want to apply the above summary separately for each month? In this case we use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
+What if we want to summarize separately for each month? 
+
+We use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
 
 Find the highest ozone concentration for each month.
 ```{r}
@@ -144,24 +142,17 @@ Verb          | Description
 
 The syntax of the verb functions in the **dplyr** package are all the same:
 
-<<<<<<< HEAD
 * The first argument is a data frame. This argument is implicit when using the `%>%` operator.
 * The subsequent arguments describe what to do with the data frame. We refer to columns in the data frame directly (without using `$`).
-=======
-* The first argument is a data frame.
-* The subsequent arguments describe what to do with the data frame. Notice that we refer to columns in the data frame directly without using $.
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 * The result is a new data frame
 
 These properties make it easy to chain together many simple lines of code to do something complex.
 
 The five functions provide the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
-<<<<<<< HEAD
-=======
 
 ## New York City flight data
 
-Let's apply these operations to a larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The notes follow closely from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
+Let's apply these functions to a larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The following notes are from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
 ```{r}
 library(nycflights13)
 dim(flights)
@@ -174,7 +165,7 @@ The object `flights` is a tibble (tabled data frame). When we have a large data 
 For example, `airquality` is not a tibble. So when we type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
 ```{r}
 airquality
-airquality = tbl_df(airquality)
+airquality <- tbl_df(airquality)
 airquality
 ```
 
@@ -257,347 +248,14 @@ flights %>%
 ```
 
 Repeat but arrange from most to fewest planes.
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 
-## Tornadoes
-
-<<<<<<< HEAD
-Let's continue using data from my research project. The dataset was used to publish this recent [paper](http://myweb.fsu.edu/jelsner/PDF/Research/ElsnerEtAl2016.pdf). The data set through 2011 is available as a spreadsheet on my website.
-```{r}
-L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
-Torn.df = read.table(L, header = TRUE)
-dim(Torn.df)
-head(Torn.df)
-```
-
-Each observation is a separate tornado. Variables include date, time, state, EF damage rating scale, fatalities, injuries, loss, start location, end location, length and width of path, and a few other things.
-
-The start and end locations are given in decimal degrees of latitude and longitude. Missing locations are coded as 0.00. Path length is given in miles and path width is given in yards.
-
-Reports are arranged chronologically starting with January 1950. The first tornado in the record is from January 3rd, 1950. It occurred in Missouri. 
-
-There are quite a few tornadoes (56,221) so first make a tibble version of the data frame.
-```{r}
-Torn.df <- tbl_df(Torn.df)
-Torn.df
-```
-
-### Filter
-
-Keep only tornadoes that occur during the month of January.
-```{r}
-Torn.df %>%
-  filter(MONTH == 1) %>%
-  dim()
-```
-
-We read it as "Take the data frame `Torn.df` and filter it to remove all tornadoes except those occurring during the month of January."
-
-You now have a filtered version of the original data frame consisting only of tornadoes occurring during the month of January. The function `dim()` on the filtered data frame or the function `length()` on one of the columns let's you know how many January tornadoes.
-
-Multiple filtering conditions are joined together with a comma (or & for 'and').
-```{r}
-Torn.df %>%
-  filter(MONTH == 1 & FSCALE >= 2)
-```
-
-The ampersand means 'and'. Filter by removing tornadoes except those occurring during January and with an damage rating of at least two.
-
-You use the assignment statement to save the result of the filtering. The resulting object is a data frame and can be used by the function `ggplot()`.
-```{r}
-df <- Torn.df %>%
-  filter(MONTH == 6 & DAY == 16)
-```
-
-Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
-```{r}
-library(ggplot2)
-ggplot(df, aes(x = YEAR, y = SLAT)) + 
-  geom_point() + 
-  geom_smooth(method = lm)
-```
-
-The function `aes()` with `x = YEAR` and `y = SLAT` puts the year on the horizontal axis and latitude on the vertical axis. The function `geom_point()` places points on the graph. The function `geom_smooth()` with argument `method = lm` adds a straightline fit through the points with a 95% confidence band about the line.
-
-The graph indicates that tornado activity is shifting northward over time. There is large variability from one year to the next and it is just one day of the year so no definitive conclusions should be drawn.
-
-### Arrange and select
-
-List the tornadoes in descending order of fatalities and injuries.
-```{r}
-Torn.df %>%
-  arrange(desc(FATALITIES), desc(INJURIES)) %>%
-  select(DATE, FATALITIES, INJURIES)
-```
-
-The first tie on fatalities occurs with 58. The tie is broken by the number of injuries.
-
-### Mutate
-
-Add a column that is the path area in square meters. Select only the date, EF rating, and columns corresponding to the path length, width and area.
-```{r}
-df <- Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144,
-         Area = Length * Width * pi/4) %>%
-  select(DATE, FSCALE, Length, Width, Area)
-df
-```
-
-### Summarize
-
-Compute the median tornado path length and width.
-```{r}
-df %>%
-  summarize(mL = median(Length),
-            mW = median(Width))
-```
-
-The median length is 805 meters and the median width is 37 meters.
-
-### Commonalities
-
-The functions `filter()`, `arrange()`, `select()`, `mutate()`, and `summarize()` have similar syntax. The first argument is always a data frame. Subsequent arguments describe what to do with it. You refer to columns in the data frame directly (without using `$`). The result is a new data frame. 
-
-These properties make it easy to chain together multiple simple steps to achieve a complex result. These five functions provide the basis of a language of data manipulation.
-
-At the most basic level, you can only alter a data frame in five useful ways: you can reorder the rows (arrange()), pick observations and variables of interest (filter() and select()), add new variables that are functions of existing variables (mutate()) or collapse many values to a summary (summarise()).
-
-### Grouped operations
-
-The verbs are useful, but they become powerful when you combine them with the idea of 'group by', repeating the operation individually on groups of observations within the dataset. 
-
-You use the `group_by()` function to create a grouped object, which is a data frame divided by groups of rows. The verbs automatically work 'by group' when the input is a grouped object
-
-In the following example, you group the data frame into `FSCALE` ratings and then count the number of tornadoes (`nT = n()`) and average the length (`mL = mean(Length)`) and width (`mW = mean(Width)`) for each group. Results are saved in a new data frame called `Paths`.
-```{r}
-Paths <- Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144) %>%
-  group_by(FSCALE) %>%
-  summarise(nT = n(),
-            mL = mean(Length),
-            mW = mean(Width))
-Paths
-```
-
-Remove observations without an F scale rating of -99.
-```{r}
-Paths = Paths %>%
-  filter(FSCALE >= 0)
-ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
-  geom_bar(stat = "identity")
-```
-
-We use `summarise()` with aggregate functions, which take a vector of values, and return a single number. There are many useful functions in base R like `min()`, `max()`, `mean()`, `sum()`, `sd()`, `median()`, and `IQR()`. Other include:
-
-* `n()`: number of observations in the current group.
-* `n_distinct(x)`: number of unique values in x.
-
-For example, we could use these to find the number of tornadoes by state and the number of months in which there was at least one tornado.
-```{r}
-Torn.df %>%
-  group_by(STATE) %>%
-  summarize(months = n_distinct(MONTH),
-            nT = n())
-```
-
-You can also group by multiple variables. For example how many tornadoes have occurred by day of year?
-```{r}
-Torn.df %>%
-  group_by(MONTH, DAY) %>%
-  summarize(nT = n())
-```
-
-This is what statisticians call exploratory data analysis, or EDA for short. EDA is an interative cycle. You:
-
-1. Generate questions about your data.
-2. Search for answers by transforming, visualizing, and modeling your data.
-3. Use what you learn to refine your questions and/or ask new ones.
-
-Your goal during EDA is to develop and understanding of your data. Use questions as tools to guide your investigation. When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which transformations to make. For example:
-
-On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
-
-Please check out http://r4ds.had.co.nz/index.html for additional help.
-
-
-## New York City flight data
-
-Let's apply these functions to an even larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The notes follow closely from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
-```{r}
-library(nycflights13)
-dim(flights)
-=======
-Let's consider the SPC tornado data. The dataset through 2011 is available as a spreadsheet on my website.
-```{r}
-L <- "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
-Torn.df <- read.table(L, header = TRUE)
-dim(Torn.df)
-head(Torn.df)
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```
-
-The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
-
-<<<<<<< HEAD
-The object `flights` is a tibble (tabled data frame). When you are dealing with a large data frame it is useful to make it a tibble so that you don't accidently print it to the screen.
-
-For example, `airquality` is not a tibble. So when you type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
-```{r}
-airquality
-airquality = tbl_df(airquality)
-airquality
-=======
-There are many tornadoes (56,221) so we first make a tibble version of the data frame.
-```{r}
-library(dplyr)
-Torn.df <- tbl_df(Torn.df)
-Torn.df
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```
-
-Returning to the NYC flights data.
-```{r}
-flights
-```
-
-The function `filter()` allows you to select a subset of rows in a data frame 
-
-How would you extract all flights occurring on February 1st?
-```{r}
-flights %>%
-  filter(month == 2 & day == 1)
-```
-
-The function `arrange()` works like `filter()` except that it reorders the rows. If you provide more than one column name, each additional column will be used to break ties in the values of the preceding columns.
-
-<<<<<<< HEAD
-How would you arrange all flights in descending order of departure delay?
-=======
-We use the assignment statement to save the result of the filtering. Or we can send ('pipe') the resulting object to `ggplot()`. For example: Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```{r}
-flights %>%
-  arrange(desc(dep_delay))
-```
-
-Often you work with large datasets with many columns but only a few may be of interest. The function `select()` allows you to zoom in on an interesting subset of the columns.
-
-How would you create a data frame containing only the dates, carrier, and flight numbers?
-```{r}
-df <- flights %>%
-  select(year:day, carrier, flight)
-df
-```
-
-You add new columns with the function `mutate()`.
-
-Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
-```{r}
-<<<<<<< HEAD
-flights %>%
-  mutate(gain = arr_delay - dep_delay) %>%
-  select(year:day, carrier, flight, gain) %>%
-  arrange(desc(gain))
-=======
-df <- Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144,
-         Area = Length * Width * pi/4) %>%
-  select(DATE, FSCALE, Length, Width, Area)
-df
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```
-
-Determine the mean departure delay.
-```{r}
-flights %>%
-  summarize(avgDelay = mean(dep_delay, na.rm = TRUE))
-```
-
-### Randomly sample rows
-
-You use `sample_n()` and `sample_frac()` to take random sample of rows from your data frame. Take a random sample of five rows from the flights data frame.
-```{r}
-<<<<<<< HEAD
-flights %>%
-  sample_n(5)
-=======
-Paths <- Torn.df %>%
-  mutate(Length = LENGTH * 1609,
-         Width = WIDTH * .9144) %>%
-  group_by(FSCALE) %>%
-  summarise(nT = n(),
-            mL = mean(Length),
-            mW = mean(Width))
-Paths
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```
-
-Take a random sample of 1% of the rows.
-```{r}
-<<<<<<< HEAD
-flights %>%
-  sample_frac(.01)
-```
-
-Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
-
-The verbs are powerful when you apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
-=======
-Paths <- Paths %>%
-  filter(FSCALE >= 0)
-ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
-  geom_bar(stat = "identity")
-```
-
-We use `summarise()` with aggregate functions, which take a vector of values, and return a single number. For example, we find the number of tornadoes by state and the number of months in which there was at least one tornado.
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```{r}
-flights %>%
-  group_by(tailnum) %>%
-  summarize(delayAvg = mean(arr_delay, na.rm = TRUE)) %>%
-  arrange(desc(delayAvg))
-```
-
-<<<<<<< HEAD
-Determine the number of distinct planes and flights by destination location.
-=======
-We can group by multiple variables. For example how many tornadoes have occurred by day of year?
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
-```{r}
-flights %>%
-  group_by(dest) %>%
-  summarize(planes = n_distinct(tailnum),
-            flights = n())
-```
-
-<<<<<<< HEAD
-Repeat but arrange from most to fewest planes.
-
-
-Use google to search for data sets.
-https://toolbox.google.com/datasetsearch
-
-
-EDA is an interative cycle. You:
-=======
 Data munging is part of data science. It is an interative cycle:
->>>>>>> c92a218387f3de7e3abfb7825af53788ef8959a5
 
 1. Generate questions about our data.
 2. Search for answers by transforming, visualizing, and modeling the data.
 3. Use what we learn to refine our questions and/or ask new ones.
 
 The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
-
-```{r}
-Torn.df %>%
-  group_by(STATE) %>%
-  summarize(mL = mean(LENGTH)) %>%
-  arrange(desc(mL))
-```
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
 
