@@ -9,7 +9,7 @@ output:
 
 Due Date: September 20, 2018
 
-Total Points: 
+Total Points: 63
 
 **1** The following values are the annual number of hurricanes that have hit the United States since 1990. Answer the questions by typing the correct R code.
 
@@ -19,41 +19,21 @@ a. Import the data. (2)
 
 b. How many years are there? (2)
 
-c. What is the total number of hurricanes over all years? (2)
+c. Find the total number of hurricanes over all years? (2)
 
-**2** Suppose you keep track of your mileage each time you fill your car's gas tank. At your last 8 fill-ups the mileage was
+**2** Import the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt) into R.
 
-65311 65624 65908 66219 66499 66821 67145 67447
+a. What are the wettest and driest values during the month of January? (2)
 
-a. Enter these numbers into a vector called  miles. (2)
-
-b. Use the function `diff()` to determine the number of miles between fill-ups. (2)
-
-c. What is the maximum, minimum, and mean number of miles between fill-ups?  (3)
-
-**3** Create the following sequences using the `seq()` and `rep()` functions as appropriate.
-
-a.  "a", "a", "b", "b", "b" (2)
-
-b.  The even numbers in the interval from 1 to 100 (2)
-
-c.  1, 1, 1, 2, 2, 2, 3, 3, 3  (2)
-
-d.  1, 1, 1, 2, 2, 3  (2)
-
-**4** Import the monthly precipitation dataset from my website (http://myweb.fsu.edu/jelsner/temp/data/FLMonthlyP.txt) into R.
-
-a. What are the wettest and driest values for the month of June? (2)
-
-b. Sort the January rainfall values from *wettest* to *driest*. (2)
+b. Sort the February rainfall values from *wettest* to *driest*. (2)
 
 c. Compute the variance of the June rainfall values. (2)
 
-d. What is the 95th percentile value of June rainfall? (2)
+d. What is the 95th percentile value of July rainfall? (2)
 
-e. Create a graph of June rainfall with year along the horizontal axis. (4)
+e. Create a graph of August rainfall with year along the horizontal axis. (4)
 
-**5** The dataset *hflights* from the **hflights** package contains all 227,496 airline flights that departed Houston in 2011. Using the functions in the **dplyr** package do the following:
+**3** The dataset *hflights* from the **hflights** package contains all 227,496 airline flights that departed Houston in 2011. Using the functions in the **dplyr** package do the following:
 
 a. Create a new data frame from *hflights* containing only those flights that departed on September 11th of that year. (5)
 
@@ -61,7 +41,7 @@ b. Determine how many flights departed on that day. (5)
 
 c. Create a data frame with the first column being the tail number and the second being the number of departures from Houston the plane made that year sorted by most to least number of flights. (5)
 
-**6** With the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) do the following:
+**4** With the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) do the following:
 
 a. Use the functions `group_by()` and `summarize()` to determine the number of tornadoes by state. (5)
 

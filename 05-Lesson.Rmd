@@ -539,7 +539,7 @@ airquality %>%
 
 ### Grouping
 
-What if we want to apply the above summary separately for each month? Use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
+What if we want to apply the above summary separately for each month? In this case we use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
 
 Find the highest ozone concentration for each month.
 ```{r}

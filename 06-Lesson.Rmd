@@ -11,11 +11,11 @@ output:
 
 Problem Set #2 is available on Canvas. It is due next Thursday (September 20).
 
-After today you will know some additional ways to manipulate data frames. 
+After today you will know additional ways to manipulate data frames. 
 
 ## Grammar for data
 
-The **dplyr** package has functions ('verbs') that perform common data operations on data frames. Filtering for rows, selecting specific columns, re-ordering rows, adding new columns, and summarizing data. Let's review using the `airquality` data frame.
+The **dplyr** package has functions ('verbs') that perform common operations on data frames. Selecting specific columns, filtering on rows, re-ordering rows, adding new columns, and summarizing data. Let's review using the `airquality` data frame.
 ```{r}
 library(dplyr)
 head(airquality)
@@ -24,9 +24,7 @@ dim(airquality)
 
 ### Select
 
-The function `select()` picks variables by name.
-
-For example, create a new data frame containing only the month, day, and temperature columns from the `airquality` data frame.
+The function `select()` selects variables by name. For example, create a new data frame containing only the month, day, and temperature columns from the `airquality` data frame.
 ```{r}
 df <- airquality %>%
       select(Month, Day, Temp)
@@ -35,9 +33,7 @@ head(df)
 
 ### Filter
 
-The function `filter()` subsets observations based on specific values.
-
-Create a new data frame by filtering the rows keeping only the rows where temperature is at least 80 F and winds are less than 5 mph.
+The function `filter()` filters observations based on specific values. Create a new data frame by filtering the rows keeping only the rows where temperature is at least 80 F and winds are less than 5 mph.
 ```{r}
 df <- airquality %>% 
   filter(Temp >= 80 & Wind < 5)
@@ -46,15 +42,14 @@ head(df)
 
 ### Arrange
 
-To arrange (or re-order) rows by a particular column such as solar radiation.
+The function `arrange()` arranges (orders) rows by a particular column.
 ```{r}
 airquality %>%
   arrange(Solar.R) %>%
   head()
 ```
 
-String them together.
-
+String the verbs together.
 ```{r}
 airquality %>%
   select(Solar.R, Wind, Temp) %>%
@@ -82,7 +77,7 @@ airquality %>%
 
 ### Summarize
 
-The `summarize()` (or `summarise()`) function creates summary statistics for a given column in the data frame. To compute the average wind speed during July type
+The `summarize()` (or `summarise()`) function allows reduces the data frame using summary statistics. To compute the average wind speed during July type
 ```{r}
 airquality %>%
   filter(Month == 7) %>%
@@ -110,7 +105,7 @@ airquality %>%
 
 ### Grouping
 
-What if we want to apply the above summary separately for each month? Use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
+What if we want to apply the above summary separately for each month? In this case we use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
 
 Find the highest ozone concentration for each month.
 ```{r}
@@ -146,12 +141,12 @@ Verb          | Description
 The syntax of the verb functions in the **dplyr** package are all the same:
 
 * The first argument is a data frame.
-* The subsequent arguments describe what to do with the data frame. Notice that you can refer to columns in the data frame directly without using $.
+* The subsequent arguments describe what to do with the data frame. Notice that we refer to columns in the data frame directly without using $.
 * The result is a new data frame
 
 These properties make it easy to chain together many simple steps to get at something that is more complex.
 
-The five functions provide the basis of a grammar for data. At the most basic level, you can only alter a data frame in five useful ways: you can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
+The five functions provide the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
 
 ## New York City flight data
 
@@ -163,9 +158,9 @@ dim(flights)
 
 The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
 
-The object `flights` is a tibble (tabled data frame). When you are dealing with a large data frame it is useful to make it a tibble so that you don't accidently print it to the screen.
+The object `flights` is a tibble (tabled data frame). When we have a large data frame it is useful to make it a tibble so that we don't accidently print it to the screen.
 
-For example, `airquality` is not a tibble. So when you type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
+For example, `airquality` is not a tibble. So when we type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.
 ```{r}
 airquality
 airquality = tbl_df(airquality)
@@ -177,32 +172,32 @@ Returning to the NYC flights data.
 flights
 ```
 
-The function `filter()` allows you to select a subset of rows in a data frame 
+The function `filter()` selects a set of rows in a data frame 
 
-How would you extract all flights occurring on February 1st?
+How would we select all flights occurring on February 1st?
 ```{r}
 flights %>%
   filter(month == 2 & day == 1)
 ```
 
-The function `arrange()` works like `filter()` except that it reorders the rows. If you provide more than one column name, each additional column will be used to break ties in the values of the preceding columns.
+The function `arrange()` works like `filter()` except that it reorders the rows. If we provide more than one column name, each additional column is used to break ties in the values of the preceding columns.
 
-How would you arrange all flights in descending order of departure delay?
+How would we arrange all flights in descending order of departure delay?
 ```{r}
 flights %>%
   arrange(desc(dep_delay))
 ```
 
-Often you work with large datasets with many columns but only a few may be of interest. The function `select()` allows you to zoom in on an interesting subset of the columns.
+Often we work with large datasets with many columns but only a few are of interest. The function `select()` allows us to zoom in on an interesting subset of the columns.
 
-How would you create a data frame containing only the dates, carrier, and flight numbers?
+How would we create a data frame containing only the dates, carrier, and flight numbers?
 ```{r}
 df <- flights %>%
   select(year:day, carrier, flight)
 df
 ```
 
-You add new columns with the function `mutate()`.
+We add new columns with the function `mutate()`.
 
 Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
 ```{r}
@@ -220,7 +215,7 @@ flights %>%
 
 ### Randomly sample rows
 
-You use `sample_n()` and `sample_frac()` to take random sample of rows from your data frame. Take a random sample of five rows from the flights data frame.
+We use `sample_n()` and `sample_frac()` to take random sample of rows from the data frame. Take a random sample of five rows from the flights data frame.
 ```{r}
 flights %>%
   sample_n(5)
@@ -234,7 +229,7 @@ flights %>%
 
 Use the argument `replace = TRUE` to perform a bootstrap sample. More on this later.
 
-The verbs are powerful when you apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
+The verbs are powerful when we apply them to groups of observations within a data frame. This is done with the function `group_by()`. Determine the average arrival delay by airplane (tail number).
 ```{r}
 flights %>%
   group_by(tailnum) %>%
@@ -267,7 +262,7 @@ Each observation is a separate tornado. Variables include date, time, state, EF 
 There are many tornadoes (56,221) so we first make a tibble version of the data frame.
 ```{r}
 library(dplyr)
-Torn.df = tbl_df(Torn.df)
+Torn.df <- tbl_df(Torn.df)
 Torn.df
 ```
 
@@ -290,7 +285,7 @@ Torn.df %>%
 
 The ampersand means 'and'. Keep only tornadoes occurring during January AND with an damage rating of at least two.
 
-We can use the assignment statement to save the result of the filtering. Or we can send ('pipe') the resulting object to `ggplot()`. For example: Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
+We use the assignment statement to save the result of the filtering. Or we can send ('pipe') the resulting object to `ggplot()`. For example: Here the functions `ggplot()` and `geom_point()` plot the tornado latitude on the vertical (y) axis against year on the horizontal (x) axis for all tornadoes that have occurred on June 16th.
 ```{r}
 library(ggplot2)
 Torn.df %>%
@@ -319,7 +314,7 @@ The first tie on fatalities occurs with 58. The tie is broken by the number of i
 
 Add a column that gives the path area in square meters where the area is computed using the formula for an ellipse. Select only the date, EF rating, and columns corresponding to the path length, width and area.
 ```{r}
-df = Torn.df %>%
+df <- Torn.df %>%
   mutate(Length = LENGTH * 1609,
          Width = WIDTH * .9144,
          Area = Length * Width * pi/4) %>%
@@ -348,7 +343,7 @@ We use the `group_by()` function to create a grouped object, which is a data fra
 
 In the following example, we group the data frame into `FSCALE` ratings and then count the number of tornadoes (`nT = n()`) and average the length (`mL = mean(Length)`) and width (`mW = mean(Width)`) for each group. Results are saved in a new data frame called `Paths`.
 ```{r}
-Paths = Torn.df %>%
+Paths <- Torn.df %>%
   mutate(Length = LENGTH * 1609,
          Width = WIDTH * .9144) %>%
   group_by(FSCALE) %>%
@@ -360,7 +355,7 @@ Paths
 
 Here we assign (save) the result in `Paths`. Next we remove observations without an F scale rating of -99 and create a bar plot.
 ```{r}
-Paths = Paths %>%
+Paths <- Paths %>%
   filter(FSCALE >= 0)
 ggplot(Paths, aes(x = factor(FSCALE), y = mL)) +
   geom_bar(stat = "identity")
@@ -381,13 +376,13 @@ Torn.df %>%
   summarize(nT = n())
 ```
 
-EDA is an interative cycle. You:
+Data munging is part of data science. It is an interative cycle:
 
-1. Generate questions about your data.
-2. Search for answers by transforming, visualizing, and modeling your data.
-3. Use what you learn to refine your questions and/or ask new ones.
+1. Generate questions about our data.
+2. Search for answers by transforming, visualizing, and modeling the data.
+3. Use what we learn to refine our questions and/or ask new ones.
 
-Your goal is to develop an understanding of your data. Use questions as tools to guide your investigation. When you ask a question, the question focuses your attention on a specific part of your dataset and helps you decide which transformations to make. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
+The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 ```{r}
 Torn.df %>%
@@ -397,3 +392,5 @@ Torn.df %>%
 ```
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
+
+## Problem Set #2
