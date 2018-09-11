@@ -150,25 +150,24 @@ ggplot(beerPref.df) +
   theme_minimal()
 ```
 
-Note that the `fill =` is used on the variable given in the `aes()` function.
+Note that the `fill =` is used on the variable named in the `aes()` function but it is specified outside the `aes()` function.
 
-The available colors include 
+Available colors include 
 ```{r eval=FALSE}
 colors()
 ```
 
-It is a bit more complicated to automatically change the bar order based on frequency. Here is an example for storm intensity of tropical cyclones thus far in 2017.
+It's a bit more complicated to automatically change the bar order based on the frequency of occurrence. Here is an example for storm intensity of tropical cyclones during 2017.
 ```{r}
-minP = c(990, 1007, 992, 1007, 1005, 981, 967, 938, 914, 938, 972, 971)
-name = c("Arlene", "Bret", "Cindy", "Don", "Emily", "Franklin", "Gert", 
+minP <- c(990, 1007, 992, 1007, 1005, 981, 967, 938, 914, 938, 972, 971)
+name <- c("Arlene", "Bret", "Cindy", "Don", "Emily", "Franklin", "Gert", 
          "Harvey", "Irma", "Jose", "Katia", "Lee")
 
-df = data.frame(name, minP) %>%
+df <- data.frame(name, minP) %>%
   mutate(name = reorder(name, minP))
 
-ggplot(df, aes(x = name, y = minP, fill = minP)) + 
-  geom_bar(stat = "identity") +
-  xlab("Storm Name") + 
+ggplot(df) + 
+  geom_bar(mapping = aes(x = name, y = minP), stat = "identity") +
   ylab("Minimum Sea Level Pressure [mb]") 
 ```
 
@@ -178,7 +177,7 @@ The key is the function `reorder()`, which treats its first argument as a catego
 
 The histogram is similar to the bar chart except the histogram uses bars to indicate frequency (or proportion) over an interval of continuous values. For instance, with continuous values the function `table()` is not useful.
 ```{r}
-x = rnorm(10)
+x <- rnorm(10)
 table(x)
 ```
 
@@ -186,20 +185,21 @@ So neither is a bar plot.
 
 A histogram is made as follows: First a contiguous collection of disjoint intervals, called bins, covering the range of data points is chosen.  "Disjoint" means no overlap, so the intervals look like (a,b] or [a,b). The interval (a,b] means the interval contains all the values from a to b including b but not a, whereas the interval [a,b) means the interval contains all the values from a to b including a but not b.
 
-Second, the number of data values in each of these intervals is counted.  Third, a bar is drawn above the interval so that the area of the bar is proportional to the frequency. If the intervals defining the bins have the same width, then the height of the bar is proportional to the frequency (the number of values inside the interval).
+Second, the number of data values in each of these intervals is counted. Third, a bar is drawn above the interval so that the area of the bar is proportional to the frequency. If the intervals defining the bins have the same width, then the height of the bar is proportional to the frequency (the number of values inside the interval).
 
 Let's return to the Florida precipitation data.
 ```{r}
-L = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(L, na.string = "-9.900", 
-                 header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
+                  header = TRUE)
 str(FLp)
 ```
 
 Columns in the data frame `FLp` are months (variables) and rows are years. `Year` is an integer (int) vector and the months are numeric (num) vectors. Create a histogram of May precipitation.
 ```{r}
-ggplot(FLp, aes(May)) + 
-  geom_histogram()  +
+ggplot(data = FLp) + 
+  geom_histogram(mapping = aes(May))  +
   xlab("May Precipitation in Florida (in)") 
 ```
 
@@ -207,15 +207,15 @@ By default the function `geom_histogram()` picks 30 bins. Since there are only 1
 
 When making a histogram you will almost certainly need to vary the number of bins before deciding on a final plot. This can be done with the `bins =` or `binwidth =` argument. For example, the look of the histogram is improved by halving the default number of bins.
 ```{r}
-ggplot(FLp, aes(May)) + 
-  geom_histogram(bins = 15)  +
+ggplot(data = FLp) + 
+  geom_histogram(mapping = aes(May), bins = 15)  +
   xlab("May Precipitation in Florida (in)") 
 ```
 
 It looks even better by decreasing the number of bins to 11.
 ```{r}
-ggplot(FLp, aes(May)) + 
-  geom_histogram(bins = 11, fill = "green")  +
+ggplot(FLp) + 
+  geom_histogram(mapping = aes(May), bins = 11, fill = "green3")  +
   xlab("May Precipitation in Florida (in)") +
   ylab("Number of Years")
 ```
@@ -224,8 +224,8 @@ Here the fill argument is used to change color and a `ylab()` layer is added to 
 
 The `geom_rug()` layer adds the location of the data values as tic marks just above the horizontal axis.
 ```{r}
-ggplot(FLp, aes(May)) + 
-  geom_histogram(bins = 11, fill = "green")  +
+ggplot(FLp) + 
+  geom_histogram(mapping = aes(May), bins = 11, fill = "green3")  +
   xlab("May Precipitation in Florida (in)") +
   ylab("Number of Years") +
   geom_rug()
@@ -235,24 +235,24 @@ ggplot(FLp, aes(May)) +
 
 A density plot is a smoothed histogram with units of probability on the vertical axis. It's motivated by the fact that for a continuous variable, the probability that X takes on any particular value x is 0 so we need a range of values over which we can define a probability.
 
-The probability density answers the question, what is the probability that X falls in a small interval. This probability varies depending on where X is located (e.g., near the middle of the distribution or near the tails).
+The probability density answers the question, what is the chance that X falls in a small interval. This chance varies depending on where X is located (e.g., near the middle of the distribution the chance is highest).
 ```{r}
-ggplot(FLp, aes(May)) +
-  geom_density() +
+ggplot(FLp) +
+  geom_density(mapping = aes(May)) +
   xlab("May Precipitation in Florida (in)")
 ```
 
 The probability axis (vertical) is the integral (average) chance that rainfall will take on a value along the horizontal axis within a given small interval. The size of the interval is determined by the bandwidth (`bw =`).
 ```{r}
-ggplot(FLp, aes(May)) +
-  geom_density(bw = 1) +
+ggplot(FLp) +
+  geom_density(mapping = aes(May), bw = 1) +
   xlab("May Precipitation in Florida (in)")
 ```
 
-The probability scale depends on the data units so it is often tricky to intepret. Instead `geom_freqpoly()` produces a density-like graph where the units on the y-axis are counts as with the histogram.
+The probability scale depends on the data units so it is often tricky to interpret. Instead `geom_freqpoly()` produces a density-like graph where the units on the y-axis are counts as with the histogram.
 ```{r}
-ggplot(FLp, aes(May)) + 
-  geom_freqpoly(color = "green3", binwidth = 1) +
+ggplot(FLp) + 
+  geom_freqpoly(mapping = aes(May), color = "green3", binwidth = 1) +
   xlab("May Precipitation in Florida (in)") +
   geom_rug()
 ```
@@ -270,7 +270,7 @@ The base graphics lets you manipulate every detail of a graph, which is great fo
 ```{r}
 boxplot(FLp$May, 
         ylab = "May Precipitation in FL (in)")
-f = fivenum(FLp$May)
+f <- fivenum(FLp$May)
 text(rep(1.3, 5), f, labels = c("Minimum", "1st Quartile", 
                                 "Median", "3rd Quartile",
                                 "Maximum"))
@@ -283,21 +283,21 @@ If values extend beyond 1.5 times the interquartile range (either above or below
 
 To make a box plot using the function `ggplot()` you need a dummy variable for the `x` argument in the function `aes()`. This is done with `x = ""`.
 ```{r}
-ggplot(FLp, aes(x = "", y = May)) + 
-  geom_boxplot() +
+ggplot(FLp) + 
+  geom_boxplot(mapping = aes(x = "", y = May)) +
   xlab("") + 
   ylab("May Precipitation in Florida (in)")
 ```
 
 ### Side-by-side box plots
 
-Suppose you want to show box plots for each month. In this case you make the x argument in the `aes()` the name of a column containing the vector of month names. Since the data frame is in a wide format, you need to reshape it.
+Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. Since the data frame is in a wide format, you need to reshape it.
 
 You do this with the function `melt()` from the **reshape2** package.
 ```{r}
 library(reshape2)
 head(FLp)
-FLpL = melt(FLp, id.vars = "Year")
+FLpL <- melt(FLp, id.vars = "Year")
 head(FLpL)
 ```
 
@@ -307,8 +307,8 @@ The long data frame lists the measured variable names as the first column. The v
 
 To create the box plot specify that the x-axis be the variable.
 ```{r}
-ggplot(FLpL, aes(x = variable, y = value)) + 
-  geom_boxplot() +
+ggplot(FLpL) + 
+  geom_boxplot(mapping = aes(x = variable, y = value)) +
   xlab("Month") + 
   ylab("Precipitation (in)")
 ```
@@ -330,11 +330,11 @@ ggplot(FLpL, aes(x = variable, y = value)) +
 
 Practice: Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details.
 ```{r eval=FALSE}
-L = "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
-SOI = read.table(file = , header = TRUE)
-SOIL = melt(SOI, id.vars = )
-ggplot(SOIL, aes(x =  , y = )) + 
-  geom_boxplot() +
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
+SOI <- read.table(file = , header = TRUE)
+SOIL <- melt(SOI, id.vars = )
+ggplot(SOIL) + 
+  geom_boxplot(mapping = aes(x =  , y = )) +
   xlab("Month") + 
   ylab("SOI (s.d.)")
 ```
@@ -345,20 +345,20 @@ The work horse of statistical graphs is the scatter plot. It's a graph of the va
 
 For example, to show the relationship between April and September values of Florida precipitation type
 ```{r}
-ggplot(FLp, aes(x = Apr, y = Sep)) + 
-  geom_point() + 
+ggplot(FLp) + 
+  geom_point(mapping = aes(x = Apr, y = Sep)) + 
   xlab("April Precip. (in)") + 
   ylab("September Precip. (in)")
 ```
 
-The plot shows that dry Aprils tend to be followed by dry Septembers and wet Aprils tend to be followed by wet Septembers. You observe there is a direct (or positive) relationship between the two variables although the points are scattered widely indicating the relationship is weak.
+The plot shows that dry Aprils tend to be followed by dry Septembers and wet Aprils tend to be followed by wet Septembers. We observe there is a direct (or positive) relationship between the two variables although the points are scattered widely indicating the relationship is weak.
 
-If your goal is to model the relationship, you plot the dependent variable (the variable you are interested in modeling) on the vertical axis. Here you put the September values on the vertical axis since a predictive model would use April values to forecast September values.
+If our goal is to model the relationship, we plot the dependent variable (the variable we are interested in modeling) on the vertical axis. Here we put the September values on the vertical axis since a predictive model would use April values to forecast September values.
 
-If the points have a natural ordering then you use the `geom_line()` function. For example, to plot the September precipitation values as a time series type
+If the points have a natural ordering then we use the `geom_line()` function. For example, to plot the September precipitation values as a time series type
 ```{r}
-ggplot(FLp, aes(x = Year, y = Sep)) + 
-  geom_line() + 
+ggplot(FLp) + 
+  geom_line(mapping = aes(x = Year, y = Sep)) + 
   xlab("Year") + 
   ylab("September Precip. (in)")
 ```
@@ -394,10 +394,9 @@ The purpose of a plot title is to summarise the main finding. Avoid titles that 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
-    caption = "Data from fueleconomy.gov")
+  labs(title = "Fuel efficiency generally decreases with engine size",
+       subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+       caption = "Data from fueleconomy.gov")
 ```
 
 ### Create a plot object
