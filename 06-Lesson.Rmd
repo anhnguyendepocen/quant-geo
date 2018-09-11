@@ -239,6 +239,14 @@ flights %>%
   arrange(desc(delayAvg))
 ```
 
+Note that if there are missing values in a vector the function `mean()` needs to include the argument `na.rm = TRUE` otherwise the output will be `NA`.
+
+```{r}
+y <- c(5, 6, 7, NA)
+mean(y)
+mean(y, na.rm = TRUE)
+```
+
 Determine the number of distinct planes and flights by destination location.
 ```{r}
 flights %>%
