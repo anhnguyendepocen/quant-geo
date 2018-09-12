@@ -59,7 +59,7 @@ airquality %>%
 
 ### Mutate
 
-The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` which is the temperature in Celcius. Also create a column called `WindMS` which is the wind speed in meters per second.
+The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` as the temperature in Celcius. Also create a column called `WindMS` as the wind speed in meters per second.
 ```{r}
 airquality %>%
   mutate(TempC = (Temp - 32) * 5/9,
@@ -67,7 +67,7 @@ airquality %>%
   head()
 ```
 
-On days when the temperature is below 60 F compute the apparent temperature based on wind chill and arrange from coldest to warmest apparent temperature.
+On days when the temperature is below 60 F compute the apparent temperature based on the cooling effect of the wind (wind chill) and arrange from coldest to warmest apparent temperature.
 ```{r}
 airquality %>%
   filter(Temp < 60) %>%
@@ -84,7 +84,7 @@ airquality %>%
   summarize(Wavg = mean(Wind))
 ```
 
-We've looked at several summary functions already including `sum()`, `sd()`, `min()`, `max()`, `var()`, `range()`, `median()`. Others include
+We've seen a few summary functions already including `sum()`, `sd()`, `min()`, `max()`, `var()`, `range()`, `median()`. Others include
 
 Summary function  | Description
 -----------------:|:-----------
@@ -109,7 +109,7 @@ What if we want to summarize separately for each month?
 
 We use the `group_by()` function. We split the data frame by some variable (e.g., `Month`), apply a function to the individual data frames, and then combine the output.
 
-Find the highest ozone concentration for each month.
+Find the highest ozone concentration by month. Include the number of observations (days) in the month.
 ```{r}
 airquality %>%
   group_by(Month) %>%
@@ -117,7 +117,7 @@ airquality %>%
             NumDays = n())
 ```
 
-Find the average ozone concentration when temperatures are above and below 70 F.
+Find the average ozone concentration when temperatures are above and below 70 F. Include the number of observations (days) in the two groups.
 ```{r}
 airquality %>%
   group_by(Temp >= 70) %>%
@@ -125,7 +125,7 @@ airquality %>%
             NumDays = n())
 ```
 
-On average ozone concentrations are higher on warm days (Temp >= 70 F) days. That is to say mean ozone concentration depends on temperature, where the word 'depends' implies statistical dependency.
+On average ozone concentration is higher on warm days (Temp >= 70 F) days. Said another way; mean ozone concentration statistically depends on temperature.
 
 The mean is a model for the data. The statistical dependency of the mean implies that a model for ozone concentration will likely be improved by including temperature as an explanatory variable.
 
@@ -142,23 +142,26 @@ Verb          | Description
 
 The syntax of the verb functions in the **dplyr** package are all the same:
 
+Properties
 * The first argument is a data frame. This argument is implicit when using the `%>%` operator.
 * The subsequent arguments describe what to do with the data frame. We refer to columns in the data frame directly (without using `$`).
 * The result is a new data frame
 
 These properties make it easy to chain together many simple lines of code to do something complex.
 
-The five functions provide the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
+The five functions form the basis of a grammar for data. At the most basic level, we can only alter a data frame in five useful ways: we can reorder the rows (`arrange()`), pick observations and variables of interest (`filter()` and `select()`), add new variables that are functions of existing variables (`mutate()`), or collapse many values to a summary (`summarise()`).
 
 ## New York City flight data
 
-Let's apply these functions to a larger set of data. The data frame is in the package **nycflights13**. The data set is called `flights`. The following notes are from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
+Let's consider a larger dataset. The data frame `flights` is in the package **nycflights13**.
 ```{r}
 library(nycflights13)
 dim(flights)
 ```
 
 The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
+
+The following notes are taken from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
 
 The object `flights` is a tibble (tabled data frame). When we have a large data frame it is useful to make it a tibble so that we don't accidently print it to the screen.
 
@@ -201,7 +204,7 @@ df
 
 We add new columns with the function `mutate()`.
 
-Compute the time gained in flight by subtracting the departure delay (minutes) from the arrival delay.
+Compute the time gained during flight by subtracting the departure delay (minutes) from the arrival delay.
 ```{r}
 flights %>%
   mutate(gain = arr_delay - dep_delay) %>%
@@ -216,7 +219,10 @@ flights %>%
 ```
 
 Note that if there are missing values in a vector the function `mean()` needs to include the argument `na.rm = TRUE` otherwise the output will be `NA`.
+<<<<<<< HEAD
 
+=======
+>>>>>>> eca0381fd393ff0a7828ef7fca5364f788983fb1
 ```{r}
 y <- c(5, 6, 7, NA)
 mean(y)
@@ -257,13 +263,16 @@ flights %>%
 
 Repeat but arrange from most to fewest planes.
 
-Data munging is part of data science. It is an interative cycle:
+
+### Data science
+
+Data munging is a big part of data science, which is an interative cycle:
 
 1. Generate questions about our data.
 2. Search for answers by transforming, visualizing, and modeling the data.
 3. Use what we learn to refine our questions and/or ask new ones.
 
-The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
+We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
 
