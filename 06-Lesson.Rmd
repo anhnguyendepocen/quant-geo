@@ -215,6 +215,14 @@ flights %>%
   summarize(avgDelay = mean(dep_delay, na.rm = TRUE))
 ```
 
+Note that if there are missing values in a vector the function `mean()` needs to include the argument `na.rm = TRUE` otherwise the output will be `NA`.
+
+```{r}
+y <- c(5, 6, 7, NA)
+mean(y)
+mean(y, na.rm = TRUE)
+```
+
 ### Randomly sample rows
 
 We use `sample_n()` and `sample_frac()` to take random sample of rows from the data frame. Take a random sample of five rows from the flights data frame.
@@ -239,14 +247,6 @@ flights %>%
   arrange(desc(delayAvg))
 ```
 
-Note that if there are missing values in a vector the function `mean()` needs to include the argument `na.rm = TRUE` otherwise the output will be `NA`.
-
-```{r}
-y <- c(5, 6, 7, NA)
-mean(y)
-mean(y, na.rm = TRUE)
-```
-
 Determine the number of distinct planes and flights by destination location.
 ```{r}
 flights %>%
@@ -266,5 +266,7 @@ Data munging is part of data science. It is an interative cycle:
 The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
+
+Cheat sheet https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 
 ## Problem Set #2

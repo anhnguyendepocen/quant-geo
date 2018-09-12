@@ -293,22 +293,25 @@ ggplot(FLp) +
 
 Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. Since the data frame is in a wide format, you need to reshape it.
 
-You do this with the function `melt()` from the **reshape2** package.
+Use `gather()` from the **tidyr** package.
 ```{r}
-library(reshape2)
+library(tidyr)
 head(FLp)
-FLpL <- melt(FLp, id.vars = "Year")
+FLpL <- FLp %>%
+  gather(key = Year,
+         value = "Precipitation",
+         factor_key = TRUE)
 head(FLpL)
 ```
 
-The `melt()` function takes all the values as measured. All variables are measured (precipitation in units of inches) except `Year`. `Year` is a vector identifying the year so it is specified as an `id.vars` as a argument.
+The `gather()` function takes all the values as measured except those named in `key = ` argument. All variables are measured (precipitation in units of inches) except `Year`. `Year` is a vector identifying the year. 
 
-The long data frame lists the measured variable names as the first column. The variable names are the names of the columns in the original data frame starting with `Jan`. The long data frame list the values in the third column.
+The long data frame lists the key variable names as the first column taking the column names as character strings starting with `Jan`. To preserve the order of the columns (e.g., January comes before February, etc) we specify the `factor_key = TRUE`.
 
 To create the box plot specify that the x-axis be the variable.
 ```{r}
 ggplot(FLpL) + 
-  geom_boxplot(mapping = aes(x = variable, y = value)) +
+  geom_boxplot(mapping = aes(x = Year, y = Precipitation)) +
   xlab("Month") + 
   ylab("Precipitation (in)")
 ```
@@ -331,11 +334,12 @@ ggplot(FLpL, aes(x = variable, y = value)) +
 Practice: Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details.
 ```{r eval=FALSE}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
-SOI <- read.table(file = , header = TRUE)
-SOIL <- melt(SOI, id.vars = )
+SOI <- read.table(file = ,
+                  header = TRUE)
+SOIL <- SOI %>%
+  gather(key = , value = Index)
 ggplot(SOIL) + 
-  geom_boxplot(mapping = aes(x =  , y = )) +
-  xlab("Month") + 
+  geom_boxplot(mapping = aes(x = , y = )) +
   ylab("SOI (s.d.)")
 ```
 
