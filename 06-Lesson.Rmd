@@ -59,7 +59,7 @@ airquality %>%
 
 ### Mutate
 
-The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` which is the temperature in Celcius. Also create a column called `WindMS` which is the wind speed in meters per second.
+The `mutate()` function adds new columns to the data frame. For example, create a new column called `TempC` as the temperature in Celcius. Also create a column called `WindMS` as the wind speed in meters per second.
 ```{r}
 airquality %>%
   mutate(TempC = (Temp - 32) * 5/9,
@@ -67,7 +67,7 @@ airquality %>%
   head()
 ```
 
-On days when the temperature is below 60 F compute the apparent temperature based on wind chill and arrange from coldest to warmest apparent temperature.
+On days when the temperature is below 60 F compute the apparent temperature based on the cooling effect of the wind (wind chill) and arrange from coldest to warmest apparent temperature.
 ```{r}
 airquality %>%
   filter(Temp < 60) %>%
@@ -84,7 +84,7 @@ airquality %>%
   summarize(Wavg = mean(Wind))
 ```
 
-We've looked at several summary functions already including `sum()`, `sd()`, `min()`, `max()`, `var()`, `range()`, `median()`. Others include
+We've seen a few summary functions already including `sum()`, `sd()`, `min()`, `max()`, `var()`, `range()`, `median()`. Others include
 
 Summary function  | Description
 -----------------:|:-----------
@@ -257,13 +257,13 @@ flights %>%
 
 Repeat but arrange from most to fewest planes.
 
-Data munging is part of data science. It is an interative cycle:
+Data munging is part of data science, which is an interative cycle:
 
 1. Generate questions about our data.
 2. Search for answers by transforming, visualizing, and modeling the data.
 3. Use what we learn to refine our questions and/or ask new ones.
 
-The goal is to develop understanding. We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
+We use questions as tools to guide our investigation. When we ask a question, the question focuses our attention on a specific part of our dataset and helps us decide what to do. For example: On average what state has the longest tornadoes? Hint: `group_by()`, `summarize()`, `arrange()`.
 
 For additional practice please check out http://r4ds.had.co.nz/index.html.
 
