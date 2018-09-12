@@ -96,4 +96,7 @@ Use the `cars` data frame (**datasets**) to create a histogram and box plot of s
 
 gganimate
 
+https://cran.r-project.org/web/packages/ggTimeSeries/vignettes/ggTimeSeries.html
+
+
 ## Problem Set #3

@@ -9,11 +9,11 @@ output:
 
 ## Grammer for graphs
 
-The **ggplot2** package has functions for making nice graphs easily. The 'gg' stands for the 'Grammar of Graphics,' a theory of how to create a graphics system from Leland Wilkinson.
+The **ggplot2** package has functions for making informative graphics. The 'gg' stands for the 'Grammar of Graphics,' a theory of how to create a graphics system from Leland Wilkinson.
 
 The grammar specifies how a plot translates data to attributes of geometric objects. Attributes are things like color, shape, and size and the geometric objects are things like points, lines, bars, and polygons.
 
-A plot is drawn using a coordinate system and it may contain manipulations of the data. Faceting replicates the plot using subsets of the data (like 'group by').
+A plot is drawn using a coordinate system and it may contain manipulations of the data. Faceting replicates the plot using subsets of the data (like the `group_by()` function).
 
 The plot type depends on the geometric object, which is specified as a function. The function name begins with `geom_`. For example, to create a histogram the `geom_histogram()` function is used.
 
