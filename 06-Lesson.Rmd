@@ -263,7 +263,6 @@ flights %>%
 
 Repeat but arrange from most to fewest planes.
 
-
 ### Data science
 
 Data munging is a big part of data science, which is an interative cycle:
