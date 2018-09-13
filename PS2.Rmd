@@ -43,7 +43,7 @@ b. Determine how many flights departed on that day. (5)
 
 c. Create a data frame with the first column being the tail number and the second being the number of departures from Houston the plane made that year sorted by most to least number of flights. (5)
 
-**4** With the tornado data set (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) do the following:
+**4** With the tornado dataset (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) [each row is a unique tornado] do the following. 
 
 a. Import the data. (2)
 
@@ -51,6 +51,6 @@ b. Use the functions `group_by()` and `summarize()` to determine the number of t
 
 c. Create a new column with path length in meters (the length variable is in miles). Create a new data frame by removing rows with EF damage rating less than 3. Group by year and summarize the average path length. Make a graph with year on the x axis and average path length on the y axis. (10)
 
-d. Compute the number of tornadoes with EF damage rating 1 or higher by year and graph the results as a time series (year along the horizontal axis). (10)
+d. Compute the number of tornadoes with EF damage rating (`FSCALE`) 1 or higher by year and graph the results as a time series (year along the horizontal axis). (10)
 
 e. Create a data frame with the year in the first column and the total number of tornadoes in Kansas by year in the second column. List the first six rows of this new data frame. (5)
