@@ -11,6 +11,8 @@ Due Date: September 27, 2018
 
 Total Points: 
 
-**1** Using the `mpg` data frame create a scatter plot showing highway mileage on the vertical axis and engine displacement on the horizontal axis and map the `class` variable to the *shape* aesthetic (5).
+**1** Use the SOI data set (http://myweb.fsu.edu/jelsner/temp/data/SOI.txt) to create side-by-side boxplots showing the distribution of SOI values by month. Hint: First convert the wide data frame to a long data frame (10).
 
-**2** 
+**2** Use the `mpg` data frame to create a scatter plot showing highway mileage on the vertical axis and engine displacement on the horizontal axis. Map the `class` variable to the *shape* aesthetic (5).
+
+**3** Use the `mpg` data frame frame to create a smoothe

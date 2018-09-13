@@ -5,6 +5,8 @@ date: September 20, 2018
 output: 
   html_document:
     keep_md: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ### Graphs for communication
