@@ -1,15 +1,17 @@
 ---
-title: "Data Munging Again"
+title: "Data Munging 2"
 author: "James B. Elsner"
 date: September 13, 2018
 output: 
   html_document:
     keep_md: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 "**You're doing it right if you get frustrated: if you're not frustrated, you're (probably) not stretching yourself mentally.**"---Hadley Wickham
 
-Problem Set #2 is on Canvas. It's due next Thursday (September 20).
+Problem Set #2 is posted on Canvas. It's due next Thursday (September 20).
 
 After today you will know additional ways to manipulate data frames. 
 
@@ -219,10 +221,7 @@ flights %>%
 ```
 
 Note that if there are missing values in a vector the function `mean()` needs to include the argument `na.rm = TRUE` otherwise the output will be `NA`.
-<<<<<<< HEAD
 
-=======
->>>>>>> eca0381fd393ff0a7828ef7fca5364f788983fb1
 ```{r}
 y <- c(5, 6, 7, NA)
 mean(y)
