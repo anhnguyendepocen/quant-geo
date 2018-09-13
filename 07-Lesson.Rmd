@@ -33,7 +33,8 @@ http://r4ds.had.co.nz/exploratory-data-analysis.html
 Read the hurricane data from the file on my website and list the first six rows.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
-H <- read.table(loc, header = TRUE)
+H <- read.table(loc, 
+                header = TRUE)
 head(H)
 ```
 
@@ -54,7 +55,7 @@ With **ggplot2**, we begin a plot with the function `ggplot()`. `ggplot()` creat
 
 We complete our graph by adding one or more layers to `ggplot()`. The function `geom_bar()` adds a layer of bars to our plot, which creates a bar chart. **ggplot2** comes with many `geom_` functions that each add a different type of layer to a plot.
 
-Each `geom_` function takes a mapping argument. This defines how variables in our dataset are mapped to visual properties. The mapping argument is always paired with `aes()` function, and the `x` argument of `aes()` specifies which variables to map to the x axes, in this case `All`. `ggplot()` looks for the mapped variable in the data argument, in this case, `H`.
+Each `geom_X` function takes a mapping argument. This defines how variables in our dataset are mapped to visual properties. The mapping argument is always paired with `aes()` function, and the `x` argument of `aes()` specifies which variables to map to the x axes, in this case `All`. `ggplot()` looks for the mapped variable in the data argument, in this case, `H`.
 
 The function `geom_bar()` tables the counts and then maps the number of cases to bars with the bar height proportional to the number of cases. Here the number of cases is the number of years with that many hurricanes.
 
@@ -82,10 +83,10 @@ Here axes labels are placed on the plot with the functions `ylab()` and `xlab()`
 Thirty graduate students are surveyed about their beer drinking preferences. Categories are (1) domestic can, (2) domestic bottle, (3) microbrew, and (4) import. To make a bar chart first create the data as a character vector and then change the vector to a data frame.
 ```{r}
 beer <- c(rep('domestic bottle', 4), 
-         rep('domestic can', 12), 
-         rep('import', 5), 
-         rep('microbrew', 9))
-beerPref.df = as.data.frame(beer)
+          rep('domestic can', 12), 
+          rep('import', 5), 
+          rep('microbrew', 9))
+beerPref.df <- as.data.frame(beer)
 ```
 
 Use the function `str()` to see the column types in the data frame.
