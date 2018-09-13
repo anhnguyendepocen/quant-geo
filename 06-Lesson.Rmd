@@ -163,8 +163,6 @@ dim(flights)
 
 The data contains all 336,776 flights that departed NYC in 2013 and comes from the U.S. Bureau of Transporation Statistics. More information is available by typing `?nycflights13`.
 
-The following notes are taken from https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html
-
 The object `flights` is a tibble (tabled data frame). When we have a large data frame it is useful to make it a tibble so that we don't accidently print it to the screen.
 
 For example, `airquality` is not a tibble. So when we type the name of the data frame the entire data frame scrolls in the console. To change a data frame to a tibble, use the function `tbl_df()`.

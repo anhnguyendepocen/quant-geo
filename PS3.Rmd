@@ -1,0 +1,16 @@
+---
+title: "Problem Set #3"
+author: "Your Name"
+date: September 20, 2018
+output: 
+  html_document:
+    keep_md: true
+---
+
+Due Date: September 27, 2018
+
+Total Points: 
+
+**1** Using the `mpg` data frame create a scatter plot showing highway mileage on the vertical axis and engine displacement on the horizontal axis and map the `class` variable to the *shape* aesthetic (5).
+
+**2** 

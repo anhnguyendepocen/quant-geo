@@ -5,6 +5,8 @@ date: September 18, 2018
 output: 
   html_document:
     keep_md: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 "**Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read.**"---Hadley Wickham
