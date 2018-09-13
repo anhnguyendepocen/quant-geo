@@ -168,6 +168,7 @@ minP <- c(990, 1007, 992, 1007, 1005, 981, 967, 938, 914, 938, 972, 971)
 name <- c("Arlene", "Bret", "Cindy", "Don", "Emily", "Franklin", "Gert", 
          "Harvey", "Irma", "Jose", "Katia", "Lee")
 
+library(dplyr)
 df <- data.frame(name, minP) %>%
   mutate(name = reorder(name, minP))
 
@@ -327,14 +328,16 @@ Each `geom_` function is a layer. Data for the layer is specified in the functio
 
 We add another `geom_boxplot()` layer and specify a subset of the data using the subset `[]` operator.
 ```{r}
-ggplot(FLpL, aes(x = variable, y = value)) + 
+ggplot(FLpL, aes(x = Year, y = Precipitation)) + 
   geom_boxplot() +
   xlab("Month") + 
   ylab("Precipitation (in)") +
-  geom_boxplot(data = FLpL[FLpL$variable == "May", ], 
-               aes(x = variable, y = value), 
+  geom_boxplot(data = FLpL[FLpL$Year == "May", ], 
+               aes(x = Year, y = Precipitation), 
                fill = "green")
 ```
+
+More about this in a moment.
 
 Practice: Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details.
 ```{r eval=FALSE}
@@ -411,100 +414,89 @@ To map an aesthetic to a variable, associate the name of the aesthetic to the na
 
 The colors show that many of the unusual points are two-seater cars. Sports cars have large engines like SUVs and pickup trucks, but small bodies like midsize and compact cars, which improves their gas mileage.
 
+For each aesthetic, we use `aes()` to associate the name of the aesthetic with a variable to display. The `aes()` function gathers each of the aesthetic mappings used by a layer and passes them to the laye's mapping argument. The syntax highlights a useful insight about `x` and `y`: the x and y locations of a point are themselves aesthetics, visual properties that we can map to variables to display information about the data.
+
+Once we map an aesthetic, the **ggplot2** takes care of the rest. It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values. For `x` and `y` aesthetics, **ggplot2** does not create a legend, instead it creates an axis line with tick marks and a label. The axis line acts as a legend; it explains the mapping between locations and values.
+
+Question: What is wrong with this code? Why aren't the points blue?
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+```
+
 ### Facets
 
 One way to add additional variables is with aesthetics. Another way, particularly useful for categorical variables, is to split our plot into facets, subplots that each display one subset of the data.
 
-To facet a plot by a single variable, use `facet_wrap()`. The first argument of `facet_wrap() should be a formula, which you create with ~ followed by a variable name (here “formula” is the name of a data structure in R, not a synonym for “equation”). The variable that you pass to facet_wrap() should be discrete.
-
+To facet a plot by a single variable, use `facet_wrap()`. The first argument of `facet_wrap()` should be a formula, which we create with `~` (tilde) followed by a variable name (here 'formula' is the name of a data structure in R, not a synonym for 'equation'). The variable that we pass to `facet_wrap()` should be discrete.
+```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_wrap(~ class, nrow = 2)
+```
 
-
-
-### Graphs for communication
-
-Adding labels turns our exploratory graphic into an expository graphic. For example consider the `mpg` dataset and plot highway mileage (`hwy`) as a function of engine size (`displ`) with the color of the point layer given by automobile class (`class`).
+To facet a plot on the combination of two variables, add `facet_grid()` to the plot call. The first argument of `facet_grid()` is also a formula. This time the formula should contain two variable names separated by a `~` with the first variable named varying in the vertical direction and the second varying in the horizontal direction. 
 ```{r}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size")
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
 ```
 
-The purpose of a plot title is to summarise the main finding. Avoid titles that just describe what the plot is, e.g. "A scatterplot of engine displacement vs. fuel economy". If you need to add more text, there are two other useful labels.
+Here `drv` refers to the drivetrain: front-wheel (`f`), rear-wheel (`r`) or 4-wheel (`4`).
 
-* `subtitle =` adds additional detail in a smaller font beneath the title.
-* `caption = ` adds text at the bottom right of the plot, often used to describe the source of the data.
+### Geometric objects
+
+A 'geom' is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms, line charts use line geoms, boxplots use boxplot geoms, and so on. Scatterplots break the trend; they use the point geom. We can use different geoms to plot the same data.
+
+To change the geom in our plot, change the geom function that we add to `ggplot()`. For instance,
 
 ```{r}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size",
-       subtitle = "Two seaters (sports cars) are an exception because of their light weight",
-       caption = "Data from fueleconomy.gov")
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-### Create a plot object
-
-The assignment operator can be used to save the plot as an object. The object can be modified and printed.
-
-Example: Given the 'cars' data frame from the **datasets** package. 
+And
 ```{r}
-str(cars)
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
 
-Plot the car's stopping distance (`dist`) on the vertical (y) axis and the car's forward speed (`speed`) on the horizontal axis (x). Create the plot but assign it to an object called `p`.
+Every geom function in **ggplot2** takes a mapping argument. However, not every aesthetic works with every geom. We could set the shape of a point, but we can't set the 'shape' of a line. On the other hand, we can set the line type of a line. `geom_smooth()` draws a different line, with a different linetype, for each unique value of the variable that we map to `linetype`.
 ```{r}
-p = ggplot(cars, aes(x = speed, y = dist)) +
-        geom_point() +
-        xlab("Forward Speed (mph)") +
-        ylab("Stopping Distance (ft)")
-p
-p = p + theme_bw()
-p
-p + geom_rug()
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
 ```
 
-Notes:
+Here `geom_smooth()` separates the cars into three lines based on their `drv` value, which describes a cars drivetrain. One line describes all of the points with a `4` value, one line describes all of the points with an `f` value, and one line describes all of the points with an `r` value.
 
-1. the `aes()` function creates a list of variables to map. Here speed and dist from the data frame cars. The default argument list is ordered with the x variable first then the y variable, but it is good coding practice to name them using `x =` , etc.
-2. The first layer is `geom_point()`. It maps the aesthetics to a cartesian plane. The `geom_point()` function needs an x and y aesthetic, but also understands `color`, `fill`, `shape`, `size`, `alpha`.
-3. The second and third layers add labels to the axes. 
-4. The graph is first saved as an object called `p` rather than rendered by the graphical device. It gets rendered by typing its name.
-5. Additional layers are added to `p` using the `+` symbol.
+We can make it more clear by overlaying the lines on top of the raw data and then coloring everything according to `drv`.
 
-The ggplot object `p` is a list of length 9 elements. Type
-```{r, eval=FALSE}
-str(p)
+To display multiple geoms in the same plot, add multiple geom functions to `ggplot()`:
+```{r}
+ggplot(data = mpg) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-The first element is the data frame. The last element are the labels.
+The package **ggplot2** provides over 30 geoms, and extension packages provide even more (see https://www.ggplot2-exts.org for a sampling). The best way to get a comprehensive overview is the **ggplot2** cheatsheet, which you can find at http://rstudio.com/cheatsheets. To learn more about any single geom, use help: `?geom_smooth`.
 
-### Export a graph
-
-When you knit to HTML and a plot is produced it gets output as a png file in a folder called "figure" in the directory where your .Rmd file is located.
-
-You can also use the Export button under the Plots tab.
-
-Or you can export the file directly using R code. Here the file gets put into your working directory.
-```{r eval = FALSE, dev=c("pdf", "png")}
-png(file = "MayNAO.png")
-ggplot(NAO, aes(x = Year, y = May)) + 
-  geom_line() + 
-  xlab("Year") + 
-  ylab("May NAO (s.d.)")
-dev.off()
+This introduces some duplication in our code. Imagine if we wanted to change the y-axis to display `cty` instead of `hwy`. We'd need to change the variable in two places, and we might forget to update one. We can avoid this type of repetition by passing a set of mappings to `ggplot()`, which will treat these mappings as global mappings that apply to each geom in the graph. In other words, this code will produce the same plot as the previous code:
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth()
 ```
 
-Note that the function `png()` opens the device and the function `dev.off()` closes it.  
+If you place mappings in a geom function, ggplot2 will treat them as local mappings for the layer. It will use these mappings to extend or overwrite the global mappings for that layer only. This makes it possible to display different aesthetics in different layers.
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+```
 
-Recall to list the files in your working directory type `dir()`.
-
-My workflow. 
-
-### Give it a try
-
-Use the `cars` data frame (**datasets**) to create a histogram and box plot of stopping distance (column name `dist`). Also create a scatter plot of stopping distance (`dist`) versus `speed` with `speed` on the horizontal axis.
+We can use the same idea to specify different data for each layer. Here, our smooth line displays just a subset of the `mpg` data frame, the subcompact cars. The local data argument in `geom_smooth()` overrides the global data argument in `ggplot()` for that layer only.
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
+```
