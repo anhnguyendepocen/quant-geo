@@ -15,4 +15,16 @@ Total Points:
 
 **2** Use the `mpg` data frame to create a scatter plot showing highway mileage on the vertical axis and engine displacement on the horizontal axis. Map the `class` variable to the *shape* aesthetic (5).
 
-**3** Use the `mpg` data frame frame to create a smoothe
+**3** Use the `mpg` data frame frame to create a smoothed
+
+**4** Use the Olympic athlete data set (http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv) to create a density plot showing the distribution of athlete heights by sex for those winning gold during the summer games.
+```{r}
+ae.df <- read.csv(file = "http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv",
+                  header = TRUE) %>%
+  filter(Season == "Summer" & Medal == "Gold") %>%
+  filter(!is.na(Height))
+
+library(ggplot2)
+ggplot(data = ae.df, mapping = aes(x = Height, color = Sex)) +
+  geom_density()
+```

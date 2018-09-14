@@ -9,6 +9,29 @@ editor_options:
   chunk_output_type: console
 ---
 
+### Importing data
+
+Consider the following data set showing all the olympic athletes during the modern era by event.
+```{r}
+ae.df <- read.csv(file = "http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv",
+                  header = TRUE)
+head(ae.df)
+```
+
+Suppose I asked you to plot the number of men and women athletes over time competing in the summer olympics. An athlete competing in more than one event gets counted only once. First we use some **dplyr** verbs.
+```{r}
+df <- ae.df %>%
+  filter(Season == "Summer") %>%
+  group_by(Year, Sex) %>%
+  summarize(nA = n_distinct(Name))
+```
+
+Next we make a plot.
+```{r}
+ggplot(data = df) +
+  geom_point(mapping = aes(x = Year, y = nA, color = Sex))
+```
+
 ### Graphs for communication
 
 Adding labels turns our exploratory graphic into an expository graphic. For example consider the `mpg` dataset and plot highway mileage (`hwy`) as a function of engine size (`displ`) with the color of the point layer given by automobile class (`class`).
