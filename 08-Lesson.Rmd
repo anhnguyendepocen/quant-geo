@@ -29,7 +29,8 @@ df <- ae.df %>%
 Next we make a plot.
 ```{r}
 ggplot(data = df) +
-  geom_point(mapping = aes(x = Year, y = nA, color = Sex))
+  geom_point(mapping = aes(x = Year, y = nA, color = Sex)) +
+  ylab("Number of Athletes Competing")
 ```
 
 ### Graphs for communication
