@@ -18,6 +18,8 @@ ae.df <- read.csv(file = "http://myweb.fsu.edu/jelsner/temp/data/athlete_events.
 head(ae.df)
 ```
 
+Each row is an athlete event. Athletes often compete in more than one event.
+
 Suppose I asked you to plot the number of men and women athletes over time competing in the summer olympics. An athlete competing in more than one event gets counted only once. First we use some **dplyr** verbs.
 ```{r}
 df <- ae.df %>%
@@ -31,6 +33,192 @@ Next we make a plot.
 ggplot(data = df) +
   geom_point(mapping = aes(x = Year, y = nA, color = Sex)) +
   ylab("Number of Athletes Competing")
+```
+
+Fun examples. [Simpsons by the data](https://www.r-bloggers.com/the-simpsons-by-the-data/)
+### Correlation
+
+A scatter plot is a graphical depiction of correlation. Correlation describes the linear relationship between two variables with a single number.
+
+Correlation is computed with the `cor()` function.
+```{r}
+cor(cars$speed, cars$dist)
+```
+
+The correlation computed on a set of data values a statistic. It describes whether larger- and smaller-than-average values of one variable are related to larger- or smaller-than-average values of the other variable.  If larger than average values of one variable tend to be associated with larger than average values of the other variable then the correlation is positive.
+
+The scatter plot shows that the faster the car is moving the greater the stopping distance indicating a positive correlation.
+
+A small arabic r is used to indicate correlation. The default correlation is called Pearson correlation and is defined as
+$$
+r = \frac{1}{n-1} \sum \left(\frac{x_i - \bar x}{s_x}\right)\left(\frac{y_i - \bar y}{s_y}\right)
+$$
+where $n$ is the sample size, $\bar x$ and $\bar y$ are the average of the x and y variables, respectively and $s_x$ and $s_y$ are the standard deviation of the x and y variables.
+
+Correlation ranges between -1 and +1.
+
+The correlation between x and y is the same as the correlation between y and x. We can check this by typing
+```{r}
+cor(cars$dist, cars$speed) == cor(cars$speed, cars$dist)
+```
+
+You can include the correlation on the scatter plot by adding a label layer (`geom_layer()` function). First assign the output from the correlation and `round()` functions. Then append this as a character string using the `paste()` function.
+```{r}
+r = round(cor(cars$speed, cars$dist), 2)
+p + geom_label(label = paste("Linear correlation is ", r), 
+                   x = 10, y = 100)
+```
+
+The label is centered using the arguments `x =` and `y =` in the cartisian plane defined by the variables `speed` and `dist`. Note there is no 'hard' coding of the correlation value. Appearance is organic to the code sequence.
+
+Consider the Old Faithful data frame (`faithful`). The correlation between wait time and eruption length is found by
+```{r}
+cor(faithful$eruptions, faithful$waiting)
+```
+
+Here interest centers on predicting eruption times based on waiting times. Are wait times correlated with eruption durations?
+```{r}
+ggplot(faithful, aes(x = waiting, y = eruptions)) + 
+  geom_point() + 
+  xlab("Wait Time (min)") + 
+  ylab("Eruption Time (min)") +
+  geom_density2d()
+```
+
+A 2-D kernel density layer is added to the plot with the `geom_density2d()` function.
+
+The point density is shown with contours without units. You control the grid spacing and kernel width with the arguments `n =` and `h =`, respectively. If you want units, it is best to use the `kde2d()` function from the **MASS** package (part of the base install) and then use the `geom_contour()` function.
+
+Is there a trend in hurricane landfalls?  One way to get an answer is to correlate the counts with the year.
+```{r}
+H = read.table("http://myweb.fsu.edu/jelsner/temp/data/US.txt", header = TRUE)
+cor(H$Year, H$All)
+```
+
+Another example: The data set `kid.weights` (**UsingR**) contains height and weight data for children 0 to 12 years. `?kid.weights`.
+```{r}
+library(UsingR)
+str(kid.weights)
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point()
+```
+
+As expected weight increases with height. However, the weight increase with height is more abrupt for the tallest kids suggesting a nonlinear relationship.  
+
+In fact, body mass index (BMI) is a ratio of weight to squared height suggesting height and weight have a nonlinear relationship. Correlation only tells you about the linear relationship.
+
+To see this add a linear and nonlinear trend line as layers on the plot with the `geom_smooth()` function.
+```{r}
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  geom_smooth(se = FALSE, color = "red")
+```
+
+The default is a local regression smoother, which creates the curved line. With the argument `method = lm` the blue (default color) line is the best fit straight line.
+
+If the relationship between the variables is not linear it is often better to report the Spearman rank correlation. The rank correlation is the Pearson correlation applied to the ranks of the values.
+
+That is, the data values are ordered from smallest to largest, and a particular data value's rank is its position after sorting, with 1 being the smallest and n being the largest, where n is the vector length. 
+```{r}
+x = c(30, 20, 7, 42, 50, 21, 22)
+rank(x)
+```
+
+The first three numbers are interpreted as: 30 is the fifth smallest value, 20 is the second and 7 is the smallest. If there are ties, the ranks are averaged.
+```{r}
+x = c(30, 20, 7, 42, 50, 7, 22)
+rank(x)
+```
+
+The rank correlation is obtained from the `cor()` function with the argument `method = "spearman"`.
+```{r}
+cor(kid.weights$weight, kid.weights$height)
+cor(kid.weights$weight, kid.weights$height, method = "spearman")
+```
+
+As expected the the correlation is somewhat larger using ranks as the relationship appears to be more quadratic than linear.
+
+Generate two vectors each with 10 random standard normal values. Verify that the rank correlation equals the Pearson correlation on the ranked values.
+```{r}
+x = rnorm(10)
+y = rnorm(10)
+cor(x, y, method = "spearman") == cor(rank(x), rank(y))
+```
+
+[Rank Correlation](http://en.wikipedia.org/wiki/Spearman's_rank_correlation_coefficient)
+
+### Conditioning plots
+
+Let's return to the kids weights data frame.
+```{r}
+head(kid.weights)
+```
+
+Note that by using the subset function `[]` you can list the weight for boys only
+```{r}
+kid.weights$weight[kid.weights$gender == "M"]
+```
+
+So the correlation between weight and height for the set of boys is
+```{r}
+cor(kid.weights$weight[kid.weights$gender == "M"], 
+    kid.weights$height[kid.weights$gender == "M"])
+```
+
+Or using the syntax of the grammar for data.
+```{r}
+library(dplyr)
+kid.weights %>%
+  group_by(gender) %>%
+  dplyr::summarize(r = cor(height, weight))
+```
+
+Let's look at the relationship between weight and height using a *conditioning* plot. Here we condition on the variable `gender`.
+```{r}
+ggplot(kid.weights, aes(x = height, y = weight)) + 
+  geom_point() + 
+  facet_grid(~ gender)
+```
+
+The conditioning is done using the `facet_grid()` function as a layer. Inside the function you specify the conditioning variable. The conditioning variable should be an integer, factor, or character. The tilde symbol (`~`) is read "depends on" or "conditioned on" or "function of". When the tilde is placed to the left of the conditioning variable then the plot is split left to right.
+
+Another example: USA mortality rates (per one million inhabitants) for white males due to malignant melanoma 1950-1969.
+```{r}
+library(HSAUR2)
+head(USmelanoma)
+```
+
+### Try it
+
+1. Create a scatter plot showing male melanoma mortality on the y-axis (response variable) and latitude on the x-axis (explanatory variable).
+2. Add a best-fit straight line on the plot. 
+3. Condition the scatter plot on the variable 'ocean.' Is the relationship different for coastal states compared to non-coastal states?
+
+```{r eval=FALSE}
+ggplot(USmelanoma, aes(y = mortality, x = latitude )) + 
+  geom_point() + 
+  geom_smooth(method = lm) + 
+  facet_grid(~ ocean )
+```
+
+Another example. Florida precipitation. Read the data then create a moltened data frame with the `melt()` function.
+```{r}
+L = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp = read.table(L, na.string = "-9.900", header = TRUE)
+head(FLp)
+library(reshape2)
+FLpL = melt(FLp, id.vars = "Year")
+```
+
+Time series by month.
+```{r}
+ggplot(FLpL, aes(x = Year, y = value)) + 
+  geom_point() + 
+  facet_wrap(~ variable, ncol = 12) + 
+  geom_smooth(method = lm) +
+  xlab("") + ylab("Precipitation (in)") +
+  theme(axis.text.x = element_text(angle = 45))
 ```
 
 ### Graphs for communication
