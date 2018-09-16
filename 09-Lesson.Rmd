@@ -13,7 +13,6 @@ output:
 2. Thematic maps with tmap https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
 3. Mapping with simple features https://cran.r-project.org/web/packages/sf/vignettes/sf5.html
 
-
 ## Maps with ggplot2
 
 R has a relatively simple mechanism, through the **maps** package, for making outlines of maps and plotting lat-long points and paths on them.
@@ -41,6 +40,291 @@ w2hr <- map_data("world2Hires")
 dim(w2hr)
 ```
 
+Structure of the data frame.
+```{r}
+str(usa)
+```
+
+* `long` is longitude. Boundary points to the west of the prime meridian are negative.
+* `lat` is latitude.
+* `order` is the order `ggplot()` uses to connect the points
+* `region` and `subregion` are the country and larger region
+* `group` is very important! **ggplot2** functions can take a group argument which controls whether adjacent points should be connected by lines. If they are in the same group they get connected, otherwise not.
+
+Maps are plotted with the `geom_polygon()` which draws lines between the boundary points and closes them up by drawing a line from the last point to the first point.
+
+The `group =` aesthetic must include the `group` variable from the data frame. 
+```{r}
+ggplot(data = usa) +
+  geom_polygon(aes(x = long, 
+                   y = lat, 
+                   group = group))
+```
+
+By default, `geom_polygon()` draws with no line color and with a black fill.
+
+Note that the range of longitudes is larger than the range of latitudes. We change this with the function `coord_fixed()` which fixes the relationship between one unit in the y direction and one unit in the x direction. This keeps the aspect ratio of the plot the same.
+
+Make another map. This time get rid of the fill and use a gray border.
+```{r}
+ggplot(data = usa) + 
+  geom_polygon(aes(x = long, 
+                   y = lat, 
+                   group = group), 
+               fill = NA, 
+               color = "gray") + 
+  coord_fixed(1.3)
+```
+
+
+### Adding locations.
+
+Let's add the location of Tallahassee and Milwaukee.
+```{r}
+Cities <- data.frame(long = c(-84.2809, -87.9735),
+                     lat = c(30.4381,43.0115),
+                     names = c("Tallahassee", "Milwaukee"))
+ggplot(data = usa) + 
+  geom_polygon(aes(x = long, 
+                   y = lat,  
+                   group = group), 
+               fill = NA, 
+               color = "gray") + 
+  coord_fixed(1.3) + 
+  geom_point(data = Cities, aes(x = long, y = lat), color = "black", size = 3)
+```
+
+### State maps
+
+We can also get a data frame of polygons for each state.
+```{r}
+states <- map_data("state")
+dim(states)
+```
+
+```{r}
+ggplot(data = states) + 
+  geom_polygon(aes(x = long, 
+                   y = lat, 
+                   fill = region, 
+                   group = group), 
+               color = "gray") + 
+  coord_fixed(1.3) +
+  guides(fill = FALSE)  # do this to leave off the color legend
+```
+
+```{r}
+library(dplyr)
+southeast <- states %>%
+  filter(region == "florida" | region == "georgia" | region == "alabama")
+
+ggplot(data = southeast) + 
+  geom_polygon(aes(x = long, 
+                   y = lat, 
+                   group = group), fill = "green", 
+               color = "gray") + 
+  coord_fixed(1.1)
+```
+
+### County boundaries
+
+Let's zoom in on Florida and look at counties. First lets get the state boundary.
+```{r}
+florida_st <- states %>%
+  filter(region == "florida")
+```
+
+Next let's get the county boundaries.
+```{r}
+florida_ct <- map_data("county") %>%
+  filter(region == "florida")
+head(florida_ct)
+```
+
+Let's make a base map.
+```{r}
+FL_base <- ggplot(data = florida_st, 
+                  mapping = aes(x = long, 
+                                y = lat, 
+                                group = group)) + 
+  coord_fixed(1.1) + 
+  geom_polygon(color = "black", fill = "gray")
+FL_base
+```
+
+We remove the grid lines using the `theme_void()`.
+```{r}
+FL_base +
+  theme_void()
+```
+
+Now add the county boundaries in white. We add the state border back on top to overwrite the white borders from the county data frame.
+```{r}
+FL_base + 
+  theme_void() + 
+  geom_polygon(data = florida_ct, 
+               fill = NA, 
+               color = "white") +
+  geom_polygon(color = "black",
+               fill = NA) 
+```
+
+### Thematic maps
+
+We make a thematic (choropleth) map by adding a variable name to the `fill =` within the asthetic function.
+
+First let's look at the subregion (county) names.
+```{r}
+florida_ct %>%
+  distinct(subregion)
+```
+
+The names need to match in the file containing the variable we want to choropleth. I've done this and put it into a text file.
+```{r}
+FLpop <- read.table(file = "http://myweb.fsu.edu/jelsner/temp/data/FL_ct_pop2017.txt",
+                    header = TRUE,
+                    stringsAsFactors = FALSE)
+```
+
+Next we join the population list to the boundary points data.
+```{r}
+florida_ctJ <- left_join(florida_ct, 
+                         FLpop, 
+                         by = "subregion")
+```
+
+Then we make the map. We reuse the code from above replacing the `fill = NA` with `aes(fill = population)`. `population` is the name of the variable in the joined data frame that we want to map. Since the range of population values is large we scale the fill by the logarithm base 10.
+```{r}
+FL_base +  
+  theme_void() + 
+  geom_polygon(data = florida_ctJ, 
+               aes(fill = population), 
+               color = "gray") +
+  geom_polygon(color = "black",
+               fill = NA) +
+  scale_fill_gradient(trans = "log10", 
+                      name = "Population (2017)",
+                      label = scales::comma)
+```
+
+## US maps including Alaska and Hawaii
+
+https://cran.r-project.org/web/packages/usmap/vignettes/introduction.html
+
+Plots of US maps in R usually lack Alaska and Hawaii. Plotting takes the literal longitude and latitude coordinates and maps it to a cartesian x-y coordinate graph. 
+
+Alaska and Hawaii are very far from the mainland US when using this so it can be unwieldy to include them. The **usmap** package solves this issue by providing data frames which have Alaska and Hawaii moved to a convenient spot just to the bottom left of the contiguous United States.
+
+Blank US state map.
+```{r}
+library(usmap)
+plot_usmap()
+```
+With county borders.
+```{r}
+plot_usmap(regions = "counties")
+```
+
+
+The raw US map boundary points for counties or states can be obtained for further manipulation (and joining with data). The default regions is "states".
+```{r}
+states_df <- usmap::us_map()
+counties_df <- usmap::us_map(regions = "counties")
+head(states_df)
+```
+
+### FIPS codes
+
+FIPS codes are defined in the Federal Information Processing Standards by the US government. One usage is uniquely identifying US states and counties (among other things such as identifying countries for the CIA World Factbook). Downloading datasets from the US Census will often include FIPS codes as identifiers so it can be helpful to know what a FIPS code represents. 
+
+Functions in **usmap** are built around the FIPS code identification system and so convenience methods for accessing them and performing reverse-lookups have been included.
+
+State/County FIPS lookup
+```{r}
+fips(state = "FL")
+```
+```{r}
+fips(state = "Florida")
+```
+
+Get FIPS code for a county.
+```{r}
+fips(state = "FL", 
+     county = "Leon")
+```
+
+The argument values are NOT case sensitive!
+```{r}
+fips(state = "fl", 
+     county = "leON")
+```
+
+FIPS reverse lookup. If the FIPS code is known and want to see what state/county it corresponds to, use the reverse lookup function fips_info.
+```{r}
+fips_info(c("12", "33", "34"))
+```
+
+Or
+```{r}
+fips_info(c("01001", "01003", "01005", "01007"))
+```
+
+The nice thing about `plot_usmap()` is it returns a **ggplot2** object, which means we can add layers to the plot as we do with graphs.
+
+```{r}
+plot_usmap(regions = "counties") + 
+  labs(title = "US Counties", 
+       subtitle = "This is a blank map of the counties of the United States.") + 
+  theme(panel.background = element_rect(colour = "black", fill = "lightblue"))
+```
+
+```{r}
+plot_usmap(include = c("FL", "GA", "AL", "MS", "SC", "TN")) +
+  labs(title = "Southeaster US States", subtitle = "These are the states in the Southeast.")
+```
+
+### Add some data
+
+The **usmap** comes with some data files including population and percent poverty by state and county. For example,
+```{r}
+data(package = "usmap")
+head(statepop)
+```
+
+```{r}
+plot_usmap(data = statepop, 
+           values = "pop_2015", 
+           lines = "gray") + 
+  scale_fill_continuous(name = "Population (2015)", label = scales::comma) + 
+  theme(legend.position = "right")
+```
+
+## Maps with tmap
+
+https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
+
+With the **tmap** package, thematic maps can be generated with greater flexibility. The syntax is similar to that of **ggplot2**, but tailored to maps.
+
+```{r}
+library(tmap)
+data("World")
+tm_shape(World) +
+    tm_polygons("HPI")
+```
+
+The object `World` is a spatial object of class `sf` from the **sf** package; it is a data frame with a special column that contains a geometry for each row, in this case polygons. 
+```{r}
+class(World)
+```
+
+```{r}
+head(World)
+```
+
+In order to plot the geometry in **tmap**, we need to specify it with `tm_shape()` function. Plotting layers are then added with the `+` operator, in this case `tm_polygons()`. 
+
+There are many layer functions in **tmap**, which can easily be found in the documentation by their `tm_` prefix. See also `?'tmap-element'`.
+
 ### Spatial data
 
 Here we get the tornado data directly from the Storm Prediction Center (SPC) http://www.spc.noaa.gov/gis/svrgis/ as a shapefile.
@@ -55,16 +339,18 @@ The data are downloaded as a zipped file then unzipped using the `unzip()` funct
 Shapefiles can be imported in several ways. Here we use the `st_read()` function from the **sf** package.
 ```{r}
 library(sf)
-sfdf = st_read(dsn = "torn", 
+sfdf <- st_read(dsn = "torn", 
                layer = "torn", 
                stringsAsFactors = FALSE)
 ```
 
 The result is a simple feature collection with 23 features (attributes) and 5 fields (geometry type, dimension, bounding box, epsg, projection). To glimpse the data use the `select()`, and `head()` functions.
 ```{r}
-sfdf %>%
-  dplyr::select(date, st, mag, inj, fat, geometry) %>%
-  head()
+sfdf <- sfdf %>%
+  filter(yr > 2010) 
+
+tm_shape(sfdf) +
+    tm_lines(col = "blue")
 ```
 
 The `geometry` column is in well known text (WKT) format. Each tornado is a `LINESTRING` with a start and end location.
@@ -76,14 +362,6 @@ df = sfdf %>%
   dplyr::select(yr, mo, dy, slat, slon, mag)
 ```
   
-The **ggmap** package contains functions for creating various kinds of static maps using the **ggplot2** framework. The result is an intuitive & consistent way of specifying plots which are easy to interpret.
-```{r}
-Florida = get_map(location = "florida", zoom = 7)
-ggmap(Florida) +
-  geom_point(data = df, 
-             aes(x = slon, y = slat, size = mag), alpha = .25)
-```
-
 ## Thematic maps
 
 Suppose we want to count the number of tornadoes originating in each state and then make a choropleth map of the counts? We first group and summarize.
