@@ -101,7 +101,7 @@ Week | Day      | Date         | Topic
 9    | Thursday | October 25   | Classification & Regression Trees
 10   | Tuesday  | October 30   | Logistic Regression
 10   | Thursday | November 1   | Quantile Regression
-11   | Tuesday  | November 6   | Spatial Data
+11   | Tuesday  | November 6   | Spatial Data, Simple Features https://cran.r-project.org/web/packages/sf/vignettes/sf5.html
 11   | Thursday | November 8   | Geographic Regression
 12   | Tuesday  | November 13  | Geographic Regression
 12   | Thursday | November 15  | Spatial Autocorrelation

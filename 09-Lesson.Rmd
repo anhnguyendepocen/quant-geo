@@ -312,7 +312,7 @@ tm_shape(World) +
     tm_polygons("HPI")
 ```
 
-The object `World` is a spatial object of class `sf` from the **sf** package; it is a data frame with a special column that contains a geometry for each row, in this case polygons. 
+`World` is a spatial object of class `sf` from the **sf** package; it is a data frame with a special column that contains a geometry for each row, in this case polygons. 
 ```{r}
 class(World)
 ```
@@ -349,9 +349,16 @@ The result is a simple feature collection with 23 features (attributes) and 5 fi
 sfdf <- sfdf %>%
   filter(yr > 2010) 
 
+tm_shape(World) +
+  tm_polygons() +
 tm_shape(sfdf) +
     tm_lines(col = "blue")
 ```
+
+
+
+
+
 
 The `geometry` column is in well known text (WKT) format. Each tornado is a `LINESTRING` with a start and end location.
 

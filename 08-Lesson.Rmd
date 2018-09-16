@@ -340,5 +340,4 @@ Note: here we put the mapping argument inside the `ggplot()` function. This allo
 
 https://cran.r-project.org/web/packages/ggTimeSeries/vignettes/ggTimeSeries.html
 
-
 ## Problem Set #3
