@@ -28,6 +28,8 @@ df <- ae.df %>%
   summarize(nA = n_distinct(Name))
 ```
 
+Note: If we want to keep only rows (observations) that have a unique athlete then we would use `distinct(Name, .keep_all = TRUE)`
+
 Next we make a plot.
 ```{r}
 ggplot(data = df) +
@@ -36,6 +38,7 @@ ggplot(data = df) +
 ```
 
 Fun examples. [Simpsons by the data](https://www.r-bloggers.com/the-simpsons-by-the-data/)
+
 ### Correlation
 
 A scatter plot is a graphical depiction of correlation. Correlation describes the linear relationship between two variables with a single number.
@@ -64,7 +67,7 @@ cor(cars$dist, cars$speed) == cor(cars$speed, cars$dist)
 
 You can include the correlation on the scatter plot by adding a label layer (`geom_layer()` function). First assign the output from the correlation and `round()` functions. Then append this as a character string using the `paste()` function.
 ```{r}
-r = round(cor(cars$speed, cars$dist), 2)
+r <- round(cor(cars$speed, cars$dist), 2)
 p + geom_label(label = paste("Linear correlation is ", r), 
                    x = 10, y = 100)
 ```
@@ -91,7 +94,8 @@ The point density is shown with contours without units. You control the grid spa
 
 Is there a trend in hurricane landfalls?  One way to get an answer is to correlate the counts with the year.
 ```{r}
-H = read.table("http://myweb.fsu.edu/jelsner/temp/data/US.txt", header = TRUE)
+H <- read.table("http://myweb.fsu.edu/jelsner/temp/data/US.txt", 
+                header = TRUE)
 cor(H$Year, H$All)
 ```
 
@@ -121,13 +125,13 @@ If the relationship between the variables is not linear it is often better to re
 
 That is, the data values are ordered from smallest to largest, and a particular data value's rank is its position after sorting, with 1 being the smallest and n being the largest, where n is the vector length. 
 ```{r}
-x = c(30, 20, 7, 42, 50, 21, 22)
+x <- c(30, 20, 7, 42, 50, 21, 22)
 rank(x)
 ```
 
 The first three numbers are interpreted as: 30 is the fifth smallest value, 20 is the second and 7 is the smallest. If there are ties, the ranks are averaged.
 ```{r}
-x = c(30, 20, 7, 42, 50, 7, 22)
+x <- c(30, 20, 7, 42, 50, 7, 22)
 rank(x)
 ```
 
@@ -141,8 +145,8 @@ As expected the the correlation is somewhat larger using ranks as the relationsh
 
 Generate two vectors each with 10 random standard normal values. Verify that the rank correlation equals the Pearson correlation on the ranked values.
 ```{r}
-x = rnorm(10)
-y = rnorm(10)
+x <- rnorm(10)
+y <- rnorm(10)
 cor(x, y, method = "spearman") == cor(rank(x), rank(y))
 ```
 
@@ -257,12 +261,12 @@ str(cars)
 
 Plot the car's stopping distance (`dist`) on the vertical (y) axis and the car's forward speed (`speed`) on the horizontal axis (x). Create the plot but assign it to an object called `p`.
 ```{r}
-p = ggplot(cars, aes(x = speed, y = dist)) +
+p <- ggplot(cars, aes(x = speed, y = dist)) +
         geom_point() +
         xlab("Forward Speed (mph)") +
         ylab("Stopping Distance (ft)")
 p
-p = p + theme_bw()
+p <- p + theme_bw()
 p
 p + geom_rug()
 ```
@@ -313,7 +317,8 @@ Use the `cars` data frame (**datasets**) to create a histogram and box plot of s
 Functions in the **gganimate** package add additional syntax to the grammar to allow simple animation.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp <- read.table(loc, na.string = "-9.900", 
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
                   header = TRUE)
 ```
 

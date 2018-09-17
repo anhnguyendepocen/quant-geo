@@ -5,6 +5,8 @@ date: September 20, 2018
 output: 
   html_document:
     keep_md: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 Due Date: September 27, 2018
@@ -15,14 +17,27 @@ Total Points:
 
 **2** Use the `mpg` data frame to create a scatter plot showing highway mileage on the vertical axis and engine displacement on the horizontal axis. Map the `class` variable to the *shape* aesthetic (5).
 
-**3** Use the Olympic athlete data set (http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv) to create a density plot showing the distribution of athlete heights by sex for those winning gold during the summer games (20).
+**3** Use the Olympic athlete dataset (http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv) to create a density plot showing the distribution of athlete heights by sex for those winning gold during the summer games (20).
 ```{r}
 ae.df <- read.csv(file = "http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv",
                   header = TRUE) %>%
   filter(Season == "Summer" & Medal == "Gold") %>%
-  filter(!is.na(Height))
+  filter(!is.na(Height)) %>%
+  distinct(Name, .keep_all = TRUE)
 
 library(ggplot2)
 ggplot(data = ae.df, mapping = aes(x = Height, color = Sex)) +
   geom_density()
+```
+
+**4** Use the same dataset as in problem 3 to create scatter plots showing the relationship between height and weight for women athletes during the summer games grouped (faceted) by medal (20).
+```{R}
+ae.df <- read.csv(file = "http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv",
+                  header = TRUE) %>%
+  filter(Season == "Summer", !is.na(Medal), Sex = "F") %>%
+  distinct(Name, .keep_all = TRUE)
+
+ggplot(ae.df) +
+  geom_point(mapping = aes(x = Height, y = Weight)) +
+  facet_wrap(~ Medal)
 ```
