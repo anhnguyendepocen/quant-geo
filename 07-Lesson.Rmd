@@ -11,28 +11,28 @@ editor_options:
 
 "**Good coding style is like using correct punctuation. You can manage without it, but it sure makes things easier to read.**"---Hadley Wickham
 
+After today's class you will know how to make some common graphs in R using the functions from the **ggplot2** package.
+
 ## Grammer for graphs
 
-The **ggplot2** package has functions for making informative graphics. The 'gg' stands for the 'Grammar of Graphics,' a theory of how to create a graphics system from Leland Wilkinson.
+The **ggplot2** package has functions for making nice graphs. The 'gg' stands for the 'Grammar of Graphics,' a theory of how to create a graphics system from Leland Wilkinson.
 
-The grammar specifies how a plot translates data to attributes of geometric objects. Attributes are things like color, shape, and size and the geometric objects are things like points, lines, bars, and polygons.
+The grammar specifies how a plot translates data to attributes and geometric objects. Attributes are things like color, shape, and size. Geometric objects are things like points, lines, bars, and polygons. A plot is drawn using a coordinate system. The type of plot depends on the geometric object, which is specified as a function. 
 
-A plot is drawn using a coordinate system and it may contain manipulations of the data. Faceting replicates the plot using subsets of the data (like the `group_by()` function).
-
-The plot type depends on the geometric object, which is specified as a function. The function name begins with `geom_`. For example, to create a histogram the `geom_histogram()` function is used.
+The function names for geometric objects in **ggplot2** begin with `geom_`. For example, to create a scatter plot of points the `geom_point()` function is used. The plot may contain manipulations of the data (like `geom_histogram()`). Similar plots on subsets of the data are mading using the `facet_` functions (similar to the `group_by()` function).
 
 Load the **ggplot2** package.
 ```{r}
 library(ggplot2)
 ```
 
-Make sure you have a call to the package load function (`library()`) in your code before you knit.
-
-http://r4ds.had.co.nz/exploratory-data-analysis.html
+NOTE: Always make sure you have a call to the package load function (`library()`) in your code before you knit.
 
 ### Bar chart
 
-Read the hurricane data from the file on my website and list the first six rows.
+One of the simplest graphs is the bar chart showing the number of cases on each group. Although the graph is simple, it involves a manipulation of the data.
+
+Let's start with a bar plot of the hurricane counts. Read the hurricane data from the file on my website and list the first six rows.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/US.txt"
 H <- read.table(loc, 
@@ -40,7 +40,7 @@ H <- read.table(loc,
 head(H)
 ```
 
-The function `table()` creates a frequency table from the landfall counts.
+Recall that the function `table()` creates a frequency table from the landfall counts. For example, we create a frequency of years with n number of hurricanes.
 ```{r}
 table(H$All)
 ```
@@ -91,12 +91,12 @@ beer <- c(rep('domestic bottle', 4),
 beerPref.df <- as.data.frame(beer)
 ```
 
-Use the function `str()` to see the column types in the data frame.
+Use the function `str()` to see the column type in the data frame.
 ```{r}
 str(beerPref.df)
 ```
 
-There is one column in the data frame with the name `beer`. It is a factor with 4 levels one for each type of beer choice. A factor is a categorical vector. It looks like a character but it can be ordered. This is important when factors are used in statistical models.
+There is a single column in the data frame with the name `beer`. It is a factor variable with 4 levels one for each type of beer choice. A factor is a categorical vector. It looks like a character but it can be ordered. This is important when factors are used in statistical models.
 
 Create a table.
 ```{r}
@@ -113,11 +113,12 @@ ggplot(data = beerPref.df) +
 
 This is a good start but a few improvements should be made.
 
-1. The bar order is alphabetical from left to right. This is the default ordering for factors created from character vectors. It is much easier to make comparisons if frequency determines the order.
+1. The bar order is alphabetical from left to right. This is the default ordering for factor variables created from character vectors. It is much easier to make comparisons if frequency determines the order.
 
 To change the order on the bar chart specify the factor levels on the vector beer.
 ```{r}
-beer <- factor(beer, levels = c("domestic can", "microbrew", "import", "domestic bottle"))
+beer <- factor(beer, 
+               levels = c("domestic can", "microbrew", "import", "domestic bottle"))
 beerPref.df <- data.frame(beer)
 ```
 
@@ -162,22 +163,23 @@ Available colors include
 colors()
 ```
 
-It's a bit more complicated to automatically change the bar order based on the frequency of occurrence. Here is an example for storm intensity of tropical cyclones during 2017.
+It's a bit more complicated to automatically change the bar order based on the frequency of occurrence. Here is an example for storm intensity of tropical cyclones during 2017 (last year). First create two vectors one numeric containing the minimum pressures (millibars) and the other character containing the storm names and combine them into a data frame.
 ```{r}
 minP <- c(990, 1007, 992, 1007, 1005, 981, 967, 938, 914, 938, 972, 971)
 name <- c("Arlene", "Bret", "Cindy", "Don", "Emily", "Franklin", "Gert", 
          "Harvey", "Irma", "Jose", "Katia", "Lee")
+df <- data.frame(name, minP)
+```
 
+Next reorder the names based on minimum pressure. This is done with the `reorder()` function where the first argument is a character vector and the second argument is a vector of the same length but determines the order of the levels.
+```{r}
 library(dplyr)
-df <- data.frame(name, minP) %>%
-  mutate(name = reorder(name, minP))
-
+df <- df %>%
+         mutate(name = reorder(name, minP))
 ggplot(df) + 
   geom_bar(mapping = aes(x = name, y = minP), stat = "identity") +
   ylab("Minimum Sea Level Pressure [mb]") 
 ```
-
-The key is the function `reorder()`, which treats its first argument as a categorical factor variable and reorders the levels of this factor based on the values of the variable in the second argument.
 
 ### Histogram
 
@@ -211,7 +213,7 @@ ggplot(data = FLp) +
 
 By default the function `geom_histogram()` picks 30 bins. Since there are only 118 May values many of the bins have fewer than 5 values.
 
-When making a histogram you will almost certainly need to vary the number of bins before deciding on a final plot. This can be done with the `bins =` or `binwidth =` argument. For example, the look of the histogram is improved by halving the default number of bins.
+When we make a histogram we will almost certainly need to vary the number of bins before deciding on a final plot. This can be done with the `bins =` or `binwidth =` argument. For example, the look of the histogram is improved by halving the default number of bins.
 ```{r}
 ggplot(data = FLp) + 
   geom_histogram(mapping = aes(May), bins = 15)  +
@@ -228,10 +230,10 @@ ggplot(FLp) +
 
 Here the fill argument is used to change color and a `ylab()` layer is added to make the y-axis label more concise.
 
-The `geom_rug()` layer adds the location of the data values as tic marks just above the horizontal axis.
+The `geom_rug()` layer adds the location of the data values as tic marks just above the horizontal axis. And the `color = "gray"` is the color of the bin boundaries.
 ```{r}
 ggplot(FLp) + 
-  geom_histogram(mapping = aes(May), bins = 11, fill = "green3")  +
+  geom_histogram(mapping = aes(May), bins = 11, fill = "green3", color = "gray")  +
   xlab("May Precipitation in Florida (in)") +
   ylab("Number of Years") +
   geom_rug()
@@ -270,7 +272,7 @@ The box plot graphs five summary statistics including the min, max, 1st & 3rd qu
 boxplot(FLp$May)
 ```
 
-The function `boxplot()` is from the base **graphics** package. Others from this package include `hist()` for histograms and `plot()` for scatter plots. 
+The function `boxplot()` is from the base **graphics** package. It is not a **ggplot2** function. Others from this package include `hist()` for histograms and `plot()` for scatter plots. 
 
 The base graphics lets you manipulate every detail of a graph, which is great for customization. For example:
 ```{r}
@@ -287,7 +289,7 @@ The box plot illustrates the five numbers graphically. The median is the line th
 
 If values extend beyond 1.5 times the interquartile range (either above or below the corresponding quartile) the whisker is truncated at the last value within the range and points are used to indicate outliers.
 
-To make a box plot using the function `ggplot()` you need a dummy variable for the `x` argument in the function `aes()`. This is done with `x = ""`.
+To make a box plot using the function `ggplot()` we need a dummy variable for the `x` argument in the function `aes()`. This is done with `x = ""`.
 ```{r}
 ggplot(FLp) + 
   geom_boxplot(mapping = aes(x = "", y = May)) +
@@ -297,28 +299,36 @@ ggplot(FLp) +
 
 ### Side-by-side box plots
 
-Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. Since the data frame is in a wide format, you need to reshape it.
+Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. We need to first turn the data frame from its native 'wide' format to a **gplot2** friendly 'long' format.
 
-Use `gather()` from the **tidyr** package.
+#### Wide versus long data formats
+
+Wide format data is called 'wide' because it typically has a lot of columns which stretch across the page or our computer screen. Long format data is called 'long' because it typically has fewer columns but preserves all the same information. In order to do that, it has to be longer.
+
+We are most familiar with wide format data. It is convenient for data entry. It lets us see more of the data at one time.
+
+The long format is less familiar. It corresponds to the relational model for storing data used by most modern databases like SQL.
+
+Use `gather()` from the **tidyr** package to turn the wide data frame into a long data frame.
 ```{r}
 library(tidyr)
 head(FLp)
 FLpL <- FLp %>%
   gather(key = Year,
          value = "Precipitation",
-         factor_key = TRUE)
+         factor_key = TRUE) %>%
+  rename(Month = Year)
 head(FLpL)
 ```
 
-The `gather()` function takes all the values as measured except those named in `key = ` argument. All variables are measured (precipitation in units of inches) except `Year`. `Year` is a vector identifying the year. 
+The `gather()` function takes all the values as measured except those named in `key = ` argument. All variables are measured (precipitation in units of inches) except `Year`. `Year` is a vector identifying the month. 
 
-The long data frame lists the key variable names as the first column taking the column names as character strings starting with `Jan`. To preserve the order of the columns (e.g., January comes before February, etc) we specify the `factor_key = TRUE`.
+The long data frame lists the key variable names as the first column taking the column names as character strings starting with `Jan`. To preserve the order of the columns (e.g., January comes before February, etc) we specify the `factor_key = TRUE`. We use `rename()` to give the key variable the correct name. 
 
-To create the box plot specify that the x-axis be the variable.
+Then to create the box plot specify that the x-axis be the key variable (here `Month`) and the y-axis to be the measured variable (here `Precipitation`).
 ```{r}
 ggplot(FLpL) + 
-  geom_boxplot(mapping = aes(x = Year, y = Precipitation)) +
-  xlab("Month") + 
+  geom_boxplot(mapping = aes(x = Month, y = Precipitation)) +
   ylab("Precipitation (in)")
 ```
 
@@ -328,24 +338,22 @@ Each `geom_` function is a layer. Data for the layer is specified in the functio
 
 We add another `geom_boxplot()` layer and specify a subset of the data using the subset `[]` operator.
 ```{r}
-ggplot(FLpL, aes(x = Year, y = Precipitation)) + 
+ggplot(FLpL, aes(x = Month, y = Precipitation)) + 
   geom_boxplot() +
-  xlab("Month") + 
   ylab("Precipitation (in)") +
-  geom_boxplot(data = FLpL[FLpL$Year == "May", ], 
-               aes(x = Year, y = Precipitation), 
+  geom_boxplot(data = FLpL[FLpL$Month == "May", ], 
+               aes(x = Month, y = Precipitation), 
                fill = "green")
 ```
 
-More about this in a moment.
-
-Practice: Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details.
+Practice: Since this is a common graph for climatologists lets practice with another set of data. The data are monthly values of the Southern Oscillation Index (indicator of El Ni\~no) and are available on my website with the name `SOI.txt`. Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details that I want you to fill in.
 ```{r eval=FALSE}
-loc <- "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/"
 SOI <- read.table(file = ,
                   header = TRUE)
 SOIL <- SOI %>%
-  gather(key = , value = Index)
+  gather(key = , value = Index) %>%
+  rename()
 ggplot(SOIL) + 
   geom_boxplot(mapping = aes(x = , y = )) +
   ylab("SOI (s.d.)")
@@ -353,9 +361,9 @@ ggplot(SOIL) +
 
 ### Scatter plot
 
-The work horse of statistical graphs is the scatter plot. It's a graph of the values of one variable against the values of the other as points $(x_i, y_i)$ in a Cartesian plane. It's used to show the relationship between two numeric variables. 
+The workhorse of statistical graphs is the scatter plot. It's a graph of the values of one variable against the values of the other as points $(x_i, y_i)$ in a Cartesian plane. It's used to show the relationship between two numeric variables. 
 
-For example, to show the relationship between April and September values of Florida precipitation type
+For example, to show the relationship between April and September values of Florida precipitation we type
 ```{r}
 ggplot(FLp) + 
   geom_point(mapping = aes(x = Apr, y = Sep)) + 
@@ -379,8 +387,8 @@ Precipitation values fluctuate from one September to the next, but there does no
 
 Practice: Create a plot of the May values of the North Atlantic oscillation (NAO) with Year on the horizontal axis. Add appropriate axis labels.
 ```{r eval=FALSE}
-L <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO <- read.table(file = L, header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
+NAO <- read.table(file = loc, header = TRUE)
 ggplot(NAO, aes(x = Year, y = May)) + 
   geom_line() + 
   xlab("Year") + 
