@@ -1,0 +1,73 @@
+---
+title: "Exam 1 Review"
+author: "James B. Elsner"
+date: October 2, 2018
+output: 
+  html_document:
+    keep_md: true
+editor_options: 
+  chunk_output_type: console
+---
+
+**1** Use base R functions to: (a) Read the tornado dataset (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) as a spreadsheet into your R session. (b) How many rows and how many columns are in the data frame? (c) Print out the column names.
+```{r}
+L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
+Torn.df = read.table(L, header = TRUE)
+dim(Torn.df)
+names(Torn.df)
+```
+
+**2** Use base R functions to: (a) Create a vector called `inj` by assigning to it the `INJURIES` column from the tornado dataset, then answer the following questions: (b) What is the average per tornado number of injuries? (c) What is the median per tornado number of injuries? (d) What is the maximum number of injuries? (e) What are the 95th and 99th percentile number of injuries? (f) How many tornadoes had two or more injuries? (g) What percentage of the total number of tornadoes is that?
+```{r}
+inj = Torn.df$INJURIES
+mean(inj)
+median(inj)
+max(inj)
+quantile(inj, prob = c(.95, .99))
+sum(inj >= 2)
+sum(inj >= 2)/length(inj) * 100
+```
+
+**3** Use the functions from the **dplyr** package to answer the following: (a) Determine the number of tornadoes by month. (b) What state has had the most tornadoes during the month of March? (c) What state has had the most tornadoes with damage ratings (`FSCALE`) exceeding 3? (d) What state has had the most fatalities (`FATALITIES`)?
+```{r}
+library(dplyr)
+Torn.df %>%
+  group_by(MONTH) %>%
+  summarize(nT = n())
+```
+
+```{r}
+Torn.df %>%
+  filter(MONTH == 3) %>%
+  group_by(STATE) %>%
+  summarize(nT = n()) %>%
+  arrange(desc(nT))
+```
+
+```{r}
+Torn.df %>%
+  filter(FSCALE > 3) %>%
+  group_by(STATE) %>%
+  summarize(nT = n()) %>%
+  arrange(desc(nT))
+```
+
+```{r}
+Torn.df %>%
+  group_by(STATE) %>%
+  summarize(nF = sum(FATALITIES)) %>%
+  arrange(desc(nF))
+```
+
+**4** Use the functions from the **dplyr** and **ggplot2** packages to make a time-series graph of annual average number of fatalities. Include a trend line.
+```{r}
+library(ggplot2)
+Torn.df %>%
+  group_by(YEAR) %>%
+  summarize(nF = sum(FATALITIES)) %>%
+  ggplot(., aes(x = YEAR, y = nF)) +
+    geom_point() +
+    geom_smooth(method = lm)
+```
+
+**5** Use the functions from the **ggplot2** package to create a dot map showing the locations of auto thefts (`auto theft` in the data frame `crime`) in the city of Houston. Get the map from google and use a zoom of 11.
