@@ -1,0 +1,16 @@
+---
+title: "Problem Set #4"
+author: "Your Name"
+date: September 27, 2018
+output: 
+  html_document:
+    keep_md: true
+editor_options: 
+  chunk_output_type: console
+---
+
+Due Date: October 4, 2018
+
+Total Points: 
+
+**1** 

@@ -1,0 +1,81 @@
+---
+title: "Maps in R 2"
+author: "James B. Elsner"
+date: September 27, 2018
+output: 
+  html_document:
+    keep_md: true
+editor_options: 
+  chunk_output_type: console
+---
+
+## Thematic maps 
+
+Let's try something a bit more complicated. Suppose we want the number of tornadoes originating in each state on a choropleth map. We first group and summarize.
+```{r}
+sfdf2 <- sfdf %>%
+  filter(st != "PR") %>%
+  group_by(st) %>%
+  summarize(nT = n())
+glimpse(sfdf2)
+```
+
+The resulting data frame contains the grouped-by column `st` (origin state) and the corresponding number of tornadoes. There were 415 tornadoes in Alabama since 2011.
+
+Next we get a simple feature containing the geometry of the U.S. states with Alaska and Hawaii inserted. We get this from Bob Rudis's  **albersusa** package available on GitHub. Make sure you have the **devtools** package installed.
+```{r}
+#devtools::install_github("hrbrmstr/albersusa")
+library(albersusa)
+us_sf <- usa_sf("aeqd") 
+glimpse(us_sf)
+```
+
+Each feature is a state (or district). The attributes (variables) include the state name, abbreviation, and population estimates. The geometry is MULTIPOLYGON. This is needed because of islands, etc.
+```{r}
+tm_shape(us_sf) +
+  tm_polygons() 
+```
+
+Next we need to change the state name from `iso_3166_2` to `st`.
+```{r}
+us_sf <- us_sf %>%
+ mutate(st = as.character(iso_3166_2))
+```
+
+Then we join the tornado counts with the map simple feature object. The `left_join()` function only works on data frames (not simple feature data frames) so we first convert them to data frames. We then convert the resulting data frame back to a simple feature data frame with the `st_as_sf()` function. Finally we select only the number of tornadoes column (`nT`).
+```{r}
+sfdf3 <- left_join(as.data.frame(us_sf), 
+                   as.data.frame(sfdf2), 
+                   by = "st") %>%
+         st_as_sf() %>%
+         select(nT)
+head(sfdf3)
+```
+
+NOTE: we want the result of the join to be the MULTIPOLGON geometry associated with each state so the first argument is the `us_sf` simple feature data frame.
+
+Next we use the functions in the **tmap** package. 
+```{r}
+tm_shape(sfdf3) +
+  tm_polygons("nT", 
+           title = "Tornado Counts",
+           palette = "Reds")
+```
+
+We can improve the defaults with additional layers including text, compass, and scale bar. The last layer is the print view.
+```{r}
+tm_shape(sfdf3) +
+  tm_polygons("nT", 
+              border.col = NULL,
+              title = "Tornado Counts",
+              palette = "Reds") +
+  tm_text("nT", size = .5) +
+  tm_compass() + 
+  tm_scale_bar(lwd = .5)
+```
+
+The format of the **tmap** map objects (meoms) are like those of the **ggplot2** geometric objects (geoms) making it easy to get to a publication-quality map. The fine details can be worked out in production.
+
+More information? See: https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html
+
+### Problem Set #4
