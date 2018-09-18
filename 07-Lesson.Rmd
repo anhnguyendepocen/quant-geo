@@ -233,10 +233,10 @@ Here the fill argument is used to change color and a `ylab()` layer is added to 
 The `geom_rug()` layer adds the location of the data values as tic marks just above the horizontal axis. And the `color = "gray"` is the color of the bin boundaries.
 ```{r}
 ggplot(FLp) + 
-  geom_histogram(mapping = aes(May), bins = 11, fill = "green3", color = "gray")  +
+  geom_histogram(mapping = aes(May), bins = 11)  +
   xlab("May Precipitation in Florida (in)") +
   ylab("Number of Years") +
-  geom_rug()
+  geom_rug(aes(May))
 ```
 
 ### Density plot
@@ -247,7 +247,7 @@ The probability density answers the question, what is the chance that X falls in
 ```{r}
 ggplot(FLp) +
   geom_density(mapping = aes(May)) +
-  xlab("May Precipitation in Florida (in)")
+  xlab("May Precipitation in Florida (in)") 
 ```
 
 The probability axis (vertical) is the integral (average) chance that rainfall will take on a value along the horizontal axis within a given small interval. The size of the interval is determined by the bandwidth (`bw =`).
@@ -261,6 +261,11 @@ The probability scale depends on the data units so it is often tricky to interpr
 ```{r}
 ggplot(FLp) + 
   geom_freqpoly(mapping = aes(May), color = "green3", binwidth = 1) +
+  xlab("May Precipitation in Florida (in)") +
+  geom_rug(aes(May))
+
+ggplot(FLp, aes(May)) + 
+  geom_freqpoly(color = "green3", binwidth = 1) +
   xlab("May Precipitation in Florida (in)") +
   geom_rug()
 ```
@@ -299,7 +304,7 @@ ggplot(FLp) +
 
 ### Side-by-side box plots
 
-Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. We need to first turn the data frame from its native 'wide' format to a **gplot2** friendly 'long' format.
+Suppose we want to show box plots for each month. In this case we make the x argument in the `aes()` the name of a column containing the vector of month names. We need to first turn the data frame from its native 'wide' format to a **ggplot2** friendly 'long' format.
 
 #### Wide versus long data formats
 
@@ -348,14 +353,14 @@ ggplot(FLpL, aes(x = Month, y = Precipitation)) +
 
 Practice: Since this is a common graph for climatologists lets practice with another set of data. The data are monthly values of the Southern Oscillation Index (indicator of El Ni\~no) and are available on my website with the name `SOI.txt`. Make a climograph from the monthly SOI data. Here I put the functions in the proper order but I left out some details that I want you to fill in.
 ```{r eval=FALSE}
-loc <- "http://myweb.fsu.edu/jelsner/temp/data/"
-SOI <- read.table(file = ,
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/SOI.txt"
+SOI <- read.table(file = loc,
                   header = TRUE)
 SOIL <- SOI %>%
-  gather(key = , value = Index) %>%
-  rename()
+  gather(key = Year, value = Index) %>%
+  rename(Month = Year)
 ggplot(SOIL) + 
-  geom_boxplot(mapping = aes(x = , y = )) +
+  geom_boxplot(mapping = aes(x = Month, y = Index)) +
   ylab("SOI (s.d.)")
 ```
 
@@ -388,7 +393,8 @@ Precipitation values fluctuate from one September to the next, but there does no
 Practice: Create a plot of the May values of the North Atlantic oscillation (NAO) with Year on the horizontal axis. Add appropriate axis labels.
 ```{r eval=FALSE}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/NAO.txt"
-NAO <- read.table(file = loc, header = TRUE)
+NAO <- read.table(file = loc, 
+                  header = TRUE)
 ggplot(NAO, aes(x = Year, y = May)) + 
   geom_line() + 
   xlab("Year") + 
@@ -422,7 +428,7 @@ To map an aesthetic to a variable, associate the name of the aesthetic to the na
 
 The colors show that many of the unusual points are two-seater cars. Sports cars have large engines like SUVs and pickup trucks, but small bodies like midsize and compact cars, which improves their gas mileage.
 
-For each aesthetic, we use `aes()` to associate the name of the aesthetic with a variable to display. The `aes()` function gathers each of the aesthetic mappings used by a layer and passes them to the laye's mapping argument. The syntax highlights a useful insight about `x` and `y`: the x and y locations of a point are themselves aesthetics, visual properties that we can map to variables to display information about the data.
+For each aesthetic, we use `aes()` to associate the name of the aesthetic with a variable to display. The `aes()` function gathers each of the aesthetic mappings used by a layer and passes them to the layer's mapping argument. The syntax highlights a useful insight about `x` and `y`: the x and y locations of a point are themselves aesthetics, visual properties that we can map to variables to display information about the data.
 
 Once we map an aesthetic, the **ggplot2** takes care of the rest. It selects a reasonable scale to use with the aesthetic, and it constructs a legend that explains the mapping between levels and values. For `x` and `y` aesthetics, **ggplot2** does not create a legend, instead it creates an axis line with tick marks and a label. The axis line acts as a legend; it explains the mapping between locations and values.
 
