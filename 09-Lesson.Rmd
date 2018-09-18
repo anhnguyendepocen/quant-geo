@@ -256,7 +256,6 @@ With county borders.
 plot_usmap(regions = "counties")
 ```
 
-
 The raw US map boundary points for counties or states can be obtained for further manipulation (and joining with data). The default regions is "states".
 ```{r}
 states_df <- usmap::us_map()
@@ -334,7 +333,8 @@ plot_usmap(data = statepop,
 
 https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
 
-With the **tmap** package, thematic maps can be generated with greater flexibility. The syntax is similar to that of **ggplot2**, but tailored to maps.
+The **tmap** package is a flexible, layer-based, and easy-to-use approach to create thematic maps including choropleths and bubble maps. It is based on the grammar of graphics, and resembles the syntax of **ggplot2**.
+With the **tmap** package, thematic maps can be generated with greater flexibility.
 
 ```{r}
 library(tmap)
@@ -356,7 +356,7 @@ In order to plot the geometry in **tmap**, we need to specify it with `tm_shape(
 
 There are many layer functions in **tmap**, which can be found in the documentation by their `tm_` prefix. See also `?'tmap-element'`.
 
-### Spatial data
+### Simple feature data frames
 
 Here we get the tornado data directly from the Storm Prediction Center (SPC) http://www.spc.noaa.gov/gis/svrgis/ as a shapefile.
 ```{r}
@@ -375,7 +375,7 @@ sfdf <- st_read(dsn = "torn",
                stringsAsFactors = FALSE)
 ```
 
-The result is a simple feature collection with 62520 features (observations) and 21 fields (variables). Each observation is a unique tornado. Let's first glimpse the data frame. Here we use the `glimpse()` function from the **dplyr** package.
+The result is a simple feature data frame with 62520 features (observations) and 21 fields (variables). Each observation is a unique tornado. Let's first glimpse the data frame. Here we use the `glimpse()` function from the **dplyr** package.
 ```{r}
 glimpse(sfdf)
 ```
@@ -403,9 +403,7 @@ tm_shape(sfdf, is.master = TRUE) +
 
 ## Thematic maps 
 
-Let's try something a bit more complicated.
-
-Suppose we want to count the number of tornadoes originating in each state and then make a choropleth map of the counts? We first group and summarize.
+Let's try something a bit more complicated. Suppose we want the number of tornadoes originating in each state on a choropleth map. We first group and summarize.
 ```{r}
 sfdf2 <- sfdf %>%
   filter(st != "PR") %>%
@@ -414,51 +412,58 @@ sfdf2 <- sfdf %>%
 glimpse(sfdf2)
 ```
 
-By using the `as.data.frame()` function we 
+The resulting data frame contains the grouped-by column `st` (origin state) and the corresponding number of tornadoes. There were 415 tornadoes in Alabama since 2011.
 
-Next we get a spatial domain. Here we use the composite counties (Alaska and Hawaii inserted) from Bob Rudis's  **albersusa** package available on GitHub. Make sure you have the **devtools** package installed.
+Next we get a simple feature containing the geometry of the U.S. states with Alaska and Hawaii inserted. We get this from Bob Rudis's  **albersusa** package available on GitHub. Make sure you have the **devtools** package installed.
 ```{r}
 #devtools::install_github("hrbrmstr/albersusa")
 library(albersusa)
-us_sf = usa_sf("aeqd") %>%
-  mutate(st = as.character(iso_3166_2))
-plot(us_sf["census_area"])
+us_sf <- usa_sf("aeqd") 
+glimpse(us_sf)
 ```
 
-This is the domain we want. 
-
-Next we join the tornado counts with the map simple feature object.
+Each feature is a state (or district). The attributes (variables) include the state name, abbreviation, and population estimates. The geometry is MULTIPOLYGON. This is needed because of islands, etc.
 ```{r}
-sfdf2 = left_join(df, 
-                  as.data.frame(us_sf), by = "st") %>%
-         sf::st_as_sf() %>%
-         dplyr::select(nT)
+tm_shape(us_sf) +
+  tm_polygons() 
 ```
 
-Next we use the functions in the **tmap** package. The **tmap** package is a flexible, layer-based, and easy to use approach to create thematic maps including choropleths and bubble maps. It is based on the grammar of graphics, and resembles the syntax of **ggplot2**.
-
-Functions are applied in layers with the `+` symbol. We start with the simple feature data frame called with the `tm_shape` function. Then add a polygon layer with the `tm_shape` function that points to the column in the `sfdf2` data frame that we want choroplethed.
+Next we need to change the state name from `iso_3166_2` to `st`.
 ```{r}
-library(tmap)
-tm_shape(sfdf2) +
+us_sf <- us_sf %>%
+ mutate(st = as.character(iso_3166_2))
+```
+
+Then we join the tornado counts with the map simple feature object. The `left_join()` function only works on data frames (not simple feature data frames) so we first convert them to data frames. We then convert the resulting data frame back to a simple feature data frame with the `st_as_sf()` function. Finally we select only the number of tornadoes column (`nT`).
+```{r}
+sfdf3 <- left_join(as.data.frame(us_sf), 
+                   as.data.frame(sfdf2), 
+                   by = "st") %>%
+         st_as_sf() %>%
+         select(nT)
+head(sfdf3)
+```
+
+NOTE: we want the result of the join to be the MULTIPOLGON geometry associated with each state so the first argument is the `us_sf` simple feature data frame.
+
+Next we use the functions in the **tmap** package. 
+```{r}
+tm_shape(sfdf3) +
   tm_polygons("nT", 
-              title = "Tornado Counts",
-              palette = "Reds") +
-  tm_format_NLD()
+           title = "Tornado Counts",
+           palette = "Reds")
 ```
 
 We can improve the defaults with additional layers including text, compass, and scale bar. The last layer is the print view.
 ```{r}
-tm_shape(sfdf2) +
+tm_shape(sfdf3) +
   tm_polygons("nT", 
               border.col = NULL,
               title = "Tornado Counts",
               palette = "Reds") +
   tm_text("nT", size = .5) +
-tm_shape(us_sf) + tm_borders(alpha = .2) +
-  tm_compass() + tm_scale_bar(lwd = .5) +
-  tm_format_Europe2(legend.position = c("left", "bottom"),
-                attr.position = c("left", "bottom"))
+  tm_compass() + 
+  tm_scale_bar(lwd = .5)
 ```
 
 The format of the **tmap** map objects (meoms) are like those of the **ggplot2** geometric objects (geoms) making it easy to get to a publication-quality map. The fine details can be worked out in production.
