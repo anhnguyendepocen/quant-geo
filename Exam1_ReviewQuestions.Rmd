@@ -9,17 +9,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-**1** Use base R functions to: (a) Read the tornado dataset (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) as a spreadsheet into your R session. (b) How many rows and how many columns are in the data frame? (c) Print out the column names.
+**1** Use base R functions to: (a) Read the tornado dataset (http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt) as a spreadsheet into your R session. (b) How many rows and how many columns are in the data frame? (c) List the column names.
 ```{r}
-L = "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
-Torn.df = read.table(L, header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/Tornadoes.txt"
+Torn.df <- read.table(loc, header = TRUE)
 dim(Torn.df)
 names(Torn.df)
 ```
 
 **2** Use base R functions to: (a) Create a vector called `inj` by assigning to it the `INJURIES` column from the tornado dataset, then answer the following questions: (b) What is the average per tornado number of injuries? (c) What is the median per tornado number of injuries? (d) What is the maximum number of injuries? (e) What are the 95th and 99th percentile number of injuries? (f) How many tornadoes had two or more injuries? (g) What percentage of the total number of tornadoes is that?
 ```{r}
-inj = Torn.df$INJURIES
+inj <- Torn.df$INJURIES
 mean(inj)
 median(inj)
 max(inj)
@@ -70,4 +70,4 @@ Torn.df %>%
     geom_smooth(method = lm)
 ```
 
-**5** Use the functions from the **ggplot2** package to create a dot map showing the locations of auto thefts (`auto theft` in the data frame `crime`) in the city of Houston. Get the map from google and use a zoom of 11.
+**5** Use the `cars` data frame (**datasets**) to create a histogram and box plot of stopping distance (column name `dist`). Also create a scatter plot of stopping distance (`dist`) versus `speed` with `speed` on the horizontal axis.

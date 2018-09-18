@@ -5,14 +5,13 @@ date: September 25, 2018
 output: 
   html_document:
     keep_md: true
+editor_options: 
+  chunk_output_type: console
 ---
-
-"**...conditioning is not only something one does with ones hair, but something you also can do with data.**''---Rasmus Baath
-
 
 ### Animation
 
-Functions in the **gganimate** package add additional syntax to the grammar to allow simple animation.
+Functions in the **gganimate** package add additional syntax to allow simple animation.
 ```{r}
 loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
 FLp <- read.table(loc, 
@@ -21,6 +20,7 @@ FLp <- read.table(loc,
 ```
 
 ```{r}
+#devtools::install_github('thomasp85/gganimate')
 library(gganimate)
 ggplot(FLp) +
   geom_point(mapping = aes(x = Year, y = Jan)) +
@@ -41,12 +41,9 @@ ggplot(FLp, mapping = aes(x = Year, y = Jan)) +
 
 Note: here we put the mapping argument inside the `ggplot()` function. This allows all the layers to use these aesthetics. Layers that need additional aethetics get them through additional mapping arguments.
 
+### Time series plots
+
 https://cran.r-project.org/web/packages/ggTimeSeries/vignettes/ggTimeSeries.html
-
-
-1. Maps with ggplot2 https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html
-2. Thematic maps with tmap https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
-3. Mapping with simple features https://cran.r-project.org/web/packages/sf/vignettes/sf5.html
 
 ## Maps with ggplot2
 
@@ -56,14 +53,13 @@ With the advent of packages like **sp**, **rgdal**, **rgeos**, and **sf**. R has
 
 Load the libraries we will use
 ```{r}
-library(ggplot2)
 library(maps)
 library(mapdata)
 ```
 
 The **maps** package contains outlines of continents, countries, states, and counties that have been with R for a long time. It comes with a plotting function but we will use **ggplot2**. The **mapdata** package contains a few more, higher-resolution outlines.
 
-Recall that the **ggplot2** functions work on data frames. We translate the **maps** data into data frames with the `map_data()` function. The syntax is `map_data("name")` where `"name"` is a quoted string of the name of a map in the **maps** or **mapdata** package.
+Since the **ggplot2** functions work on data frames we first translate the **maps** data into data frames with the `map_data()` function. The syntax is `map_data("name")` where `"name"` is a quoted string of the name of a map in the **maps** or **mapdata** package.
 ```{r}
 usa <- map_data("usa")
 dim(usa)
@@ -358,7 +354,7 @@ head(World)
 
 In order to plot the geometry in **tmap**, we need to specify it with `tm_shape()` function. Plotting layers are then added with the `+` operator, in this case `tm_polygons()`. 
 
-There are many layer functions in **tmap**, which can easily be found in the documentation by their `tm_` prefix. See also `?'tmap-element'`.
+There are many layer functions in **tmap**, which can be found in the documentation by their `tm_` prefix. See also `?'tmap-element'`.
 
 ### Spatial data
 
@@ -379,7 +375,14 @@ sfdf <- st_read(dsn = "torn",
                stringsAsFactors = FALSE)
 ```
 
-The result is a simple feature collection with 23 features (attributes) and 5 fields (geometry type, dimension, bounding box, epsg, projection). To glimpse the data use the `select()`, and `head()` functions.
+The result is a simple feature collection with 62520 features (observations) and 21 fields (variables). Each observation is a unique tornado. Let's first glimpse the data frame. Here we use the `glimpse()` function from the **dplyr** package.
+```{r}
+glimpse(sfdf)
+```
+
+The first 21 columns are variables (attributes). The last column contains the geometry. The `geometry` column is in well known text (WKT) format. Each tornado is a `LINESTRING` with a start and end location. This is where the `tm_shape()` function will look for the mapping information.
+
+For example, let's map the tracks of all tornadoes since 2011.
 ```{r}
 sfdf <- sfdf %>%
   filter(yr > 2010) 
@@ -390,29 +393,25 @@ tm_shape(sfdf) +
     tm_lines(col = "blue")
 ```
 
-
-
-
-
-
-The `geometry` column is in well known text (WKT) format. Each tornado is a `LINESTRING` with a start and end location.
-
-Choose only tornadoes that originated in Florida after 2000.
+The first `tm_shape()` defines the base layer which defines the map extent. To change that we can use the `is.master = TRUE` argument in the second `tm_shape()` function.
 ```{r}
-df = sfdf %>%
-  dplyr::filter(st == "FL", yr > 2000) %>%
-  dplyr::select(yr, mo, dy, slat, slon, mag)
+tm_shape(World) +
+  tm_polygons() +
+tm_shape(sfdf, is.master = TRUE) +
+    tm_lines(col = "blue")
 ```
-  
-## Thematic maps
+
+## Thematic maps 
+
+Let's try something a bit more complicated.
 
 Suppose we want to count the number of tornadoes originating in each state and then make a choropleth map of the counts? We first group and summarize.
 ```{r}
-df = as.data.frame(sfdf) %>%
-  dplyr::filter(st != "PR") %>%
-  dplyr::group_by(st) %>%
-  dplyr::summarize(nT = n())
-glimpse(df)
+sfdf2 <- sfdf %>%
+  filter(st != "PR") %>%
+  group_by(st) %>%
+  summarize(nT = n())
+glimpse(sfdf2)
 ```
 
 By using the `as.data.frame()` function we 

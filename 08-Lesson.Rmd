@@ -9,9 +9,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+"**...conditioning is not only something one does with ones hair, but something you also can do with data.**''---Rasmus Baath
+
+After today you will know how to create graphs that display information from more than two variables.
+
 ### Facets
 
-The scatter plot is the workhorse of statistical graphs. We can add a third variable by making it an aesthetic. We saw this last time.
+The scatter plot is the workhorse of statistical graphs. We can add a third variable by making the variable an aesthetic. We saw this last time.
 ```{r}
 library(dplyr)
 library(ggplot2)
@@ -19,9 +23,11 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-Another way, particularly useful for categorical variables, is to split our plot into facets, subplots that each display one subset of the data.
+Another way to include a third variable, particularly useful for categorical variables, is to split the plot into facets, subplots that each display one subset of the data.
 
 To facet a plot by a single variable, use `facet_wrap()`. The first argument of `facet_wrap()` should be a formula, which we create with `~` (tilde) followed by a variable name (here 'formula' is the name of a data structure in R, not a synonym for 'equation'). The variable that we pass to `facet_wrap()` should be discrete.
+
+The tilde symbol (`~`) is read "depends on" or "conditioned on" or "function of". When the tilde is placed to the left of the conditioning variable then the plot is split left to right.
 ```{r}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
@@ -231,10 +237,12 @@ cor(x, y, method = "spearman") == cor(rank(x), rank(y))
 
 [Rank Correlation](http://en.wikipedia.org/wiki/Spearman's_rank_correlation_coefficient)
 
-### Conditioning plots
 
-Let's return to the kids weights data frame.
+### Another example
+
+Let's look at the kids weights data frame from the **UsingR** package.
 ```{r}
+library(UsingR)
 head(kid.weights)
 ```
 
@@ -257,14 +265,12 @@ kid.weights %>%
   dplyr::summarize(r = cor(height, weight))
 ```
 
-Let's look at the relationship between weight and height using a *conditioning* plot. Here we condition on the variable `gender`.
+Let's look at the relationship between weight and height using a facet plot (conditioning) plot. Here we facet (condition) on the variable `gender`.
 ```{r}
 ggplot(kid.weights, aes(x = height, y = weight)) + 
   geom_point() + 
   facet_grid(~ gender)
 ```
-
-The conditioning is done using the `facet_grid()` function as a layer. Inside the function you specify the conditioning variable. The conditioning variable should be an integer, factor, or character. The tilde symbol (`~`) is read "depends on" or "conditioned on" or "function of". When the tilde is placed to the left of the conditioning variable then the plot is split left to right.
 
 Another example: USA mortality rates (per one million inhabitants) for white males due to malignant melanoma 1950-1969.
 ```{r}
@@ -272,7 +278,7 @@ library(HSAUR2)
 head(USmelanoma)
 ```
 
-### Try it
+Workflow
 
 1. Create a scatter plot showing male melanoma mortality on the y-axis (response variable) and latitude on the x-axis (explanatory variable).
 2. Add a best-fit straight line on the plot. 
@@ -287,11 +293,13 @@ ggplot(USmelanoma, aes(y = mortality, x = latitude )) +
 
 Another example. Florida precipitation. Read the data then create a moltened data frame with the `melt()` function.
 ```{r}
-L = "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
-FLp = read.table(L, na.string = "-9.900", header = TRUE)
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(L, 
+                  na.string = "-9.900", 
+                  header = TRUE)
 head(FLp)
 library(reshape2)
-FLpL = melt(FLp, id.vars = "Year")
+FLpL <- melt(FLp, id.vars = "Year")
 ```
 
 Time series by month.
@@ -367,11 +375,11 @@ The first element is the data frame. The last element are the labels.
 
 ### Export a graph
 
-When you knit to HTML and a plot is produced it gets output as a png file in a folder called "figure" in the directory where your .Rmd file is located.
+When we knit to HTML and a plot is produced it gets output as a png file in a folder called "figure" in our working directory.
 
-You can also use the Export button under the Plots tab.
+We can use the Export button under the Plots tab.
 
-Or you can export the file directly using R code. Here the file gets put into your working directory.
+Or we can export the file directly using R code. Here the file gets put into our working directory.
 ```{r eval = FALSE, dev=c("pdf", "png")}
 png(file = "MayNAO.png")
 ggplot(NAO, aes(x = Year, y = May)) + 
@@ -383,12 +391,6 @@ dev.off()
 
 Note that the function `png()` opens the device and the function `dev.off()` closes it.  
 
-Recall to list the files in your working directory type `dir()`.
-
-My workflow. 
-
-### Give it a try
-
-Use the `cars` data frame (**datasets**) to create a histogram and box plot of stopping distance (column name `dist`). Also create a scatter plot of stopping distance (`dist`) versus `speed` with `speed` on the horizontal axis.
+Recall: list the files in your working directory with the command `dir()`.
 
 ## Problem Set #3

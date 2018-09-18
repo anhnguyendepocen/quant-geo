@@ -19,4 +19,4 @@ Total Points: 55
 
 **3** Use the Olympic athlete dataset (http://myweb.fsu.edu/jelsner/temp/data/athlete_events.csv) to create a density plot showing the distribution of athlete heights by sex for those winning gold during the summer games (20).
 
-**4** Use the same dataset as in problem 3 to create scatter plots showing the relationship between height and weight for women athletes during the summer games grouped (faceted) by medal (20).
+**4** Use the same Olympic athlete dataset as in problem 3 to create scatter plots showing the relationship between height and weight for women athletes during the summer games grouped (faceted) by the type of medal (20).
