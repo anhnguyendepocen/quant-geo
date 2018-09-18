@@ -9,6 +9,41 @@ output:
 
 "**...conditioning is not only something one does with ones hair, but something you also can do with data.**''---Rasmus Baath
 
+
+### Animation
+
+Functions in the **gganimate** package add additional syntax to the grammar to allow simple animation.
+```{r}
+loc <- "http://myweb.fsu.edu/jelsner/temp/data/FLprecip.txt"
+FLp <- read.table(loc, 
+                  na.string = "-9.900", 
+                  header = TRUE)
+```
+
+```{r}
+library(gganimate)
+ggplot(FLp) +
+  geom_point(mapping = aes(x = Year, y = Jan)) +
+  ylab("January Precipitation in Florida (in)") +
+  theme_minimal() +
+  transition_time(Year)
+```
+
+```{r}
+ggplot(FLp, mapping = aes(x = Year, y = Jan)) +
+  geom_line() +
+  geom_segment(mapping = aes(xend = 2011, yend = Jan), color = "blue") +
+  geom_point() +
+  geom_text(mapping = aes(x = 2020, label = Year)) +
+  transition_reveal(Year, Year) +
+  ease_aes('linear')
+```
+
+Note: here we put the mapping argument inside the `ggplot()` function. This allows all the layers to use these aesthetics. Layers that need additional aethetics get them through additional mapping arguments.
+
+https://cran.r-project.org/web/packages/ggTimeSeries/vignettes/ggTimeSeries.html
+
+
 1. Maps with ggplot2 https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html
 2. Thematic maps with tmap https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html
 3. Mapping with simple features https://cran.r-project.org/web/packages/sf/vignettes/sf5.html
